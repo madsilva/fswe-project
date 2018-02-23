@@ -6,14 +6,14 @@ public class UserID {
     private String firstName;
     private String lastName;
 
-    public UserID{
+    public UserID(){
         username = "";
         password = "";
         firstName = "";
         lastName = "";
     }
 
-    public UserID (String username, String password, String firstName, String lastName){
+    public UserID(String username, String password, String firstName, String lastName){
         this.username = username;
         this.password = password;
         this.firstName = firstName;
@@ -39,6 +39,6 @@ public class UserID {
     }
 
     public static void create(UserID user){
-        users.add(user)
+        users.add(user);
     }
 }

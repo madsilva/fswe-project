@@ -1,0 +1,22 @@
+@(usrForm : Form[UserID])
+@import helper._
+
+<html>
+    <head>
+        <title>Create New User</title>
+    </head>
+
+    <body>
+        <h1>Create New User</h1>
+
+        @helper.form(action = routes.UserIDController.save()){
+            @helper.inputText(userForm("First Name"))
+            @helper.inputText(userForm("Last Name"))
+            @helper.inputText(userForm("Username"))
+            @helper.inputText(userForm("Password"))
+
+            <input type = "submit" value = "Submit">
+        }
+
+    </body>
+</html>
