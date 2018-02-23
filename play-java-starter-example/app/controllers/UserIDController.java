@@ -3,7 +3,7 @@ package controllers;
 import play.mvc.*;
 
 import views.html.*;
-import views.html.UserID.*;
+import views.html.users.*;
 import javax.inject.Inject;
 
 /**
