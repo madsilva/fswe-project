@@ -1,5 +1,8 @@
 package models;
 
+import java.util.Set;
+import java.util.HashSet;
+
 public class UserID {
     private String username;
     private String password;
@@ -20,12 +23,12 @@ public class UserID {
         this.lastName = lastName;
     }
 
-    private Set<UserID> users;
+    private static Set<UserID> users;
 
     static{
         users = new HashSet<>();
-        users.add(new UserID(jdoe, pass, Jane, Doe));
-        users.add(new UserID(jschmoe, pass, Joe, Schmoe));
+        users.add(new UserID("jdoe", "pass", "Jane", "Doe"));
+        users.add(new UserID("jschmoe", "pass", "Joe", "Schmoe"));
     }
 
     public static UserID findById(String username){

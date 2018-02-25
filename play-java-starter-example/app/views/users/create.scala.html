@@ -10,10 +10,10 @@
         <h1>Create New User</h1>
 
         @helper.form(action = routes.UserIDController.save()){
-            @helper.inputText(userForm("First Name"))
-            @helper.inputText(userForm("Last Name"))
-            @helper.inputText(userForm("Username"))
-            @helper.inputText(userForm("Password"))
+            @helper.inputText(usrForm("First Name"))
+            @helper.inputText(usrForm("Last Name"))
+            @helper.inputText(usrForm("Username"))
+            @helper.inputText(usrForm("Password"))
 
             <input type = "submit" value = "Submit">
         }

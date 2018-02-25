@@ -1,7 +1,10 @@
 package controllers;
 
 import play.mvc.*;
+import play.data.FormFactory;
+import play.data.Form;
 
+import models.UserID;
 import views.html.*;
 import views.html.users.*;
 import javax.inject.Inject;
@@ -20,7 +23,7 @@ public class UserIDController extends Controller {
     }
 
     public Result create(){
-        Form<UserID> userForm = FormFactory.form(UserID.class);
+        Form<UserID> userForm = formFactory.form(UserID.class);
         return  ok(create.render(userForm));
     }
 
