@@ -23,12 +23,16 @@ public class UserID {
         this.lastName = lastName;
     }
 
-    private static Set<UserID> users;
+    public static Set<UserID> users;
 
     static{
         users = new HashSet<>();
         users.add(new UserID("jdoe", "pass", "Jane", "Doe"));
         users.add(new UserID("jschmoe", "pass", "Joe", "Schmoe"));
+    }
+
+    public static Set<UserID> allUsers(){
+        return users;
     }
 
     public static UserID findById(String username){
@@ -43,5 +47,9 @@ public class UserID {
 
     public static void create(UserID user){
         users.add(user);
+    }
+
+    public static boolean remove(UserID user){
+        return users.remove(user);
     }
 }
