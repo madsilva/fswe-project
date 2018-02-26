@@ -28,7 +28,10 @@ public class UserIDController extends Controller {
     }
 
     public Result save(){
-        return TODO;
+        Form<UserID> userForm = formFactory.form(UserID.class).bindFromRequest();
+        UserID user = userForm.get();
+        UserID.create(user);
+        return redirect(routes.HomeController.index());
     }
 
     public Result edit(){
