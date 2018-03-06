@@ -40,6 +40,18 @@ public class HomeController extends Controller {
         return ok(login.render(loginForm, " "));
     }
 
+    public Result create(){
+        Form<UserID> userForm = formFactory.form(UserID.class);
+        System.out.println("Create Function hit");
+        return  ok(create.render(userForm));
+    }
+
+    public Result save(){
+        Form<UserID> userForm = formFactory.form(UserID.class).bindFromRequest();
+        UserID.create(user);
+        return ok(profile.render(userForm.get().username));
+    }
+
     public Result signup(){
         return ok(signup.render());
     }
