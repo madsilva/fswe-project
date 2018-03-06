@@ -1,24 +1,55 @@
 @(username: String)
 
 @layout("Profile Page"){
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">Voting Portal</a>
+    <head>
+        <title>Profile</title>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <a class="nav-brand" href="#">Voting Portal</a>
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Voting Portal</a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Login</a></li>
+                    <li><a href="#">SignUp</a></li>
+                    <li class="active"><a href="#">Profile</a></li>
+                    <li><a href=@routes.HomeController.logout() >LogOut</a></li>
+                </ul>
             </div>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Login</a></li>
-                <li><a href="#">SignUp</a></li>
-                <li class="active"><a href="#">Profile</a></li>
-            </ul>
+        </nav>
+
+        <div class="jumbotron">
+            <div class="container">
+                <h1 class="display-3">Hello, @username</h1>
+                <p> Welcome to the online voting portal. You are in the [name of location/precinct here] precinct. From here, you will be able to update your voter registration, configure your profile settings, and vote on the current state and federal elections.</p>
+                <p> You currently have (voter/admin) privileges on this portal.</p>
+                <p>
+                    <a class="btn btn-primary btn-lg" role="button" href="#">Vote Now</a>
+                </p>
+            </div>
         </div>
-    </nav>
 
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h2><a href="#">Settings</a></h2>
+                    //Create form for the user to adjust settings
+                    <p> Change your email or password here</p>
+                </div>
+                <div class="col-md-4">
+                    <h2><a href="#">Vote</a></h2>
+                    //Create form for the user to adjust settings
+                    <p> Vote in the current election in your area!</p>
+                    <p>
+                        <a class="btn btn-secondary" role="button" href="#">Vote Now</a>
+                    </p>
+                </div>
+            </div>
+        </div>
 
-    <div class="container">
-        You are logged in as @username
-        <a href=@routes.HomeController.logout() >LogOut</a>
+    </body>
 
-    </div>
 }
