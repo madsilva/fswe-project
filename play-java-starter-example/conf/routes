@@ -22,3 +22,7 @@ GET     /signup                     controllers.HomeController.signup
 POST    /userlogin                  controllers.HomeController.userlogin()
 
 GET     /profile                    controllers.HomeController.profile
+
+GET     /logout                     controllers.HomeController.logout
+
+GET     /error                      controllers.HomeController.error
