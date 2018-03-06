@@ -1,0 +1,22 @@
+@layout("Profile Page"){
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Voting Portal</a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Login</a></li>
+                <li><a href="#">SignUp</a></li>
+                <li class="active"><a href="#">Profile</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <div class="container">
+        User Not Found<br>
+        <a href=@routes.HomeController.login() >Return to Login Page</a>
+
+    </div>
+}

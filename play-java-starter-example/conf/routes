@@ -12,5 +12,17 @@ GET     /assets/*file               controllers.Assets.versioned(path="/public",
 GET     /createaccount              controllers.UserIDController.create()
 POST    /createaccount              controllers.UserIDController.save()
 
-GET     /register_voter             controllers.VoterRegistrationController.create()
-GET     /register_voter             controllers.VoterRegistrationController.save()
+GET     /login                      controllers.HomeController.login
+
+GET     /signup                     controllers.HomeController.signup
+
+POST    /userlogin                  controllers.HomeController.userlogin()
+
+GET     /profile                    controllers.HomeController.profile
+
+GET     /logout                     controllers.HomeController.logout
+
+GET     /error                      controllers.HomeController.error
+
+#GET     /register_voter             controllers.VoterRegistrationController.create()
+#GET     /register_voter             controllers.VoterRegistrationController.save() 
