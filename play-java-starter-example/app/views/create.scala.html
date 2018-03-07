@@ -1,0 +1,77 @@
+@(usrForm : Form[UserID])
+@import helper._
+
+<html>
+    <head>
+        <title>New User</title>
+    </head>
+
+    <body>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="nav-brand" href="#">Voting Portal</a>
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Voting Portal</a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Login</a></li>
+                <li class="active"><a href="#">SignUp</a></li>
+                <li><a href="#">Profile</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Create New User</h1>
+        <div class="row vertical-offset-100">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Please sign in</h3>
+                    </div>
+                    <div class="panel-body">
+                        <!-- <form accept-charset="UTF-8" role="form" action="/login" method="POST"> -->
+                        @helper.form(action= helper.CSRF(routes.UserIDController.save())){
+                        <fieldset>
+                            <div class="form-group">
+                                @helper.input(usrForm("First Name")){ (id, name, value, args) =>
+                                <input class="form-control" placeholder="" name="first name" type="text">
+                                }
+                            </div>
+                            <div class="form-group">
+                                @helper.input(usrForm("Last Name")){ (id, name, value, args) =>
+                                <input class="form-control" placeholder="" name="last name" type="text">
+                                }
+                            </div>
+                            <div class="form-group">
+                                @helper.input(usrForm("Username")){ (id, name, value, args) =>
+                                <input class="form-control" placeholder="" name="username" type="text">
+                                }
+                            </div>
+                            <div class="form-group">
+                                @helper.input(usrForm("Password")){ (id, name, value, args) =>
+                                <input class="form-control" placeholder="" name="password" type="password" value="">
+                                }
+                            </div>
+
+                            <!-- Add Confirm Password Field and Functionality -->
+                            <!--<div class="form-group">
+                                @helper.input(usrForm("Confirm Password")){ (id, name, value, args) =>
+                                <input class="form-control" placeholder="" name="password" type="password" value="">
+                                }
+                            </div>-->
+
+                            <input class="btn btn-lg btn-success btn-block" type="submit" value="Login">
+                        </fieldset>
+                        }
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+
+    </body>
+</html>

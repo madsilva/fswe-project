@@ -1,14 +1,16 @@
 @layout("SignUp Page"){
-    <nav class="navbar navbar-default">
+
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="nav-brand" href="#">Voting Portal</a>
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" href="#">Voting Portal</a>
             </div>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#">Home</a></li>
-                <li><a href="#">Login</a></li>
-                <li  class="active"><a href="#">SignUp</a></li>
+                <li class="active"><a href="#">SignUp</a></li>
                 <li><a href="#">Profile</a></li>
+                <li><a href=@routes.HomeController.logout() >LogOut</a></li>
             </ul>
         </div>
     </nav>
