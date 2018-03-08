@@ -1,7 +1,6 @@
 @layout("SignUp Page"){
 
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="nav-brand" href="#">Voting Portal</a>
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" href="#">Voting Portal</a>
@@ -9,7 +8,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#">Home</a></li>
                 <li class="active"><a href="#">SignUp</a></li>
-                <li><a href="#">Profile</a></li>
+                <li><a href=@routes.HomeController.profile() >Profile</a></li>
                 <li><a href=@routes.HomeController.logout() >LogOut</a></li>
             </ul>
         </div>
@@ -20,7 +19,7 @@
             <div class="col-md-4 col-md-offset-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Sign Up for the Voting Portal</h3>
+                        <h3 class="panel-title">Voter Registration</h3>
                     </div>
                     <div class="panel-body">
                         <form accept-charset="UTF-8" role="form">

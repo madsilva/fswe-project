@@ -48,12 +48,22 @@ public class HomeController extends Controller {
 
     public Result save(){
         Form<UserID> userForm = formFactory.form(UserID.class).bindFromRequest();
-        UserID.create(user);
-        return ok(profile.render(userForm.get().username));
+        UserID user = userForm.get();
+        if (user.password.equals(user.confPassword)){
+            LoginData loginCredentials = new LoginData();
+            loginCredentials.setUsername(user.username);
+            loginCredentials.setPassword(user.password);
+            loginCredentials.save();
+        }
+        else{
+            System.out.println("Passwords do not match");
+            return ok(error.render());
+        }
+
+        return ok(profile.render(user.firstName));
     }
 
-    public Result signup(){
-        return ok(signup.render());
+    public Result signup(){return ok(signup.render());
     }
 
     public Result profile(){

@@ -20,6 +20,22 @@ import io.ebean.*;
 @Entity
 public class LoginData extends Model{
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Id @Constraints.Required
     public String username;
     @Constraints.Required
