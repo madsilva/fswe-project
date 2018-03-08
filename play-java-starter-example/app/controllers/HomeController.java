@@ -63,12 +63,21 @@ public class HomeController extends Controller {
         return ok(profile.render(user.firstName));
     }
 
-    public Result signup(){return ok(signup.render());
+    public Result voterRegistration(){
+        Form<VoterRegistration> voterForm = formFactory.form(VoterRegistration.class);
+        System.out.println("Voter Registration Function hit");
+        return ok(voterRegistration.render(voterForm));
     }
 
-    public Result profile(){
+    public Result saveVoter() {
+        Form<VoterRegistration> voterForm = formFactory.form(VoterRegistration.class).bindFromRequest();
+        VoterRegistration voter = voterForm.get();
+        voter.save();
 
-        return ok(profile.render("temporary"));
+        return ok(profile.render(voter.firstName));
+    }
+
+    public Result profile(){return ok(profile.render("temporary"));
     }
 
     public Result logout(){
@@ -90,8 +99,6 @@ public class HomeController extends Controller {
         LoginData loginCredentials = loginForm.get();
         System.out.println("UserDetails are");
 
-        //LoginData login = LoginData.find.byId(loginCredentials.username);
-        //LoginData login = LoginData.find.where().eq("username", loginCredentials.username).eq("password", loginCredentials.password).findUnique();
         LoginData login = LoginData.find.query().where().eq("username", loginCredentials.username).eq("password", loginCredentials.password).findUnique();
 
         if (login == null){

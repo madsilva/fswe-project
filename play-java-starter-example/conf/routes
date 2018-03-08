@@ -14,7 +14,8 @@ POST    /createaccount              controllers.HomeController.save()
 
 GET     /login                      controllers.HomeController.login
 
-GET     /signup                     controllers.HomeController.signup
+GET     /voterRegistration          controllers.HomeController.voterRegistration
+POST    /voterRegistration          controllers.HomeController.saveVoter
 
 POST    /userlogin                  controllers.HomeController.userlogin()
 
