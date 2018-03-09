@@ -24,7 +24,7 @@ public class VoterRegistration extends Model{
     @Constraints.Required
     public String dateOfBirth;
     @Constraints.Required
-    public String SSN;
+    public String socialSecurity;
     @Constraints.Required
     public String idNumber;
 

@@ -10,9 +10,9 @@
             </div>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#">Home</a></li>
-                <li><a href=@routes.HomeController.create()>Sign Up</a></li>
                 <li class="active">Voter Registration</a></li>
                 <li><a href="#">Profile</a></li>
+                <li><a href=@routes.HomeController.logout() >LogOut</a></li>
             </ul>
         </div>
     </nav>
@@ -64,7 +64,12 @@
                                 </div>
                                 <div class="form-group">
                                 @helper.input(voterform("Social Security Number")){ (id, name, value, args) =>
-                                    <input class="form-control" placeholder="" name="SSN" type="text" value="">
+                                    <input class="form-control" placeholder="" name="socialSecurity" type="text" value="">
+                                }
+                                </div>
+                                <div class="form-group">
+                                @helper.input(voterform("Driver's Licence/ID Number")){ (id, name, value, args) =>
+                                    <input class="form-control" placeholder="" name="idNumber" type="text" value="">
                                 }
                                 </div>
                                 <input class="btn btn-lg btn-success btn-block" type="submit" value="Login">

@@ -17,7 +17,7 @@ create table voter_registration (
   city                          varchar(255),
   state                         varchar(255),
   date_of_birth                 varchar(255),
-  ssn                           varchar(255),
+  social_security               varchar(255),
   id_number                     varchar(255)
 );
 
