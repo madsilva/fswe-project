@@ -3,7 +3,7 @@
 
 
 @layout("Login Page"){
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" href="#">Voting Portal</a>
@@ -11,9 +11,8 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#">Home</a></li>
                 <li class="active"><a href="#">Login</a></li>
-                <li><a href=@routes.UserIDController.create()>Sign Up</a></li>
-                <li><a href=@routes.HomeController.signup()>Voter Registration</a></li>
-                <li><a href="#">Profile</a></li>
+                <li><a href=@routes.HomeController.create()>Sign Up</a></li>
+                <li><a href=@routes.HomeController.voterRegistration()>Voter Registration</a></li>
             </ul>
         </div>
     </nav>
