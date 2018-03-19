@@ -2,21 +2,23 @@
 
 @layout("Profile Page"){
     <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
         <title>Profile</title>
     </head>
     <body>
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-            <div class="container-fluid">
+        <nav class="navbar navbar-inverse navbar-fixed-top ">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#">Voting Portal</a>
                 </div>
-                <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav">
                     <li><a href="#">Home</a></li>
                     <li><a href=@routes.HomeController.voterRegistration()>Voter Registration</a></li>
                     <li class="active"><a href="#">Profile</a></li>
-                    <li><a href=@routes.HomeController.logout() >LogOut</a></li>
+                    <li><a href=@routes.HomeController.logout()>Logout</a></li>
                 </ul>
-            </div>
         </nav>
 
         <div class="jumbotron">
