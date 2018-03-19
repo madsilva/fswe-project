@@ -11,10 +11,10 @@ import io.ebean.*;
 public class VoterRegistration extends Model{
     @Constraints.Required
     public String username;
-    @Constraints.Required
-    public String firstName;
-    @Constraints.Required
-    public String lastName;
+    //@Constraints.Required
+    //public String firstName;
+    //@Constraints.Required
+    //public String lastName;
     @Constraints.Required
     public String address;
     @Constraints.Required
@@ -22,11 +22,17 @@ public class VoterRegistration extends Model{
     @Constraints.Required
     public String state;
     @Constraints.Required
+    public String zipCode;
+    @Constraints.Required
     public String dateOfBirth;
     @Constraints.Required
     public String socialSecurity;
     @Constraints.Required
     public String idNumber;
+    public boolean approved;
+    public void setApproved(boolean value){
+        this.approved = value;
+    }
 
     public static Finder<String, VoterRegistration> find = new Finder<>(VoterRegistration.class);
 }

@@ -8,6 +8,7 @@ create table login_data (
   password                      varchar(255),
   firstname                     varchar(255),
   lastname                      varchar(255),
+  priviledge                    varchar(255),
   constraint pk_login_data primary key (username)
 );
 
@@ -21,14 +22,14 @@ create table user_id (
 
 create table voter_registration (
   username                      varchar(255),
-  first_name                    varchar(255),
-  last_name                     varchar(255),
   address                       varchar(255),
   city                          varchar(255),
   state                         varchar(255),
+  zip_code                      varchar(255),
   date_of_birth                 varchar(255),
   social_security               varchar(255),
-  id_number                     varchar(255)
+  id_number                     varchar(255),
+  approved                      tinyint(1) default 0 not null
 );
 
 

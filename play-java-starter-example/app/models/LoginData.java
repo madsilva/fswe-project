@@ -52,14 +52,21 @@ public class LoginData extends Model{
         this.password = password;
     }
 
+    public void setPriviledge(String access){
+        this.priviledge = access;
+    }
+
+
+
     @Id @Constraints.Required
     public String username;
     @Constraints.Required
     public String password;
-    @Constraints.Required
+    //@Constraints.Required
     public String firstname;
-    @Constraints.Required
+    //@Constraints.Required
     public String lastname;
+    public String priviledge;
 
 
     public static Finder<String, LoginData> find = new Finder<>(LoginData.class);
