@@ -1,22 +1,29 @@
 @layout("Profile Page"){
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">Voting Portal</a>
-            </div>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Login</a></li>
-                <li><a href="#">SignUp</a></li>
-                <li class="active"><a href="#">Profile</a></li>
-            </ul>
+    <nav class="navbar navbar-inverse navbar-fixed-top ">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Voting Portal</a>
         </div>
+        <ul class="nav navbar-nav">
+            <li><a href="#">Home</a></li>
+            <li><a href=@routes.HomeController.login>Login</a></li>
+            <li><a href=@routes.HomeController.create()>Sign Up</a></li>
+        </ul>
+        <form class="navbar-form navbar-right" action="/action_page.php">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search">
+                <div class="input-group-btn">
+                    <button class="btn btn-default" type="submit">
+                        <i class="glyphicon glyphicon-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
     </nav>
 
 
-    <div class="container">
+    <div class="container" >
         User Not Found<br>
-        <a href=@routes.HomeController.login() >Return to Login Page</a>
+        <a href=@routes.HomeController.login()>Return to Login Page</a>
 
     </div>
 }
