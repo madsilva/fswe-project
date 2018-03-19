@@ -16,7 +16,7 @@
     </nav>
 
     <div class="container">
-        <div class="row vertical-offset-100">
+        <div class="row vertical-offset-50">
             <div class="col-md-4 col-md-offset-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -27,12 +27,12 @@
                         <fieldset>
                             <div class="form-group">
                                 @helper.input(usrForm("First Name")){ (id, name, value, args) =>
-                                <input class="form-control" placeholder="" name="first name" type="text">
+                                <input class="form-control" placeholder="" name="firstName" type="text">
                                 }
                             </div>
                             <div class="form-group">
                                 @helper.input(usrForm("Last Name")){ (id, name, value, args) =>
-                                <input class="form-control" placeholder="" name="last name" type="text">
+                                <input class="form-control" placeholder="" name="lastName" type="text">
                                 }
                             </div>
                             <div class="form-group">

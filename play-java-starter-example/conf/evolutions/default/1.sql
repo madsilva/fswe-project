@@ -6,7 +6,17 @@
 create table login_data (
   username                      varchar(255) not null,
   password                      varchar(255),
+  firstname                     varchar(255),
+  lastname                      varchar(255),
   constraint pk_login_data primary key (username)
+);
+
+create table user_id (
+  username                      varchar(255),
+  password                      varchar(255),
+  conf_password                 varchar(255),
+  first_name                    varchar(255),
+  last_name                     varchar(255)
 );
 
 create table voter_registration (
@@ -25,6 +35,8 @@ create table voter_registration (
 # --- !Downs
 
 drop table if exists login_data;
+
+drop table if exists user_id;
 
 drop table if exists voter_registration;
 
