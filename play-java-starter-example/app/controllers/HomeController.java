@@ -5,6 +5,7 @@ import views.html.*;
 import models.*;
 import javax.inject.Inject;
 import play.data.*;
+import org.apache.commons.codec.digest.DigestUtils;
 //
 //import anorm._;
 //import play.api.db.DB;
@@ -35,15 +36,27 @@ public class HomeController extends Controller {
 
 
     public Result login(){
-        Form<LoginData> loginForm = formFactory.form(LoginData.class);
-        System.out.println("Login Function hit");
-        return ok(login.render(loginForm, " "));
+        String user = session("connected");
+        if (user == null){
+            Form<LoginData> loginForm = formFactory.form(LoginData.class);
+            System.out.println("Login Function hit");
+            return ok(login.render(loginForm, " "));
+        }
+        else{
+            return ok(profile.render(user, false));
+        }
     }
 
     public Result create(){
-        Form<UserID> userForm = formFactory.form(UserID.class);
-        System.out.println("Create Function hit");
-        return  ok(create.render(userForm));
+        String user = session("connected");
+        if (user == null){
+            Form<UserID> userForm = formFactory.form(UserID.class);
+            System.out.println("Create Function hit");
+            return  ok(create.render(userForm));
+        }
+        else{
+            return ok(profile.render(user, false));
+        }
     }
 
     public Result save(){
@@ -52,36 +65,74 @@ public class HomeController extends Controller {
         if (user.password.equals(user.confPassword)){
             LoginData loginCredentials = new LoginData();
             loginCredentials.setUsername(user.username);
-            loginCredentials.setPassword(user.password);
+            loginCredentials.setFirstname(user.firstName);
+            loginCredentials.setLastname(user.lastName);
+            loginCredentials.setPriviledge("voter");
+            System.out.println("Firstname & Lastname are : "+user.firstName+user.lastName);
+            loginCredentials.setPassword(DigestUtils.md5Hex(user.password));
             loginCredentials.save();
+            System.out.println("hashed password saved : "+DigestUtils.md5Hex(user.password));
         }
         else{
             System.out.println("Passwords do not match");
-            return ok(error.render());
+            return ok(error.render("Passwords do not match"));
         }
-
-        return ok(profile.render(user.firstName));
+        Form<LoginData> loginForm = formFactory.form(LoginData.class);
+        return ok(login.render(loginForm,"You have successfully signed up"));
     }
 
     public Result voterRegistration(){
-        Form<VoterRegistration> voterForm = formFactory.form(VoterRegistration.class);
-        System.out.println("Voter Registration Function hit");
-        return ok(voterRegistration.render(voterForm));
+        String user = session("connected");
+        if(user != null){
+            VoterRegistration voterRegistrationInfo = VoterRegistration.find.query().where().eq("username", user).findUnique();
+            if (voterRegistrationInfo != null){
+                return ok(error.render("You have Already applied for Voter Registration"));
+            }
+            else{
+                Form<VoterRegistration> voterForm = formFactory.form(VoterRegistration.class);
+                System.out.println("Voter Registration Function hit");
+                return ok(voterRegistration.render(voterForm));
+            }
+        }
+        else{
+            return ok(error.render("User not signed in"));
+        }
     }
 
     public Result saveVoter() {
         Form<VoterRegistration> voterForm = formFactory.form(VoterRegistration.class).bindFromRequest();
         VoterRegistration voter = voterForm.get();
-        voter.save();
-
-        return ok(profile.render(voter.firstName));
+        String user = session("connected");
+        System.out.println("username is "+user+voter.username);
+        if(user.matches(voter.username)){
+            voter.setApproved(false);
+            voter.save();
+            return ok(profile.render(voter.username, false));
+        }
+        else{
+            // Username not matching
+            return ok(error.render("Username Not Matching"));
+        }
     }
 
-    public Result profile(){return ok(profile.render("temporary"));
+    public Result profile(){
+        String user = session("connected");
+        System.out.println("Profile hit");
+        if(user != null) {
+            //Form<VoterRegistration> voterForm = formFactory.form(VoterRegistration.class).bindFromRequest();
+            VoterRegistration voterRegistrationInfo = VoterRegistration.find.query().where().eq("username", user).findUnique();
+            System.out.println("Approved query is "+voterRegistrationInfo.username+voterRegistrationInfo.approved);
+            System.out.println("Profile hit if case");
+            return ok(profile.render(user, voterRegistrationInfo.approved));
+        } else {
+            System.out.println("Profile hit else case");
+            return ok(error.render("User not Signed in"));
+        }
     }
 
     public Result logout(){
-        session().clear();
+        //session().clear();
+        session().remove("connected");
         System.out.println("Session cleared");
         Form<LoginData> loginForm = formFactory.form(LoginData.class);
         System.out.println("Login Function hit");
@@ -89,7 +140,7 @@ public class HomeController extends Controller {
     }
 
     public Result error(){
-        return ok(error.render());
+        return ok(error.render("error"));
     }
 
     public Result userlogin(){
@@ -99,17 +150,24 @@ public class HomeController extends Controller {
         LoginData loginCredentials = loginForm.get();
         System.out.println("UserDetails are");
 
-        LoginData login = LoginData.find.query().where().eq("username", loginCredentials.username).eq("password", loginCredentials.password).findUnique();
+
+        LoginData login = LoginData.find.query().where().eq("username", loginCredentials.username).eq("password", DigestUtils.md5Hex(loginCredentials.password)).findUnique();
 
         if (login == null){
             System.out.println("User Not Found");
-            return ok(error.render());
-
+            return ok(error.render("User Not Found"));
+//            Form<LoginData> loginForm2 = formFactory.form(LoginData.class);
+//            return badRequest(login.render(loginForm2));
         }
         else{
-            System.out.println("User Logged In");
-            session("email", loginForm.get().username);
-            return ok(profile.render(loginForm.get().username));
+            if (login.priviledge.matches("admin")){
+                return ok(admin.render(loginForm.get().username));
+            }
+            else{
+                System.out.println("User Logged In"+login.priviledge);
+                session("connected", loginForm.get().username);
+                return ok(profile.render(loginForm.get().username,false));
+            }
         }
 
 

@@ -2,8 +2,12 @@ package models;
 
 import java.util.Set;
 import java.util.HashSet;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import io.ebean.*;
 
-public class UserID{
+@Entity
+public class UserID extends Model{
     public String username;
     public String password;
     public String confPassword;

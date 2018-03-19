@@ -1,13 +1,6 @@
-@(username: String)
+@(username: String, approved: Boolean)
 
 @layout("Profile Page"){
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <title>Profile</title>
-    </head>
     <body>
         <nav class="navbar navbar-inverse">
                 <div class="navbar-header">
@@ -52,7 +45,9 @@
                 </div>
                 <div class="col-md-4">
                     <h2><a href="#">Vote</a></h2>
-                    <p> Vote in the current election in your area!</p>
+                    <p>
+                        @{if (approved) "Vote in the current election in your area!" else "User not Approved by the Admin"}
+                    </p>
                 </div>
                 <div class="col-md-4">
                     <h2><a href="#">Admin Controls</a></h2>

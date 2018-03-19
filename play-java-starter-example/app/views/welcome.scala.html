@@ -2,42 +2,44 @@
 
 @layout("Home Page"){
 
-    <nav class="navbar navbar-inverse">
+    <nav class="navbar navbar-inverse navbar-fixed-top ">
         <div class="navbar-header">
             <a class="navbar-brand" href="#">Voting Portal</a>
         </div>
         <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
+            <li><a href=@routes.HomeController.index>Home</a></li>
             <li><a href=@routes.HomeController.login>Login</a></li>
             <li><a href=@routes.HomeController.create()>Sign Up</a></li>
         </ul>
     </nav>
 
     <div id="content" class="wrapper doc">
-        <article>
+        <div class="row vertical-offset-50">
+            <article>
 
-            <h1>Please Sign Up/Login to access your voting profile</h1>
+                <h1>Please Sign Up/Login to access your voting profile</h1>
 
-            <p>
-                Congratulations, you’ve just created a new Play application. This page will help you with the next few steps.
-            </p>
+                <p>
+                    Congratulations, you’ve just created a new Play application. This page will help you with the next few steps.
+                </p>
 
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4">
-                        <h3><a href=@routes.HomeController.profile>Profile</a></h3>
-                    </div>
-                    <div class="col-md-4">
-                        <h3><a href=@routes.HomeController.voterRegistration>Voter Registration</a></h3>
-                    </div>
-                    <div class="col-md-4">
-                        <h3><a href=@routes.HomeController.login()>Login</a></h3>
-                    </div>
-                    <div class="col-md-4">
-                        <h3><a href=@routes.HomeController.create()>Sign Up</a></h3>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h3><a href=@routes.HomeController.profile>Profile</a></h3>
+                        </div>
+                        <div class="col-md-4">
+                            <h3><a href=@routes.HomeController.voterRegistration>Voter Registration</a></h3>
+                        </div>
+                        <div class="col-md-4">
+                            <h3><a href=@routes.HomeController.login()>Login</a></h3>
+                        </div>
+                        <div class="col-md-4">
+                            <h3><a href=@routes.HomeController.create()>Sign Up</a></h3>
+                        </div>
                     </div>
                 </div>
-            </div>
-
+            </article>
+        </div>
     </div>
 }
