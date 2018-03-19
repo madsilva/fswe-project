@@ -28,6 +28,22 @@ public class LoginData extends Model{
         this.username = username;
     }
 
+    public void setFirstname(String firstname){
+        this.firstname = firstname;
+    }
+
+    public String getFirstname(){
+        return firstname;
+    }
+
+    public void setLastname(String lastname){
+        this.lastname = lastname;
+    }
+
+    public String getLastname(){
+        return lastname;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -36,10 +52,22 @@ public class LoginData extends Model{
         this.password = password;
     }
 
+    public void setPriviledge(String access){
+        this.priviledge = access;
+    }
+
+
+
     @Id @Constraints.Required
     public String username;
     @Constraints.Required
     public String password;
+    //@Constraints.Required
+    public String firstname;
+    //@Constraints.Required
+    public String lastname;
+    public String priviledge;
+
 
     public static Finder<String, LoginData> find = new Finder<>(LoginData.class);
 }
