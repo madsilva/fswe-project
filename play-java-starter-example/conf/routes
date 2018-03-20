@@ -25,5 +25,9 @@ GET     /logout                     controllers.HomeController.logout
 
 GET     /error                      controllers.HomeController.error
 
+GET     /admin                      controllers.HomeController.admin
+
+GET     /approval                   controllers.HomeController.approval
+
 #GET     /register_voter             controllers.VoterRegistrationController.create()
 #GET     /register_voter             controllers.VoterRegistrationController.save() 

@@ -52,8 +52,8 @@ public class LoginData extends Model{
         this.password = password;
     }
 
-    public void setPriviledge(String access){
-        this.priviledge = access;
+    public void setPrivilege(String access){
+        this.privilege = access;
     }
 
 
@@ -66,7 +66,7 @@ public class LoginData extends Model{
     public String firstname;
     //@Constraints.Required
     public String lastname;
-    public String priviledge;
+    public String privilege;
 
 
     public static Finder<String, LoginData> find = new Finder<>(LoginData.class);
