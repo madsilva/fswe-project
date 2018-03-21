@@ -11,6 +11,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 //import play.api.db.DB;
 
 import play.mvc.*;
+import java.util.List;
 
 import views.html.*;
 
@@ -67,7 +68,7 @@ public class HomeController extends Controller {
             loginCredentials.setUsername(user.username);
             loginCredentials.setFirstname(user.firstName);
             loginCredentials.setLastname(user.lastName);
-            loginCredentials.setPriviledge("voter");
+            loginCredentials.setPrivilege("voter");
             System.out.println("Firstname & Lastname are : "+user.firstName+user.lastName);
             loginCredentials.setPassword(DigestUtils.md5Hex(user.password));
             loginCredentials.save();
@@ -115,6 +116,26 @@ public class HomeController extends Controller {
         }
     }
 
+    public Result admin(){
+        String user = session("connected");
+        System.out.println("Admin hit");
+        if(user != null) {
+            //Form<VoterRegistration> voterForm = formFactory.form(VoterRegistration.class).bindFromRequest();
+            VoterRegistration voterRegistrationInfo = VoterRegistration.find.query().where().eq("username", user).findUnique();
+            System.out.println("Approved query is "+voterRegistrationInfo.username+voterRegistrationInfo.approved);
+            System.out.println("Admin hit if case");
+            return ok(admin.render(user));
+        } else {
+            System.out.println("Admin hit else case");
+            return ok(error.render("User not Signed in"));
+        }
+    }
+
+    public Result approval(){
+        List<VoterRegistration> voterInfo = VoterRegistration.find.query().where().eq("approved", false).findList();
+        return ok(approval.render(voterInfo));
+    }
+
     public Result profile(){
         String user = session("connected");
         System.out.println("Profile hit");
@@ -160,11 +181,11 @@ public class HomeController extends Controller {
 //            return badRequest(login.render(loginForm2));
         }
         else{
-            if (login.priviledge.matches("admin")){
+            if (login.privilege.matches("admin")){
                 return ok(admin.render(loginForm.get().username));
             }
             else{
-                System.out.println("User Logged In"+login.priviledge);
+                System.out.println("User Logged In"+login.privilege);
                 session("connected", loginForm.get().username);
                 return ok(profile.render(loginForm.get().username,false));
             }

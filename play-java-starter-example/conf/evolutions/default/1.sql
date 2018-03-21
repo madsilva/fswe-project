@@ -8,7 +8,7 @@ create table login_data (
   password                      varchar(255),
   firstname                     varchar(255),
   lastname                      varchar(255),
-  priviledge                    varchar(255),
+  privilege                     varchar(255),
   constraint pk_login_data primary key (username)
 );
 
