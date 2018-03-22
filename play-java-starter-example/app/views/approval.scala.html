@@ -1,4 +1,4 @@
-@(list: List[VoterRegistration]))
+@(list: List[String]))
 
 @layout("Profile Page"){
     <nav class="navbar navbar-inverse">
@@ -13,17 +13,23 @@
         </ul>
     </nav>
 
-    <div class="container">
-        <table>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Username</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
         @for(person <- list){
             <tr>
                 <td>@person</td>
                 <td>
-                    <input class="btn btn-lg btn-success btn-block" type="submit" value="Approve">
-                    <input class="btn btn-lg btn-success btn-block" type="submit" value="Delete">
+                    <button class="btn btn-sm btn-success" type="submit">Approve</button>
+                    <button class="btn btn-sm btn-danger" type="submit">Delete</button>
                 </td>
             </tr>
         }
-        </table>
-    </div>
+        </tbody>
+    </table>
 }
