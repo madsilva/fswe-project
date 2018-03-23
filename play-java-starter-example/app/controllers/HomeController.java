@@ -12,6 +12,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 import play.mvc.*;
 import java.util.List;
+import java.util.ArrayList;
 
 import views.html.*;
 
@@ -63,6 +64,10 @@ public class HomeController extends Controller {
     public Result save(){
         Form<UserID> userForm = formFactory.form(UserID.class).bindFromRequest();
         UserID user = userForm.get();
+
+        System.out.println(user.password);
+        System.out.println(user.confPassword);
+
         if (user.password.equals(user.confPassword)){
             LoginData loginCredentials = new LoginData();
             loginCredentials.setUsername(user.username);
@@ -133,7 +138,13 @@ public class HomeController extends Controller {
 
     public Result approval(){
         List<VoterRegistration> voterInfo = VoterRegistration.find.query().where().eq("approved", false).findList();
-        return ok(approval.render(voterInfo));
+        List<String> unapprovedNames = new ArrayList<String>();
+
+        for(VoterRegistration voter : voterInfo){
+            unapprovedNames.add(voter.username);
+        }
+
+        return ok(approval.render(unapprovedNames));
     }
 
     public Result profile(){
@@ -172,6 +183,8 @@ public class HomeController extends Controller {
         System.out.println("UserDetails are");
 
 
+        System.out.println(loginCredentials.username);
+        System.out.println(DigestUtils.md5Hex(loginCredentials.password));
         LoginData login = LoginData.find.query().where().eq("username", loginCredentials.username).eq("password", DigestUtils.md5Hex(loginCredentials.password)).findUnique();
 
         if (login == null){
@@ -191,29 +204,34 @@ public class HomeController extends Controller {
             }
         }
 
+    }
 
-//        System.out.println("Result is");
-//        System.out.println(login);
+    public Result update(String username){
+        VoterRegistration voterRegistrationInfo = VoterRegistration.find.query().where().eq("username", username).findUnique();
+        voterRegistrationInfo.setApproved(true);
+        voterRegistrationInfo.update();
 
+        List<VoterRegistration> voterInfo = VoterRegistration.find.query().where().eq("approved", false).findList();
+        List<String> unapprovedNames = new ArrayList<String>();
 
-//        boolean temp = loginCredentials.findLogin(loginCredentials.username, loginCredentials.password);
-//
-//        if (loginForm.hasErrors()) {
-//            System.out.println("in");
-//            return badRequest(login.render(loginForm));
-//        } else {
-//            if (temp) {
-//                System.out.println("in else if");
-//                session().clear();
-//                // Creating a new session with the
-//                session("email", loginForm.get().username);
-//                return redirect(routes.HomeController.profile());
-//            }
-//            else{
-//                System.out.println("in else else");
-//                return badRequest(login.render(loginForm));
-//            }
-//        }
+        for(VoterRegistration voter : voterInfo){
+            unapprovedNames.add(voter.username);
+        }
 
+        return ok(approval.render(unapprovedNames));
+    }
+
+    public Result destroy(String username){
+        VoterRegistration approvedVoter = VoterRegistration.find.query().where().eq("username", username).findUnique();
+        approvedVoter.delete();
+
+        List<VoterRegistration> voterInfo = VoterRegistration.find.query().where().eq("approved", false).findList();
+        List<String> unapprovedNames = new ArrayList<String>();
+
+        for(VoterRegistration voter : voterInfo){
+            unapprovedNames.add(voter.username);
+        }
+
+        return ok(approval.render(unapprovedNames));
     }
 }

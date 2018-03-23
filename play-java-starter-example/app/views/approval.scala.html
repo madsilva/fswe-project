@@ -1,4 +1,4 @@
-@(list: List[VoterRegistration]))
+@(list: List[String]))
 
 @layout("Profile Page"){
     <nav class="navbar navbar-inverse">
@@ -13,17 +13,35 @@
         </ul>
     </nav>
 
-    <div class="container">
-        <table>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Username</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
         @for(person <- list){
             <tr>
                 <td>@person</td>
                 <td>
-                    <input class="btn btn-lg btn-success btn-block" type="submit" value="Approve">
-                    <input class="btn btn-lg btn-success btn-block" type="submit" value="Delete">
+                    @helper.form(action= helper.CSRF(routes.HomeController.update(person))){
+                        <fieldset>
+                            <input class="btn btn-sm btn-success btn-block" type="submit" value="Approve">
+                        </fieldset>
+                    }
+                    </form>
+                </td>
+                <td>
+                    @helper.form(action= helper.CSRF(routes.HomeController.destroy(person))){
+                        <fieldset>
+                            <input class="btn btn-sm btn-danger btn-block" type="submit" value="Delete">
+                        </fieldset>
+                    }
+                </form>
                 </td>
             </tr>
         }
-        </table>
-    </div>
+        </tbody>
+    </table>
 }
