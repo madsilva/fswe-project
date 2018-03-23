@@ -204,29 +204,34 @@ public class HomeController extends Controller {
             }
         }
 
+    }
 
-//        System.out.println("Result is");
-//        System.out.println(login);
+    public Result update(String username){
+        VoterRegistration voterRegistrationInfo = VoterRegistration.find.query().where().eq("username", username).findUnique();
+        voterRegistrationInfo.setApproved(true);
+        voterRegistrationInfo.update();
 
+        List<VoterRegistration> voterInfo = VoterRegistration.find.query().where().eq("approved", false).findList();
+        List<String> unapprovedNames = new ArrayList<String>();
 
-//        boolean temp = loginCredentials.findLogin(loginCredentials.username, loginCredentials.password);
-//
-//        if (loginForm.hasErrors()) {
-//            System.out.println("in");
-//            return badRequest(login.render(loginForm));
-//        } else {
-//            if (temp) {
-//                System.out.println("in else if");
-//                session().clear();
-//                // Creating a new session with the
-//                session("email", loginForm.get().username);
-//                return redirect(routes.HomeController.profile());
-//            }
-//            else{
-//                System.out.println("in else else");
-//                return badRequest(login.render(loginForm));
-//            }
-//        }
+        for(VoterRegistration voter : voterInfo){
+            unapprovedNames.add(voter.username);
+        }
 
+        return ok(approval.render(unapprovedNames));
+    }
+
+    public Result destroy(String username){
+        VoterRegistration approvedVoter = VoterRegistration.find.query().where().eq("username", username).findUnique();
+        approvedVoter.delete();
+
+        List<VoterRegistration> voterInfo = VoterRegistration.find.query().where().eq("approved", false).findList();
+        List<String> unapprovedNames = new ArrayList<String>();
+
+        for(VoterRegistration voter : voterInfo){
+            unapprovedNames.add(voter.username);
+        }
+
+        return ok(approval.render(unapprovedNames));
     }
 }

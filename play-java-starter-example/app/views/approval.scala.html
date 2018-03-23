@@ -25,8 +25,20 @@
             <tr>
                 <td>@person</td>
                 <td>
-                    <button class="btn btn-sm btn-success" type="submit">Approve</button>
-                    <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+                    @helper.form(action= helper.CSRF(routes.HomeController.update(person))){
+                        <fieldset>
+                            <input class="btn btn-sm btn-success btn-block" type="submit" value="Approve">
+                        </fieldset>
+                    }
+                    </form>
+                </td>
+                <td>
+                    @helper.form(action= helper.CSRF(routes.HomeController.destroy(person))){
+                        <fieldset>
+                            <input class="btn btn-sm btn-danger btn-block" type="submit" value="Delete">
+                        </fieldset>
+                    }
+                </form>
                 </td>
             </tr>
         }
