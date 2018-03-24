@@ -30,5 +30,18 @@ public class AdminController extends Controller {
     @Inject
     FormFactory formFactory;
 
+    public Result candidate() {
+        Form<Candidate> candidateForm = formFactory.form(Candidate.class);
+        System.out.println("Candidate Function hit");
+        return ok(candidateCreation.render(candidateForm));
+    }
+
+    public Result saveCandidate() {
+        Form<Candidate> candidateForm = formFactory.form(Candidate.class).bindFromRequest();
+        Candidate candidate = candidateForm.get();
+        candidate.save();
+        return ok(admin.render(session("connected")));
+    }
 
 }
+
