@@ -30,3 +30,8 @@ GET     /admin                      controllers.HomeController.admin
 GET     /approval                   controllers.HomeController.approval
 POST    /approval/:username         controllers.HomeController.update(username: String)
 DELETE  /approval/delete/:username  controllers.HomeController.destroy(username: String)
+
+GET     /candidate                  controllers.AdminController.candidate
+POST    /candidate                  controllers.AdminController.saveCandidate
+
+GET     /candidatelist              controllers.AdminController.candidateList

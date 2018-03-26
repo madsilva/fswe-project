@@ -1,0 +1,52 @@
+@(candidateForm : Form[Candidate])
+@import helper._
+
+
+@layout("Login Page"){
+    <nav class="navbar navbar-inverse">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Voting Portal</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href=@routes.HomeController.index>Home</a></li>
+            <li class="active"><a href=@routes.HomeController.voterRegistration()>Voter Registration</a></li>
+            <li><a href=@routes.HomeController.profile>Profile</a></li>
+            <li><a href=@routes.HomeController.logout()>Logout</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="row vertical-offset-30">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Voter Registration</h3>
+                    </div>
+                    <div class="panel-body">
+                        @helper.form(action= helper.CSRF(routes.AdminController.saveCandidate())){
+                            <fieldset>
+                                <div class="form-group">
+                                @helper.input(candidateForm("First Name")){ (id, name, value, args) =>
+                                    <input class="form-control" placeholder="" name="firstname" type="text" value="">
+                                }
+                                </div>
+                                <div class="form-group">
+                                @helper.input(candidateForm("Last Name")){ (id, name, value, args) =>
+                                    <input class="form-control" placeholder="" name="lastname" type="text" value="">
+                                }
+                                </div>
+                                <div class="form-group">
+                                @helper.input(candidateForm("Party")){ (id, name, value, args) =>
+                                    <input class="form-control" placeholder="" name="party" type="text" value="">
+                                }
+                                </div>
+                                <input class="btn btn-lg btn-success btn-block" type="submit" value="Create">
+                            </fieldset>
+                        }
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

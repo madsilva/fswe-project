@@ -3,6 +3,12 @@
 
 # --- !Ups
 
+create table candidate (
+  firstname                     varchar(255),
+  lastname                      varchar(255),
+  party                         varchar(255)
+);
+
 create table login_data (
   username                      varchar(255) not null,
   password                      varchar(255),
@@ -34,6 +40,8 @@ create table voter_registration (
 
 
 # --- !Downs
+
+drop table if exists candidate;
 
 drop table if exists login_data;
 
