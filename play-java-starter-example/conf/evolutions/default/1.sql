@@ -5,7 +5,8 @@
 
 create table candidate (
   firstname                     varchar(255),
-  lastname                      varchar(255)
+  lastname                      varchar(255),
+  party                         varchar(255)
 );
 
 create table login_data (

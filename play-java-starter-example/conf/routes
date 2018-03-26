@@ -33,3 +33,5 @@ DELETE  /approval/delete/:username  controllers.HomeController.destroy(username:
 
 GET     /candidate                  controllers.AdminController.candidate
 POST    /candidate                  controllers.AdminController.saveCandidate
+
+GET     /candidatelist              controllers.AdminController.candidateList

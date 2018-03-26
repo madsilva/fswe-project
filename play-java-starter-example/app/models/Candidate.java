@@ -36,12 +36,20 @@ public class Candidate extends Model{
         return lastname;
     }
 
+    public void setParty(String party){
+        this.party = party;
+    }
+
+    public String getParty(){
+        return party;
+    }
 
     @Constraints.Required
     public String firstname;
     @Constraints.Required
     public String lastname;
-
+    @Constraints.Required
+    public String party;
 
     public static Finder<String, Candidate> find = new Finder<>(Candidate.class);
 }

@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.List;
 import play.mvc.*;
 import views.html.*;
 import models.*;
@@ -41,6 +42,11 @@ public class AdminController extends Controller {
         Candidate candidate = candidateForm.get();
         candidate.save();
         return ok(admin.render(session("connected")));
+    }
+
+    public Result candidateList() {
+        List<Candidate> candidates = Candidate.find.all();
+        return ok(candidateList.render(candidates));
     }
 
 }
