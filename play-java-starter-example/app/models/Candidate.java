@@ -11,22 +11,16 @@ import play.data.validation.Constraints;
 //import play.mvc.Controller;
 //import play.db.NamedDatabase;
 //import play.db.Database;
-
+//import com.avaje.ebean.Model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.Constraint;
+
 import io.ebean.*;
 
 
 @Entity
-public class LoginData extends Model{
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
+public class Candidate extends Model{
 
     public void setFirstname(String firstname){
         this.firstname = firstname;
@@ -44,33 +38,30 @@ public class LoginData extends Model{
         return lastname;
     }
 
-    public String getPassword() {
-        return password;
+    public void setParty(String party){
+        this.party = party;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public String getParty(){
+        return party;
     }
 
-    public void setPriviledge(String access){
-        this.priviledge = access;
+    public String getPrecinct(){
+        return precinct;
     }
 
+    public void setPrecinct(String precinct) {
+        this.precinct = precinct;
+    }
 
-
-    @Id @Constraints.Required
-    public String username;
     @Constraints.Required
-    public String password;
-
     public String firstname;
-
+    @Constraints.Required
     public String lastname;
+    @Constraints.Required
+    public String party;
+    @Constraints.Required
+    public String precinct;
 
-    public String priviledge;
-
-    public String resetToken;
-
-
-    public static Finder<String, LoginData> find = new Finder<>(LoginData.class);
+    public static Finder<String, Candidate> find = new Finder<>(Candidate.class);
 }

@@ -39,3 +39,16 @@ GET     /precinct                       controllers.HomeController.removeprecinc
 GET     /addprecinct                    controllers.HomeController.addprecinct(precinctpassed: String)
 
 GET     /precinct/add                   controllers.HomeController.addPrecinctToTable
+
+GET     /candidate                      controllers.AdminController.candidate
+POST    /candidate                      controllers.AdminController.saveCandidate
+
+GET     /candidatelist                  controllers.AdminController.candidateList
+
+GET     /resetPassword                  controllers.HomeController.resetPassword
+
+GET     /updatepassword                 controllers.HomeController.updatepasswordtoken()
+
+GET     /password/resetpassword/:token  controllers.HomeController.updatepassword(token : String)
+
+GET     /password/changepassword        controllers.HomeController.changepassword()

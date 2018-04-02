@@ -3,21 +3,25 @@ package controllers;
 import com.avaje.ebean.EbeanServer;
 import play.mvc.*;
 import java.lang.String;
+
+import sun.java2d.pipe.SpanShapeRenderer;
 import views.html.*;
 import models.*;
 import javax.inject.Inject;
 import play.data.*;
 import org.apache.commons.codec.digest.DigestUtils;
+
+import java.util.*;
+
+
 //
 import io.ebean.*;
 //import anorm._;
 //import play.api.db.DB;
 
 import play.mvc.*;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+
+
 import java.lang.Object;
 import java.sql.* ;
 import com.avaje.ebean.Ebean;
@@ -50,6 +54,9 @@ public class HomeController extends Controller{
 
     public Result login(){
         String user = session("connected");
+        System.out.println("LOGIN USER KEY IS ");
+        System.out.println(user);
+
         if (user == null){
             Form<LoginData> loginForm = formFactory.form(LoginData.class);
             System.out.println("Login Function hit");
@@ -206,6 +213,7 @@ public class HomeController extends Controller{
         }
         else{
             if (login.priviledge.matches("admin")){
+                session("connected", loginForm.get().username);
                 return ok(admin.render(loginForm.get().username));
             }
             else{
@@ -401,6 +409,94 @@ public class HomeController extends Controller{
 
         return ok(precinct.render(precinctMap));
     }
-}
 
+    public Result resetPassword(){
+
+        return ok(resetpassword.render());
+    }
+
+    public Result updatepasswordtoken(){
+        DynamicForm df = formFactory.form().bindFromRequest();
+
+        String username = df.get("username");
+        System.out.println("USERNAME FOR RESSTING PASSWORD IS "+username);
+
+        LoginData user = LoginData.find.byId(username);
+
+        // Random Hash generation
+        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < 25) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
+        }
+        String saltStr = salt.toString();
+        saltStr = username+","+saltStr;
+
+        System.out.println("HASH GENERATED IS "+saltStr);
+
+        user.resetToken = saltStr;
+
+        user.update();
+
+
+
+
+
+
+
+        Form<LoginData> loginForm = formFactory.form(LoginData.class);
+        System.out.println("Login Function hit");
+        return ok(login.render(loginForm, "Password Reset Link sent to the User Email"));
+    }
+
+    public Result updatepassword(String token){
+        System.out.println("Token received is "+token);
+        List<String> elephantList = Arrays.asList(token.split(","));
+
+        System.out.println("USERNAME AFTER SPLIT IS "+elephantList.get(0));
+        System.out.println("HASHED TOKEN AFTER SPLIT IS "+elephantList.get(1));
+        String username = elephantList.get(0);
+
+        LoginData temp = LoginData.find.byId(elephantList.get(0));
+        System.out.println("User pulled from database is "+temp);
+        System.out.println("User pulled from database is "+temp.resetToken);
+        if (temp.resetToken.equals(token)){
+            session("updatepasswordkey", username);
+            return ok(updatenewpassword.render());
+        }
+        else{
+            return ok(error.render("Please Contact Admin"));
+        }
+    }
+
+    public Result changepassword(){
+        DynamicForm df = formFactory.form().bindFromRequest();
+        String oldpassword = df.get("oldpassword");
+        String newpassword = df.get("newpassword");
+        String username = session("updatepasswordkey");
+
+        //System.out.println(oldpassword+newpassword+username);
+
+        LoginData user = LoginData.find.byId(username);
+        if(user.password.equals(DigestUtils.md5Hex(oldpassword))){
+            System.out.println("In the if case");
+            user.setPassword(DigestUtils.md5Hex(newpassword));
+            user.resetToken = "";
+            user.update();
+
+
+            Form<LoginData> loginForm = formFactory.form(LoginData.class);
+            System.out.println("Login Function hit");
+            System.out.println("New Password Hash is"+DigestUtils.md5Hex(newpassword));
+            return ok(login.render(loginForm, "Password Updated Successfully"));
+        }
+        else{
+            Form<LoginData> loginForm = formFactory.form(LoginData.class);
+            System.out.println("Login Function hit");
+            return ok(login.render(loginForm, "Old Password Did not match"));
+        }
+    }
+}
 
