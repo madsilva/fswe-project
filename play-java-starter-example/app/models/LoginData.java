@@ -11,7 +11,7 @@ import play.data.validation.Constraints;
 //import play.mvc.Controller;
 //import play.db.NamedDatabase;
 //import play.db.Database;
-//import com.avaje.ebean.Model;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import io.ebean.*;
@@ -52,8 +52,8 @@ public class LoginData extends Model{
         this.password = password;
     }
 
-    public void setPrivilege(String access){
-        this.privilege = access;
+    public void setPriviledge(String access){
+        this.priviledge = access;
     }
 
 
@@ -66,7 +66,7 @@ public class LoginData extends Model{
     public String firstname;
     //@Constraints.Required
     public String lastname;
-    public String privilege;
+    public String priviledge;
 
 
     public static Finder<String, LoginData> find = new Finder<>(LoginData.class);

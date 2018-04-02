@@ -10,3 +10,5 @@ addSbtPlugin("com.typesafe.sbt" % "sbt-play-enhancer" % "1.2.2")
 // Plugin for Play Ebean
 // Bean 4.
 addSbtPlugin("com.typesafe.sbt" % "sbt-play-ebean" % "4.0.6")
+
+//playEbeanModels in Compile := Seq("models.*")

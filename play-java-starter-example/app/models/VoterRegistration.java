@@ -3,13 +3,16 @@ package models;
 import java.util.Set;
 import java.util.HashSet;
 import play.data.validation.Constraints;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+//import javax.persistence.Entity;
+import javax.persistence.*;
 import io.ebean.*;
+import play.db.ebean.*;
+import play.data.validation.Constraints.*;
 
 @Entity
 public class VoterRegistration extends Model{
     @Constraints.Required
+    @Id
     public String username;
     //@Constraints.Required
     //public String firstName;

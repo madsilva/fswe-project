@@ -2,31 +2,40 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-GET     /                           controllers.HomeController.index
+GET     /                               controllers.HomeController.index
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+GET     /assets/*file                   controllers.Assets.versioned(path="/public", file: Asset)
 
 
 
-GET     /createaccount              controllers.HomeController.create()
-POST    /createaccount              controllers.HomeController.save()
+GET     /createaccount                  controllers.HomeController.create()
+POST    /createaccount                  controllers.HomeController.save()
 
-GET     /login                      controllers.HomeController.login
+GET     /login                          controllers.HomeController.login
 
-GET     /voterRegistration          controllers.HomeController.voterRegistration
-POST    /voterRegistration          controllers.HomeController.saveVoter
+GET     /voterRegistration              controllers.HomeController.voterRegistration
+POST    /voterRegistration              controllers.HomeController.saveVoter
 
-POST    /userlogin                  controllers.HomeController.userlogin()
+POST    /userlogin                      controllers.HomeController.userlogin()
 
-GET     /profile                    controllers.HomeController.profile
+GET     /profile                        controllers.HomeController.profile
 
-GET     /logout                     controllers.HomeController.logout
+GET     /logout                         controllers.HomeController.logout
 
-GET     /error                      controllers.HomeController.error
+GET     /error                          controllers.HomeController.error
 
-GET     /admin                      controllers.HomeController.admin
+GET     /admin                          controllers.HomeController.admin
 
-GET     /approval                   controllers.HomeController.approval
-POST    /approval/:username         controllers.HomeController.update(username: String)
-DELETE  /approval/delete/:username  controllers.HomeController.destroy(username: String)
+GET     /approval                       controllers.HomeController.approval
+POST    /approval/:username             controllers.HomeController.update(username: String)
+POST    /approval/delete/:username      controllers.HomeController.destroy(username: String)
+
+GET     /precinct                       controllers.HomeController.precinct
+GET     /deleteprecinct                 controllers.HomeController.deleteprecinct(precinctpassed: String)
+
+GET     /precinct                       controllers.HomeController.removeprecinct
+
+GET     /addprecinct                    controllers.HomeController.addprecinct(precinctpassed: String)
+
+GET     /precinct/add                   controllers.HomeController.addPrecinctToTable
