@@ -38,3 +38,10 @@ libraryDependencies ++= Seq(
   "org.avaje" % "ebean" % "2.7.3",
   "javax.persistence" % "persistence-api" % "1.0.2"
 )
+
+//libraryDependencies ++= Seq(
+//  "com.typesafe.play" % "play-ebean_4.0.6" % "3.0.0"
+//)
+
+playEbeanModels in Compile := Seq("models.*")
+playEbeanDebugLevel := 4

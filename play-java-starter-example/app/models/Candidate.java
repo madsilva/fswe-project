@@ -14,6 +14,8 @@ import play.data.validation.Constraints;
 //import com.avaje.ebean.Model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.Constraint;
+
 import io.ebean.*;
 
 
@@ -44,12 +46,22 @@ public class Candidate extends Model{
         return party;
     }
 
+    public String getPrecinct(){
+        return precinct;
+    }
+
+    public void setPrecinct(String precinct) {
+        this.precinct = precinct;
+    }
+
     @Constraints.Required
     public String firstname;
     @Constraints.Required
     public String lastname;
     @Constraints.Required
     public String party;
+    @Constraints.Required
+    public String precinct;
 
     public static Finder<String, Candidate> find = new Finder<>(Candidate.class);
 }
