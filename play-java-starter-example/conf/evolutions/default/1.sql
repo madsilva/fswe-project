@@ -10,6 +10,12 @@ create table candidate (
   precinct                      varchar(255)
 );
 
+create table election (
+  election_type                  varchar(255),
+  state                         varchar(255),
+  election_id                    varchar(255)
+);
+
 create table login_data (
   username                      varchar(255) not null,
   password                      varchar(255),
@@ -58,6 +64,8 @@ create table voter_registration (
 # --- !Downs
 
 drop table if exists candidate;
+
+drop table if exists election;
 
 drop table if exists login_data;
 
