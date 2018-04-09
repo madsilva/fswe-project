@@ -67,6 +67,35 @@ public class HomeController extends Controller{
         }
     }
 
+    // Function for User Logging
+    public Result userlogin(){
+        System.out.println("User Login Function hit");
+
+        Form<LoginData> loginForm = formFactory.form(LoginData.class).bindFromRequest();
+        LoginData loginCredentials = loginForm.get();
+
+
+        System.out.println(loginCredentials.username);
+        System.out.println(DigestUtils.md5Hex(loginCredentials.password));
+        LoginData login = LoginData.find.query().where().eq("username", loginCredentials.username).eq("password", DigestUtils.md5Hex(loginCredentials.password)).findUnique();
+
+        if (login == null){
+            return ok(error.render("User Not Found"));
+        }
+        else{
+            if (login.priviledge.matches("admin")){
+                session("connected", loginForm.get().username);
+                session("admin", loginForm.get().username);
+                return ok(admin.render(loginForm.get().username));
+            }
+            else{
+                System.out.println("User Logged In"+login.priviledge);
+                session("connected", loginForm.get().username);
+                return ok(profile.render(loginForm.get().username,false));
+            }
+        }
+    }
+
     public Result create(){
         String user = session("connected");
         if (user == null){
@@ -141,11 +170,13 @@ public class HomeController extends Controller{
 
     public Result admin(){
         String user = session("connected");
-        System.out.println("Admin hit");
-        if(user != null) {
+        String account = session("admin");
+
+        System.out.println("Admin hit"+user);
+        if((user != null) && (account != null)) {
             //Form<VoterRegistration> voterForm = formFactory.form(VoterRegistration.class).bindFromRequest();
-            VoterRegistration voterRegistrationInfo = VoterRegistration.find.query().where().eq("username", user).findUnique();
-            System.out.println("Approved query is "+voterRegistrationInfo.username+voterRegistrationInfo.approved);
+            //VoterRegistration voterRegistrationInfo = VoterRegistration.find.query().where().eq("username", user).findUnique();
+            //System.out.println("Approved query is "+voterRegistrationInfo.username+voterRegistrationInfo.approved);
             System.out.println("Admin hit if case");
             return ok(admin.render(user));
         } else {
@@ -191,38 +222,6 @@ public class HomeController extends Controller{
 
     public Result error(){
         return ok(error.render("error"));
-    }
-
-    public Result userlogin(){
-        System.out.println("User Login Function hit");
-
-        Form<LoginData> loginForm = formFactory.form(LoginData.class).bindFromRequest();
-        LoginData loginCredentials = loginForm.get();
-        System.out.println("UserDetails are");
-
-
-        System.out.println(loginCredentials.username);
-        System.out.println(DigestUtils.md5Hex(loginCredentials.password));
-        LoginData login = LoginData.find.query().where().eq("username", loginCredentials.username).eq("password", DigestUtils.md5Hex(loginCredentials.password)).findUnique();
-
-        if (login == null){
-            System.out.println("User Not Found");
-            return ok(error.render("User Not Found"));
-//            Form<LoginData> loginForm2 = formFactory.form(LoginData.class);
-//            return badRequest(login.render(loginForm2));
-        }
-        else{
-            if (login.priviledge.matches("admin")){
-                session("connected", loginForm.get().username);
-                return ok(admin.render(loginForm.get().username));
-            }
-            else{
-                System.out.println("User Logged In"+login.priviledge);
-                session("connected", loginForm.get().username);
-                return ok(profile.render(loginForm.get().username,false));
-            }
-        }
-
     }
 
     public Result update(String username){
