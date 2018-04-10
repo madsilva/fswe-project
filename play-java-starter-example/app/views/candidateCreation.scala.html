@@ -1,4 +1,4 @@
-@(candidateForm : Form[Candidate])
+@(candidateForm : Form[Candidate], electionid: ArrayList[String], precinctid: ArrayList[String], message: String)
 @import helper._
 
 
@@ -18,6 +18,7 @@
     <div class="container">
         <div class="row vertical-offset-30">
             <div class="col-md-4 col-md-offset-4">
+                @message
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">Voter Registration</h3>
@@ -36,8 +37,38 @@
                                 }
                                 </div>
                                 <div class="form-group">
-                                @helper.input(candidateForm("Party")){ (id, name, value, args) =>
-                                    <input class="form-control" placeholder="" name="party" type="text" value="">
+                                    @helper.input(candidateForm("Party")){ (id, name, value, args) =>
+                                        <select name="party">
+                                            <option name="democrats">Democrats</option>
+                                            <option name="republican">Republican</option>
+                                        </select>
+                                    }
+                                </div>
+                                <div class="form-group">
+                                @helper.input(candidateForm("ElectionID")){ (id, name, value, args) =>
+                                  <select name="electionID">
+                                      @for(id <- electionid){
+                                          <option value=@id>@id</option>
+                                      }
+                                  </select>
+                                }
+                                </div>
+                                <div class="form-group">
+                                @helper.input(candidateForm("Precinct")){ (id, name, value, args) =>
+                                    <select name="precinct">
+                                        @for(id <- precinctid){
+                                            <option value=@id>@id</option>
+                                        }
+                                    </select>
+                                }
+                                </div>
+                                <div class="form-group">
+                                @helper.input(candidateForm("position")){ (id, name, value, args) =>
+                                    <select name="position">
+                                        <option value="senator">Senator</option>
+                                        <option value="city representative">City Representative</option>
+                                        <option value="state representative">State Representative</option>
+                                    </select>
                                 }
                                 </div>
                                 <input class="btn btn-lg btn-success btn-block" type="submit" value="Create">

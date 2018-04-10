@@ -54,6 +54,22 @@ public class Candidate extends Model{
         this.precinct = precinct;
     }
 
+    public String getElectionID(){
+        return electionID;
+    }
+
+    public void setElectionID(String electionID){
+        this.electionID = electionID;
+    }
+
+    public String getPosition(){
+        return position;
+    }
+
+    public void setPosition(String position){
+        this.position = position;
+    }
+
     @Constraints.Required
     public String firstname;
     @Constraints.Required
@@ -62,6 +78,12 @@ public class Candidate extends Model{
     public String party;
     @Constraints.Required
     public String precinct;
+
+    @Constraints.Required
+    public String electionID;
+
+    @Constraints.Required
+    public String position;
 
     public static Finder<String, Candidate> find = new Finder<>(Candidate.class);
 }

@@ -45,6 +45,11 @@ POST    /candidate                      controllers.AdminController.saveCandidat
 
 GET     /candidatelist                  controllers.AdminController.candidateList
 
+GET     /election                       controllers.ElectionController.election
+POST    /election                       controllers.ElectionController.saveElection
+
+GET     /electionlist                   controllers.ElectionController.electionList
+
 GET     /resetPassword                  controllers.HomeController.resetPassword
 
 GET     /updatepassword                 controllers.HomeController.updatepasswordtoken()
