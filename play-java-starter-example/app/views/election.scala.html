@@ -23,11 +23,15 @@
                         <h3 class="panel-title">Voter Registration</h3>
                     </div>
                     <div class="panel-body">
-                        @helper.form(action= helper.CSRF(routes.Election.saveElection())){
+                        @helper.form(action= helper.CSRF(routes.ElectionController.saveElection())){
                             <fieldset>
                                 <div class="form-group">
                                 @helper.input(electionForm("Election Type")){ (id, name, value, args) =>
-                                    <input class="form-control" placeholder="" name="electionType" type="text" value="">
+                                    <!--<input class="form-control" placeholder="" name="electionType" type="text" value="">-->
+                                    <select name="electionType">
+                                        <option value="StateElection">State Election</option>
+                                        <option value="StateElection">Presedential Election</option>
+                                    </select>
                                 }
                                 </div>
                                 <div class="form-group">
@@ -90,7 +94,7 @@
                                 </div>
                                 <div class="form-group">
                                 @helper.input(electionForm("electionID")){ (id, name, value, args) =>
-                                    <input class="form-control" placeholder="" name="electionID" type="text" value="">
+                                    <input class="form-control" placeholder="6 digit unique ID" name="electionID" type="text" value="">
                                 }
                                 </div>
                                 <input class="btn btn-lg btn-success btn-block" type="submit" value="Create">

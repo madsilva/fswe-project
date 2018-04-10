@@ -35,7 +35,7 @@ import views.html.*;
  * This controller contains an action to handle HTTP requests
  * to the application's home page.
  */
-public class HomeController extends Controller{
+public class ElectionController extends Controller{
 
     /**
      * An action that renders an HTML page with a welcome message.
@@ -57,7 +57,35 @@ public class HomeController extends Controller{
         Form<Election> electionForm = formFactory.form(Election.class).bindFromRequest();
         Election election = electionForm.get();
         election.save();
-        return ok(admin.render(session("connected")));
+
+        ArrayList<String> electionid = new ArrayList<String>();
+        electionid.add(election.electionID);
+
+        List<Precinct> precinct = Precinct.find.all();
+        ArrayList<String> precinctid = new ArrayList<String>();
+        for (Precinct id: precinct){
+            precinctid.add(id.precinctID);
+        }
+        Set<String> hs = new HashSet<>();
+        hs.addAll(precinctid);
+        precinctid.clear();
+        precinctid.addAll(hs);
+
+        for(String variable : electionid){
+            // Saving the ballot
+            Ballots ballot = new Ballots();
+            ballot.precinct = variable;
+            ballot.electionID = election.electionID;
+            ballot.save();
+        }
+
+
+
+
+        String message = "";
+
+        Form<Candidate> candidateForm = formFactory.form(Candidate.class);
+        return ok(candidateCreation.render(candidateForm, electionid, precinctid, message));
     }
 
     public Result electionList() {

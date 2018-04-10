@@ -3,17 +3,26 @@
 
 # --- !Ups
 
+create table ballots (
+  precinct                      varchar(255) not null,
+  election_id                   varchar(255),
+  constraint pk_ballots primary key (precinct)
+);
+
 create table candidate (
   firstname                     varchar(255),
   lastname                      varchar(255),
   party                         varchar(255),
-  precinct                      varchar(255)
+  precinct                      varchar(255),
+  election_id                   varchar(255),
+  position                      varchar(255)
 );
 
 create table election (
-  election_type                  varchar(255),
+  election_id                   varchar(255) not null,
+  election_type                 varchar(255),
   state                         varchar(255),
-  election_id                    varchar(255)
+  constraint pk_election primary key (election_id)
 );
 
 create table login_data (
@@ -62,6 +71,8 @@ create table voter_registration (
 
 
 # --- !Downs
+
+drop table if exists ballots;
 
 drop table if exists candidate;
 
