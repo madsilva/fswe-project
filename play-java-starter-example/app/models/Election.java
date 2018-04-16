@@ -2,6 +2,7 @@ package models;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Date;
 import play.data.validation.Constraints;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -21,9 +22,9 @@ public class Election extends Model{
     public String electionID;
 
     @Constraints.Required
-    public String startDate;
+    public Date startDate;
     @Constraints.Required
-    public String endDate;
+    public Date endDate;
 
     public static Finder<String, Election> find = new Finder<>(Election.class);
 }
