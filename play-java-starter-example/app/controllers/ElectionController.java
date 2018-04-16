@@ -89,5 +89,9 @@ public class ElectionController extends Controller{
         List<Election> elections = Election.find.all();
         return ok(electionList.render(elections));
     }
+
+    public Result voterElectionsView() {
+        return ok(voterElectionView.render());
+    }
 }
 
