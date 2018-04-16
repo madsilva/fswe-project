@@ -20,6 +20,10 @@ public class Election extends Model{
     @Id
     public String electionID;
 
+    @Constraints.Required
+    public String startDate;
+    @Constraints.Required
+    public String endDate;
 
     public static Finder<String, Election> find = new Finder<>(Election.class);
 }
