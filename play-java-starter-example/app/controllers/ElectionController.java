@@ -94,7 +94,7 @@ public class ElectionController extends Controller{
     public Result voterElectionsView() {
         LocalDate today = LocalDate.now();
 
-        List<Election> ongoingElections = Election.find.query().where().ge("end_date", today.minusDays(1)).findList();
+        List<Election> ongoingElections = Election.find.query().where().ge("end_date", today.minusDays(1)).le("start_date", today.minusDays(1)).findList();
 
         return ok(voterElectionView.render(ongoingElections));
     }
