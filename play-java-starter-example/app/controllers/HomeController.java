@@ -4,7 +4,7 @@ import com.avaje.ebean.EbeanServer;
 import play.mvc.*;
 import java.lang.String;
 
-import sun.java2d.pipe.SpanShapeRenderer;
+//import sun.java2d.pipe.SpanShapeRenderer;
 import views.html.*;
 import models.*;
 import javax.inject.Inject;
@@ -441,9 +441,9 @@ public class HomeController extends Controller{
 
         // Sending the Link to the User email id
         String link = "http://localhost:9000/password/resetpassword/"+saltStr;
-        MailGenerator mail = new MailGenerator();
+        /**MailGenerator mail = new MailGenerator();
         mail.sendEmail(username," ","Hello", "Reset Password Link"," ", link);
-
+**/
 
 
         Form<LoginData> loginForm = formFactory.form(LoginData.class);

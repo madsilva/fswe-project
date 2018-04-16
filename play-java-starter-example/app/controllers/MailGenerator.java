@@ -1,3 +1,4 @@
+/**
 package controllers;
 
 import akka.routing.FromConfig;
@@ -68,6 +69,7 @@ public class MailGenerator {
                 sendEmail(emailTO, emailCC, salutation, subject, attachmentLocation, filename);
             }
         }*/
+/**
     }
 
     public boolean sendEmail(String emailTO, String emailCC, String salutation, String subject,
@@ -171,4 +173,4 @@ public class MailGenerator {
         }
         return result;
     }
-}
+}**/
