@@ -35,6 +35,74 @@ public class AdminController extends Controller {
     @Inject
     FormFactory formFactory;
 
+    public Result admin(){
+        String user = session("connected");
+        String account = session("admin");
+
+        System.out.println("Admin hit"+user);
+        if((user != null) && (account != null)) {
+            //Form<VoterRegistration> voterForm = formFactory.form(VoterRegistration.class).bindFromRequest();
+            //VoterRegistration voterRegistrationInfo = VoterRegistration.find.query().where().eq("username", user).findUnique();
+            //System.out.println("Approved query is "+voterRegistrationInfo.username+voterRegistrationInfo.approved);
+            System.out.println("Admin hit if case");
+            return ok(admin.render(user));
+        } else {
+            System.out.println("Admin hit else case");
+            return ok(error.render("User not Signed in"));
+        }
+    }
+
+    public Result approval(){
+        List<VoterRegistration> voterInfo = VoterRegistration.find.query().where().eq("approved", false).findList();
+        List<String> unapprovedNames = new ArrayList<String>();
+
+        for(VoterRegistration voter : voterInfo){
+            unapprovedNames.add(voter.username);
+        }
+
+        return ok(approval.render(unapprovedNames));
+    }
+
+
+
+    public Result update(String username){
+        //VoterRegistration voterRegistrationInfo = VoterRegistration.find.query().where().eq("username", username).findUnique();
+        VoterRegistration voterRegistrationInfo = VoterRegistration.find.byId(username);
+        voterRegistrationInfo.setApproved(true);
+        //voterRegistrationInfo.approved = true;
+        voterRegistrationInfo.update();
+        System.out.println("*************THE EBEAN SERVER IS 1*************");
+        //EbeanServer ebs = Ebean.getServer("default");
+        System.out.println("*************THE EBEAN SERVER IS 2*************");
+        //System.out.println(ebs);
+        //Ebean.save(voterRegistrationInfo);
+        //voterRegistrationInfo.save();
+
+        List<VoterRegistration> voterInfo = VoterRegistration.find.query().where().eq("approved", false).findList();
+        List<String> unapprovedNames = new ArrayList<String>();
+
+        for(VoterRegistration voter : voterInfo){
+            unapprovedNames.add(voter.username);
+        }
+
+        return ok(approval.render(unapprovedNames));
+    }
+
+    public Result destroy(String username){
+        //VoterRegistration approvedVoter = VoterRegistration.find.query().where().eq("username", username).findUnique();
+        VoterRegistration approvedVoter = VoterRegistration.find.byId(username);
+        approvedVoter.delete();
+
+        List<VoterRegistration> voterInfo = VoterRegistration.find.query().where().eq("approved", false).findList();
+        List<String> unapprovedNames = new ArrayList<String>();
+
+        for(VoterRegistration voter : voterInfo){
+            unapprovedNames.add(voter.username);
+        }
+
+        return ok(approval.render(unapprovedNames));
+    }
+
     public Result candidate() {
         Form<Candidate> candidateForm = formFactory.form(Candidate.class);
         System.out.println("Candidate Function hit");

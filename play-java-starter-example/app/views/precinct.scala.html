@@ -8,8 +8,7 @@
         </div>
         <ul class="nav navbar-nav">
             <li><a href=@routes.HomeController.index>Home</a></li>
-            <li><a href=@routes.HomeController.voterRegistration()>Voter Registration</a></li>
-            <li><a href=@routes.HomeController.profile>Profile</a></li>
+            <li><a href=@routes.HomeController.profile>Dashboard</a></li>
             <li><a href=@routes.HomeController.logout()>Logout</a></li>
         </ul>
     </nav>
@@ -37,13 +36,13 @@
                     <td>@value</td>
                     <td>
                             <fieldset>
-                                <a href=@routes.HomeController.deleteprecinct(key)>
+                                <a href=@routes.PrecinctController.deleteprecinct(key)>
                                     <input class="btn btn-sm btn-danger btn-block" type="button" value="delete">
                                 </a>
                             </fieldset>
                     </td>
                     <td>
-                        <a href=@routes.HomeController.addprecinct(key)>
+                        <a href=@routes.PrecinctController.addprecinct(key)>
                             <input class="btn btn-sm btn-success btn-block" type="button" value="add">
                         </a>
                     </td>

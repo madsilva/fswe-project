@@ -7,8 +7,7 @@
         </div>
         <ul class="nav navbar-nav">
             <li><a href=@routes.HomeController.index>Home</a></li>
-            <li><a href=@routes.HomeController.voterRegistration()>Voter Registration</a></li>
-            <li><a href=@routes.HomeController.profile>Profile</a></li>
+            <li><a href=@routes.HomeController.profile>Dashboard</a></li>
             <li><a href=@routes.HomeController.logout()>Logout</a></li>
         </ul>
     </nav>
@@ -25,7 +24,7 @@
             <tr>
                 <td>@person</td>
                 <td>
-                    @helper.form(action= helper.CSRF(routes.HomeController.update(person))){
+                    @helper.form(action= helper.CSRF(routes.AdminController.update(person))){
                         <fieldset>
                             <input class="btn btn-sm btn-success btn-block" type="submit" value="Approve">
                         </fieldset>
@@ -33,7 +32,7 @@
                     </form>
                 </td>
                 <td>
-                    @helper.form(action= helper.CSRF(routes.HomeController.destroy(person))){
+                    @helper.form(action= helper.CSRF(routes.AdminController.destroy(person))){
                         <fieldset>
                             <input class="btn btn-sm btn-danger btn-block" type="submit" value="Delete">
                         </fieldset>

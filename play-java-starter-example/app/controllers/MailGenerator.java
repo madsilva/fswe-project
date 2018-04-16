@@ -1,4 +1,4 @@
-/**
+/*
 package controllers;
 
 import akka.routing.FromConfig;
@@ -48,7 +48,8 @@ public class MailGenerator {
     }
 
     private void processEmail(HashMap<String, String> emailMap) {
-        /*for (String key : emailMap.keySet()) {
+        */
+/*for (String key : emailMap.keySet()) {
             String value[] = emailMap.get(key).split(",");
             ArrayList<Object> temp = checkDate(value);
             boolean itIsTime = false;
@@ -68,8 +69,8 @@ public class MailGenerator {
                 String filename = key + ".csv";
                 sendEmail(emailTO, emailCC, salutation, subject, attachmentLocation, filename);
             }
-        }*/
-/**
+        }*//*
+
     }
 
     public boolean sendEmail(String emailTO, String emailCC, String salutation, String subject,
@@ -173,4 +174,5 @@ public class MailGenerator {
         }
         return result;
     }
-}**/
+}
+*/

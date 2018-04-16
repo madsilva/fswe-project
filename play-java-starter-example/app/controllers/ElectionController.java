@@ -79,9 +79,6 @@ public class ElectionController extends Controller{
             ballot.save();
         }
 
-
-
-
         String message = "";
 
         Form<Candidate> candidateForm = formFactory.form(Candidate.class);
