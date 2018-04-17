@@ -1,0 +1,73 @@
+@(searchform : Form[Search], list: List[String])
+@import helper._
+
+@layout("Approval"){
+    <div class="custom-container">
+        <div class="row w-row">
+            <div class="w-col w-col-6">
+                <h2>Users</h2>
+            </div>
+            <div class="w-col w-col-6">
+                @helper.form(action= helper.CSRF(routes.AdminController.search())){
+                    <fieldset>
+                        <div class="row-2 w-row">
+                            <div class="searchcolumn w-col w-col-4">
+                                <div class="form-group">
+                                @helper.input(searchform("")){ (id, name, value, args) =>
+                                    <input class="form-control" placeholder="Search Criteria" name="criteria" type="text">
+                                }
+                                </div>
+                            </div>
+                            <div class="searchcolumn w-col w-col-4">
+                                <div class="form-group">
+                                @helper.input(searchform("")){ (id, name, value, args) =>
+                                    <select name="sqlColumn">
+                                        <option name="username">username</option>
+                                        <option name="zip">zip code</option>
+                                        <option name="approved">approved</option>
+                                        <option name="state">state</option>
+                                    </select>
+                                }
+                                </div>
+                            </div>
+                            <div class="searchcolumn w-col w-col-4">
+                                <input class="btn btn-sm btn-block" type="submit" value="Search">
+                            </div>
+                        </div>
+
+                    </fieldset>
+                }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-7">
+
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Username</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @for(person <- list){
+                    <tr>
+                        <td>@person</td>
+                        <td>
+                            @helper.form(action= helper.CSRF(routes.AdminController.destroy(person))){
+                                <fieldset>
+                                    <input class="btn btn-sm btn-danger btn-block" type="submit" value="Delete">
+                                </fieldset>
+                            }
+                        </form>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+}
