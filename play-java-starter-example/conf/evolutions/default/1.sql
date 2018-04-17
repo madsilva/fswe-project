@@ -22,6 +22,8 @@ create table election (
   election_id                   varchar(255) not null,
   election_type                 varchar(255),
   state                         varchar(255),
+  start_date                    datetime(6),
+  end_date                      datetime(6),
   constraint pk_election primary key (election_id)
 );
 

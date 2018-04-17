@@ -12,7 +12,8 @@ import play.data.*;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import java.util.*;
-
+import java.util.Date;
+import java.time.LocalDate;
 
 //
 import io.ebean.*;
@@ -88,6 +89,14 @@ public class ElectionController extends Controller{
     public Result electionList() {
         List<Election> elections = Election.find.all();
         return ok(electionList.render(elections));
+    }
+
+    public Result voterElectionsView() {
+        LocalDate today = LocalDate.now();
+
+        List<Election> ongoingElections = Election.find.query().where().ge("end_date", today.minusDays(1)).le("start_date", today.minusDays(1)).findList();
+
+        return ok(voterElectionView.render(ongoingElections));
     }
 }
 
