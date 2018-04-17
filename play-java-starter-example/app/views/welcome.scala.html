@@ -2,17 +2,6 @@
 
 @layout("Home Page"){
 
-    <nav class="navbar navbar-inverse navbar-fixed-top ">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">Voting Portal</a>
-        </div>
-        <ul class="nav navbar-nav">
-            <li><a href=@routes.HomeController.index>Home</a></li>
-            <li><a href=@routes.HomeController.login>Login</a></li>
-            <li><a href=@routes.HomeController.create()>Sign Up</a></li>
-        </ul>
-    </nav>
-
     <div id="content" class="wrapper doc">
         <div class="row vertical-offset-50">
             <article>
@@ -23,7 +12,7 @@
                     Congratulations, you’ve just created a new Play application. This page will help you with the next few steps.
                 </p>
 
-                <div class="container">
+                <div class="custom-container">
                     <div class="row">
                         <div class="col-md-4">
                             <h3><a href=@routes.HomeController.profile>Profile</a></h3>
