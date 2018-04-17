@@ -7,6 +7,8 @@
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap-theme.min.css")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/webflow.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/custom.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,11 +17,41 @@
     </head>
 
     <body>
+        <div>
+            <div class="div-block">
+                <div class="w-row">
+                    <div class="w-col w-col-6">
+                        <h1 class="heading">Voting Portal</h1>
+                    </div>
+                    <div class="w-col w-col-6">
+                        <ul class="nav navbar-nav">
+                            <li><a href=@routes.HomeController.index>Home</a></li>
+                            <li><a href=@routes.HomeController.voterRegistration()>Voter Registration</a></li>
+                            <li><a href=@routes.HomeController.profile>Profile</a></li>
+                            <li><a href=@routes.AdminController.admin>Admin</a></li>
+                            <li><a href=@routes.HomeController.logout()>Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
 
-
-        <div class="container">
-            @body
+            </div>
         </div>
+
+        @*<nav class="navbar navbar-inverse">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Voting Portal</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href=@routes.HomeController.index>Home</a></li>
+                <li><a href=@routes.HomeController.voterRegistration()>Voter Registration</a></li>
+                <li><a href=@routes.HomeController.profile>Profile</a></li>
+                <li><a href=@routes.AdminController.admin>Admin</a></li>
+                <li><a href=@routes.HomeController.logout()>Logout</a></li>
+            </ul>
+        </nav>*@
+
+        @body
+
 
 
             <!-- Loading jquery, Bootstrap & hello(custom) JS files  -->

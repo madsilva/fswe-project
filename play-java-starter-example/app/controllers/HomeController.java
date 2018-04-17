@@ -138,6 +138,7 @@ public class HomeController extends Controller{
         String user = session("connected");
         if(user != null){
             VoterRegistration voterRegistrationInfo = VoterRegistration.find.query().where().eq("username", user).findUnique();
+
             if (voterRegistrationInfo != null){
                 return ok(error.render("You have Already applied for Voter Registration"));
             }
