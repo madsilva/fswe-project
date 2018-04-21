@@ -43,6 +43,10 @@ GET     /precinct/add                   controllers.HomeController.addPrecinctTo
 GET     /candidate                      controllers.AdminController.candidate
 POST    /candidate                      controllers.AdminController.saveCandidate
 
+GET     /candidate/uploadlist           controllers.AdminController.uploadCandidate
+
+POST    /savecandidate                  controllers.AdminController.saveCandidateList
+
 GET     /candidatelist                  controllers.AdminController.candidateList
 
 GET     /election                       controllers.ElectionController.election
@@ -57,3 +61,5 @@ GET     /updatepassword                 controllers.HomeController.updatepasswor
 GET     /password/resetpassword/:token  controllers.HomeController.updatepassword(token : String)
 
 GET     /password/changepassword        controllers.HomeController.changepassword()
+
+
