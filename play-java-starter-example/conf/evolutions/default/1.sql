@@ -43,6 +43,12 @@ create table precinct (
   constraint pk_precinct primary key (zip)
 );
 
+create table search (
+  sql_column                    varchar(255) not null,
+  criteria                      varchar(255),
+  constraint pk_search primary key (sql_column)
+);
+
 create table state_geography (
   state                         varchar(255),
   zip                           varchar(255),
@@ -83,6 +89,8 @@ drop table if exists election;
 drop table if exists login_data;
 
 drop table if exists precinct;
+
+drop table if exists search;
 
 drop table if exists state_geography;
 

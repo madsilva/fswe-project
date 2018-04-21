@@ -165,6 +165,47 @@ public class AdminController extends Controller {
         return ok(candidateList.render(candidates));
     }
 
+    public Result searchUsers(){
+        Form<Search> searchForm = formFactory.form(Search.class);
+        System.out.println("Search Users Function hit");
+
+        List<String> voterNames = new ArrayList<String>();
+
+        return ok(userSearch.render(searchForm, voterNames));
+    }
+
+    public Result search(){
+        Form<Search> searchForm = formFactory.form(Search.class).bindFromRequest();
+        Search searchInfo = searchForm.get();
+
+        String criteria = searchInfo.criteria;
+        String sqlColumn = searchInfo.sqlColumn;
+
+        List<VoterRegistration> voterInfo = new ArrayList<>();
+
+        if (sqlColumn.equals("approved") && (criteria.equals("true") || criteria.equals("yes"))){
+            voterInfo = VoterRegistration.find.query().where().eq("approved", true).findList();
+        }
+        else if (sqlColumn.equals("approved") && (criteria.equals("false") || criteria.equals("no"))){
+            voterInfo = VoterRegistration.find.query().where().eq("approved", false).findList();
+        }
+        else if (sqlColumn.equals("zip code")){
+            sqlColumn = "zip_code";
+            voterInfo = VoterRegistration.find.query().where().eq(sqlColumn, criteria).findList();
+        }
+        else{
+            voterInfo = VoterRegistration.find.query().where().eq(sqlColumn, criteria).findList();
+        }
+
+        List<String> voterNames = new ArrayList<String>();
+
+        for(VoterRegistration voter : voterInfo){
+            voterNames.add(voter.username);
+        }
+
+        return ok(userSearch.render(searchForm,voterNames));
+    }
+
     public Result uploadCandidate(){
         return ok(uploadCandidate.render(" "));
     }
