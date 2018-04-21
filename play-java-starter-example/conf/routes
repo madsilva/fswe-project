@@ -51,3 +51,6 @@ GET     /password/resetpassword/:token  controllers.HomeController.updatepasswor
 GET     /password/changepassword        controllers.HomeController.changepassword()
 
 GET     /voter_elections                controllers.ElectionController.voterElectionsView()
+
+GET     /search_users                   controllers.AdminController.searchUsers()
+POST    /search                         controllers.AdminController.search()
