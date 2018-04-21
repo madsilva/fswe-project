@@ -29,7 +29,14 @@
                             <li><a href=@routes.HomeController.voterRegistration()>Voter Registration</a></li>
                             <li><a href=@routes.HomeController.profile>Profile</a></li>
                             <li><a href=@routes.AdminController.admin>Admin</a></li>
-                            <li><a href=@routes.HomeController.logout()>Logout</a></li>
+                            @{if (title.equals("Login Page") || title.equals("Sign Up Page"))
+                                {
+                                }
+                                else{
+                                    <li><a href="@routes.HomeController.logout">Logout</a></li>
+                                    }
+                                }
+
                         </ul>
                     </div>
                 </div>

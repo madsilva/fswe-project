@@ -263,8 +263,7 @@ public class AdminController extends Controller {
                 System.exit(1);
             }
 
-
-            return ok(uploadCandidate.render("Candidates Successfully Saved!!!"));
+            return ok(uploadCandidate.render("Election is Created, Candidates Saved Successfully!!!"));
         } else {
             flash("error", "Missing file");
             return badRequest();

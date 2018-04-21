@@ -2,30 +2,26 @@
 @import helper._
 
 @layout("Profile Page"){
-    <nav class="navbar navbar-inverse">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">Upload Candidates</a>
+
+    <div class="form-section">
+        <div class="form-container w-container">
+            <div class="form-div">
+                <h2>Upload Candidates(CSV file)</h2>
+                <br>
+
+                <br>
+                @form(action = helper.CSRF(routes.AdminController.saveCandidateList()), 'enctype -> "multipart/form-data") {
+                    <input type="file" name="candidatelist">
+                    <br>
+                    <p>
+                        <input type="submit">
+                    </p>
+                }
+
+                <br>
+                <br>
+                <h3>@message</h3>
+            </div>
         </div>
-        <ul class="nav navbar-nav">
-            <li><a href=@routes.HomeController.index>Home</a></li>
-            <li><a href=@routes.HomeController.voterRegistration()>Voter Registration</a></li>
-            <li><a href=@routes.HomeController.profile>Profile</a></li>
-            <li><a href=@routes.HomeController.logout()>Logout</a></li>
-        </ul>
-    </nav>
-
-    <h2>Upload Candidates(CSV file)</h2>
-    <br>
-
-    <br>
-    @form(action = helper.CSRF(routes.AdminController.saveCandidateList()), 'enctype -> "multipart/form-data") {
-        <input type="file" name="candidatelist">
-        <p>
-            <input type="submit">
-        </p>
-    }
-
-    <br>
-    <br>
-    <h3>@message</h3>
+    </div>
 }
