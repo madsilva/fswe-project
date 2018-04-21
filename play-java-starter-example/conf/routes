@@ -25,20 +25,17 @@ GET     /logout                         controllers.HomeController.logout
 
 GET     /error                          controllers.HomeController.error
 
-GET     /admin                          controllers.HomeController.admin
+GET     /admin                          controllers.AdminController.admin
 
-GET     /approval                       controllers.HomeController.approval
-POST    /approval/:username             controllers.HomeController.update(username: String)
-POST    /approval/delete/:username      controllers.HomeController.destroy(username: String)
+GET     /approval                       controllers.AdminController.approval
+POST    /approval/:username             controllers.AdminController.update(username: String)
+POST    /approval/delete/:username      controllers.AdminController.destroy(username: String)
 
-GET     /precinct                       controllers.HomeController.precinct
-GET     /deleteprecinct                 controllers.HomeController.deleteprecinct(precinctpassed: String)
-
-GET     /precinct                       controllers.HomeController.removeprecinct
-
-GET     /addprecinct                    controllers.HomeController.addprecinct(precinctpassed: String)
-
-GET     /precinct/add                   controllers.HomeController.addPrecinctToTable
+GET     /precinct                       controllers.PrecinctController.precinct
+GET     /deleteprecinct                 controllers.PrecinctController.deleteprecinct(precinctpassed: String)
+GET     /precinct                       controllers.PrecinctController.removeprecinct
+GET     /addprecinct                    controllers.PrecinctController.addprecinct(precinctpassed: String)
+GET     /precinct/add                   controllers.PrecinctController.addPrecinctToTable
 
 GET     /candidate                      controllers.AdminController.candidate
 POST    /candidate                      controllers.AdminController.saveCandidate
@@ -51,15 +48,13 @@ GET     /candidatelist                  controllers.AdminController.candidateLis
 
 GET     /election                       controllers.ElectionController.election
 POST    /election                       controllers.ElectionController.saveElection
-
 GET     /electionlist                   controllers.ElectionController.electionList
 
 GET     /resetPassword                  controllers.HomeController.resetPassword
-
 GET     /updatepassword                 controllers.HomeController.updatepasswordtoken()
-
 GET     /password/resetpassword/:token  controllers.HomeController.updatepassword(token : String)
-
 GET     /password/changepassword        controllers.HomeController.changepassword()
 
 
+
+GET     /voter_elections                controllers.ElectionController.voterElectionsView()

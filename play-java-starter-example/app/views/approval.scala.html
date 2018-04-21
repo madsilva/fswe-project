@@ -1,47 +1,42 @@
 @(list: List[String])
 
-@layout("Profile Page"){
-    <nav class="navbar navbar-inverse">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">Voting Portal</a>
+@layout("Approval"){
+    <div class="custom-container">
+        <div class="col-md-7">
+            <h2>Unapproved Voter Registrations</h2>
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Username</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @for(person <- list){
+                    <tr>
+                        <td>@person</td>
+                        <td>
+                            @helper.form(action= helper.CSRF(routes.AdminController.update(person))){
+                                <fieldset>
+                                    <input class="btn btn-sm btn-success btn-block" type="submit" value="Approve">
+                                </fieldset>
+                            }
+                        </form>
+                        </td>
+                        <td>
+                            @helper.form(action= helper.CSRF(routes.AdminController.destroy(person))){
+                                <fieldset>
+                                    <input class="btn btn-sm btn-danger btn-block" type="submit" value="Delete">
+                                </fieldset>
+                            }
+                        </form>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
         </div>
-        <ul class="nav navbar-nav">
-            <li><a href=@routes.HomeController.index>Home</a></li>
-            <li><a href=@routes.HomeController.voterRegistration()>Voter Registration</a></li>
-            <li><a href=@routes.HomeController.profile>Profile</a></li>
-            <li><a href=@routes.HomeController.logout()>Logout</a></li>
-        </ul>
-    </nav>
 
-    <table class="table">
-        <thead class="thead-dark">
-            <tr>
-                <th scope="col">Username</th>
-                <th scope="col">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-        @for(person <- list){
-            <tr>
-                <td>@person</td>
-                <td>
-                    @helper.form(action= helper.CSRF(routes.HomeController.update(person))){
-                        <fieldset>
-                            <input class="btn btn-sm btn-success btn-block" type="submit" value="Approve">
-                        </fieldset>
-                    }
-                    </form>
-                </td>
-                <td>
-                    @helper.form(action= helper.CSRF(routes.HomeController.destroy(person))){
-                        <fieldset>
-                            <input class="btn btn-sm btn-danger btn-block" type="submit" value="Delete">
-                        </fieldset>
-                    }
-                </form>
-                </td>
-            </tr>
-        }
-        </tbody>
-    </table>
+    </div>
+
 }

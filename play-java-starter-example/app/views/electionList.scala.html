@@ -1,35 +1,29 @@
 @(list: List[Election])
 
 @layout("Election Page"){
-    <nav class="navbar navbar-inverse">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">Voting Portal</a>
+    <div class="custom-container">
+        <h2>Available Elections</h2>
+        <div class="col-md-7">
+            <table class="table table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Election Type</th>
+                        <th scope="col">State</th>
+                        <th scope="col">Election ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @for(election <- list){
+                    <tr>
+                        <td>@election.electionType</td>
+                        <td>@election.state</td>
+                        <td>@election.electionID</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
         </div>
-        <ul class="nav navbar-nav">
-            <li><a href=@routes.HomeController.index>Home</a></li>
-            <li><a href=@routes.HomeController.voterRegistration()>Voter Registration</a></li>
-            <li><a href=@routes.HomeController.profile>Profile</a></li>
-            <li><a href=@routes.HomeController.logout()>Logout</a></li>
-        </ul>
-    </nav>
 
-    <h2>Candidates</h2>
-    <table class="table table-hover">
-        <thead class="thead-dark">
-            <tr>
-                <th scope="col">Election Type</th>
-                <th scope="col">State</th>
-                <th scope="col">Election ID</th>
-            </tr>
-        </thead>
-        <tbody>
-        @for(election <- list){
-            <tr>
-                <td>@election.electionType</td>
-                <td>@election.state</td>
-                <td>@election.electionID</td>
-            </tr>
-        }
-        </tbody>
-    </table>
+    </div>
+
 }

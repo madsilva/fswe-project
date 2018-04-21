@@ -2,27 +2,13 @@
 @import scala.Predef; var counter = 1
 
 @layout("Profile Page"){
-    <nav class="navbar navbar-inverse">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">Voting Portal</a>
-        </div>
-        <ul class="nav navbar-nav">
-            <li><a href=@routes.HomeController.index>Home</a></li>
-            <li><a href=@routes.HomeController.voterRegistration()>Voter Registration</a></li>
-            <li><a href=@routes.HomeController.profile>Profile</a></li>
-            <li><a href=@routes.HomeController.logout()>Logout</a></li>
-        </ul>
-    </nav>
-
-
-
     <div class="col-md-5">
         <div id="content" class="wrapper doc">
             <h2>
                 Select the ZIP-Codes to add in the @precinct
             </h2>
         </div>
-        <form action="@routes.HomeController.addPrecinctToTable">
+        <form action="@routes.PrecinctController.addPrecinctToTable">
             <table class="table table-hover">
                 <thead class="thead-dark">
                     <tr>

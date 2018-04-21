@@ -1,34 +1,15 @@
 @(username: String, approved: Boolean)
 
 @layout("Profile Page"){
-    <body>
-        <nav class="navbar navbar-inverse">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="#">Voting Portal</a>
-                </div>
-                <ul class="nav navbar-nav">
-                    <li><a href=@routes.HomeController.index>Home</a></li>
-                    <li><a href=@routes.HomeController.voterRegistration()>Voter Registration</a></li>
-                    <li class="active"><a href="#">Profile</a></li>
-                    <li><a href=@routes.HomeController.logout()>Logout</a></li>
-                </ul>
-        </nav>
-
-        <div class="jumbotron">
-            <div class="container">
-                <h1 class="display-3">Hello, @username</h1>
-                <p> Welcome to the online voting portal. You are in the [name of location/precinct here] precinct. From here, you will be able to update your voter registration, configure your profile settings, and vote on the current state and federal elections.</p>
-                <p> You currently have (voter/admin) privileges on this portal.</p>
-                <p>
-                    <a class="btn btn-primary btn-lg" role="button" href="#">Vote Now</a>
-                </p>
-            </div>
+    <div class="section">
+        <div class="container w-container">
+            <h2 class="display-3">Welcome, @username</h2>
+            <p>Welcome to the Voter Console. Be sure to make sure your registration is up to date and check for the current available elections.</p>
         </div>
-
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <h2><a href="#">Change Password</a></h2>
+        <div class="w-row">
+            <div class="w-col w-col-4">
+                <div class="div-block-2">
+                    <h3 class="heading-3">Change Password</h3>
                     <div>
                         <form action="/action_page.php">
                             <div class="form-group">
@@ -43,15 +24,15 @@
                         </form>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <h2><a href="#">Voter Information</a></h2>
-                    <p>
-                        @{if (approved) "Vote in the current election in your area!" else "User not Approved by the Admin"}
+            </div>
+            <div class="w-col w-col-4">
+                <div class="div-block-2">
+                    <h3 class="heading-3">Voter Information</h3>
+                    <p class="paragraph-item">
+                    @{if (approved) "Vote in the current election in your area!" else "User not Approved by the Admin"}
                     </p>
                 </div>
             </div>
         </div>
-
-    </body>
-
+    </div>
 }
