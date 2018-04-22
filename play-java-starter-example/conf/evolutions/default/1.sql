@@ -30,6 +30,7 @@ create table election (
 create table login_data (
   username                      varchar(255) not null,
   password                      varchar(255),
+  conf_password                 varchar(255),
   firstname                     varchar(255),
   lastname                      varchar(255),
   priviledge                    varchar(255),

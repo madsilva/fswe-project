@@ -1,0 +1,63 @@
+@(usrForm : Form[LoginData])
+@import helper._
+
+@layout("Create Managers"){
+    <div class="custom-container">
+        <div class="row vertical-offset-50">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Create New Admin/Manager</h3>
+                    </div>
+                    <div class="panel-body">
+                        @helper.form(action= helper.CSRF(routes.AdminController.saveadmin())){
+                            <fieldset>
+                                <div class="form-group">
+                                @helper.input(usrForm("First Name")){ (id, name, value, args) =>
+                                    <input class="form-control" placeholder="" name="firstname" type="text">
+                                }
+                                </div>
+                                <div class="form-group">
+                                @helper.input(usrForm("Last Name")){ (id, name, value, args) =>
+                                    <input class="form-control" placeholder="" name="lastname" type="text">
+                                }
+                                </div>
+                                <div class="form-group">
+                                @helper.input(usrForm("Username/Email")){ (id, name, value, args) =>
+                                    <input class="form-control" placeholder="" name="username" type="text">
+                                }
+                                </div>
+
+                                <div class="form-group">
+                                @helper.input(usrForm("Priviledge")){ (id, name, value, args) =>
+                                    <select name="priviledge">
+                                        <option value="admin">Admin</option>
+                                        <option value="manager">Manager</option>
+                                    </select>
+                                }
+                                </div>
+
+
+                                <div class="form-group">
+                                @helper.input(usrForm("Password")){ (id, name, value, args) =>
+                                    <input class="form-control" placeholder="" name="password" type="password" value="">
+                                }
+                                </div>
+
+                                <div class="form-group">
+                                @helper.input(usrForm("Confirm Password")){ (id, name, value, args) =>
+                                    <input class="form-control" placeholder="" name="confPassword" type="password" value="">
+                                }
+                                </div>
+
+
+                                <input class="btn btn-lg btn-success btn-block" type="submit" value="Submit">
+                            </fieldset>
+                        }
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
