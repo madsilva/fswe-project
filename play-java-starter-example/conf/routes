@@ -65,5 +65,7 @@ POST    /search                         controllers.AdminController.search()
 GET     /createadmin                    controllers.AdminController.createadmin
 POST    /createadmin                    controllers.AdminController.saveadmin
 
+GET     /electionresults                controllers.ElectionController.electionresults
+
 GET     /verify                         controllers.ElectionController.electionVerification
 POST    /verify                         controllers.ElectionController.verifyForElection
