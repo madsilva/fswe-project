@@ -1,6 +1,8 @@
 import akka.actor.ActorSystem;
+import controllers.AdminController;
 import controllers.AsyncController;
 import controllers.CountController;
+import controllers.HomeController;
 import org.junit.Test;
 import play.mvc.Result;
 import scala.concurrent.ExecutionContextExecutor;
@@ -8,8 +10,12 @@ import scala.concurrent.ExecutionContextExecutor;
 import java.util.concurrent.CompletionStage;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 import static org.awaitility.Awaitility.await;
 import static play.test.Helpers.contentAsString;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static play.mvc.Http.Status.OK;
 
 /**
  * Unit testing does not require Play application start up.
@@ -52,4 +58,21 @@ public class UnitTest {
         }
     }
 
+    //Unit test for Admin Controller Update method for updating the approval of the voter
+    @Test
+    public void testUpdateToken(){
+        final AdminController controller = new AdminController();
+        Result result = controller.update("nabeel-khan@uiowa.edu");
+        assertEquals(OK, result.status());
+    }
+
+    //Unit test for Admin Controller approval method
+    @Test
+    public void testApproval(){
+        final AdminController controller = new AdminController();
+        Result result = controller.approval();
+
+        assertEquals(OK, result.status());
+        assertTrue(contentAsString(result).contains("unapproved Voter Registrations"));
+    }
 }
