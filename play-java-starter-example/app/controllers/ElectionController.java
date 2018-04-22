@@ -98,5 +98,21 @@ public class ElectionController extends Controller{
 
         return ok(voterElectionView.render(ongoingElections));
     }
+
+    public Result electionVerification(){
+        Form<VoterVerification> verifyForm = formFactory.form(VoterVerification.class);
+        System.out.println("Election Verification Function hit");
+        return ok(verify.render(verifyForm));
+    }
+
+    public Result verifyForElection(){
+        Form<Search> verifyForm = formFactory.form(VoterVerification.class).bindFromRequest();
+        VoterVerification verifyInfo = verifyForm.get();
+
+        String criteria = searchInfo.criteria;
+        String sqlColumn = searchInfo.sqlColumn;
+
+        voterInfo = VoterRegistration.find.query().where().eq("approved", true).findList();
+    }
 }
 
