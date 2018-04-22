@@ -1,0 +1,43 @@
+@(verifyForm : Form[VoterVerification])
+@import helper._
+
+
+@layout("Verification Page"){
+    <div class="form-section">
+        <div class="form-container w-container">
+            <div class="form-div">
+                <h1>Login</h1>
+                <div>@userstatus</div>
+                <div class="panel-body">
+                        <!-- <form accept-charset="UTF-8" role="form" action="/login" method="POST"> -->
+                    @helper.form(action= helper.CSRF(routes.ElectionController.verifyForElection())){
+                        <fieldset>
+                            <div class="form-group">
+                            @helper.input(verifyForm("Username")){ (id, name, value, args) =>
+                                <input class="form-control" placeholder="" name="username" type="text">
+                            }
+                            </div>
+                            <div class="form-group">
+                            @helper.input(verifyForm("Zip Code")){ (id, name, value, args) =>
+                                <input class="form-control" placeholder="" name="zipCode" type="text" value="">
+                            }
+                            </div>
+                            <div class="form-group">
+                            @helper.input(verifyForm("Date of Birth (MM/DD/YYYY)")){ (id, name, value, args) =>
+                                <input class="form-control" placeholder="" name="dateOfBirth" type="date" value="">
+                            }
+                            </div>
+                            <div class="form-group">
+                            @helper.input(verifyForm("Driver's Licence/ID Number")){ (id, name, value, args) =>
+                                <input class="form-control" placeholder="" name="idNumber" type="text" value="">
+                            }
+                            </div>
+                            <input class="btn btn-lg btn-success btn-block" type="submit" value="Login">
+                            <br>
+                        </fieldset>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}

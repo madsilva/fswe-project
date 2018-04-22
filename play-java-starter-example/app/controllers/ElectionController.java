@@ -106,5 +106,26 @@ public class ElectionController extends Controller{
         // Select the election ID from the view to display the result in detail.
         return ok(electionresults.render());
     }
+  
+    public Result electionVerification(){
+        Form<VoterVerification> verifyForm = formFactory.form(VoterVerification.class);
+        System.out.println("Election Verification Function hit");
+        return ok(verify.render(verifyForm));
+    }
+
+    public Result verifyForElection(){
+        Form<Search> verifyForm = formFactory.form(VoterVerification.class).bindFromRequest();
+        VoterVerification verifyInfo = verifyForm.get();
+
+        VoterRegistration voterInfo = new VoterRegistration();
+        voterInfo = VoterRegistration.find.query().where().eq("username", verifyInfo.username).eq("zip_code", verifyInfo.zipcode).eq("date_of_birth",verifyInfo.dateOfBirth).eq.("id_number",verifyInfo.idNumber)findUnique();
+
+        if(voterInfo != null){
+            return ok(error.render("No current ballot.\n Verification Success!"));
+        }
+        else{
+            return ok(error.render("Voter Verification Failed"));
+        }
+    }
 }
 

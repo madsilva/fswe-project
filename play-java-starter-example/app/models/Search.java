@@ -42,6 +42,4 @@ public class Search extends Model{
     @Constraints.Required
     public String criteria;
 
-
-    public static Finder<String, Search> find = new Finder<>(Search.class);
 }
