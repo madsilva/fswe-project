@@ -269,5 +269,38 @@ public class AdminController extends Controller {
             return badRequest();
         }
     }
+
+    public Result createadmin(){
+        Form<LoginData> userForm = formFactory.form(LoginData.class);
+
+        return ok(createadmin.render(userForm));
+    }
+
+    public Result saveadmin(){
+        Form<LoginData> userForm = formFactory.form(LoginData.class).bindFromRequest();
+        LoginData user = userForm.get();
+
+        System.out.println(user.password);
+        System.out.println(user.confPassword);
+
+        if (user.password.equals(user.confPassword)){
+            LoginData loginCredentials = new LoginData();
+            loginCredentials.setUsername(user.username);
+            loginCredentials.setFirstname(user.firstname);
+            loginCredentials.setLastname(user.lastname);
+            loginCredentials.setPriviledge(user.priviledge);
+            System.out.println("Firstname & Lastname are : "+user.firstname+user.lastname);
+            loginCredentials.setPassword(DigestUtils.md5Hex(user.password));
+            loginCredentials.save();
+            System.out.println("hashed password saved : "+DigestUtils.md5Hex(user.password));
+        }
+        else{
+            System.out.println("Passwords do not match");
+            return ok(error.render("Passwords do not match"));
+        }
+
+        String loggedUser = session("connected");
+        return ok(admin.render(loggedUser));
+    }
 }
 
