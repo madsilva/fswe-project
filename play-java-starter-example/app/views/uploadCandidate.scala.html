@@ -1,0 +1,27 @@
+@(message : String)
+@import helper._
+
+@layout("Profile Page"){
+
+    <div class="form-section">
+        <div class="form-container w-container">
+            <div class="form-div">
+                <h2>Upload Candidates(CSV file)</h2>
+                <br>
+
+                <br>
+                @form(action = helper.CSRF(routes.AdminController.saveCandidateList()), 'enctype -> "multipart/form-data") {
+                    <input type="file" name="candidatelist">
+                    <br>
+                    <p>
+                        <input type="submit">
+                    </p>
+                }
+
+                <br>
+                <br>
+                <h3>@message</h3>
+            </div>
+        </div>
+    </div>
+}

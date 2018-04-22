@@ -1,15 +1,17 @@
 package controllers;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.io.*;
+import java.util.*;
 
+import play.api.mvc.MultipartFormData;
 import play.mvc.*;
+import scala.xml.Null;
 import views.html.*;
 import models.*;
 import javax.inject.Inject;
 import play.data.*;
+
+import play.api.mvc.MultipartFormData;
 import org.apache.commons.codec.digest.DigestUtils;
 //
 //import anorm._;
@@ -204,5 +206,101 @@ public class AdminController extends Controller {
         return ok(userSearch.render(searchForm,voterNames));
     }
 
+    public Result uploadCandidate(){
+        return ok(uploadCandidate.render(" "));
+    }
+
+    public Result saveCandidateList(){
+//        DynamicForm df = formFactory.form().bindFromRequest();
+//        Http.MultipartFormData<Object> candidateData = request().body().asMultipartFormData();
+//        String candidateList = df.get("candidatelist");
+
+        Http.MultipartFormData<File> formData = request().body().asMultipartFormData();
+        Http.MultipartFormData.FilePart<File> candidates = formData.getFile("candidatelist");
+        if (candidates != null) {
+            String fileName = candidates.getFilename();
+            String contentType = candidates.getContentType();
+            File file = candidates.getFile();
+
+            System.out.println("Candidate List is \n"+fileName+"\n"+contentType+"\n");
+
+
+            InputStream istream;
+            OutputStream ostream;
+            String candidateInfo;
+            final int EOF = -1;
+            ostream = System.out;
+            try {
+                istream = new FileInputStream(file);
+                InputStreamReader isr = new InputStreamReader(istream);
+                BufferedReader breader = new BufferedReader(isr);
+                try {
+                    while ((candidateInfo = breader.readLine()) != null) {
+                        System.out.println("\nTESTING "+candidateInfo+" END");
+                        String[] candidateInfoSplit = candidateInfo.split(",");
+                        System.out.println("\nCANDIDATE NAME "+candidateInfoSplit[0]+candidateInfoSplit[1]+" PARTY "+ candidateInfoSplit[2]+"  PRECINCT "+candidateInfoSplit[3]+ "  ELECTION ID"+candidateInfoSplit[4]+ "  POSITION"+ candidateInfoSplit[5]);
+                        Candidate newCandidate = new Candidate();
+                        newCandidate.setFirstname(candidateInfoSplit[0]);
+                        newCandidate.setLastname(candidateInfoSplit[1]);
+                        newCandidate.setParty(candidateInfoSplit[2]);
+                        newCandidate.setPrecinct(candidateInfoSplit[3]);
+                        newCandidate.setElectionID(candidateInfoSplit[4]);
+                        newCandidate.setPosition(candidateInfoSplit[5]);
+                        newCandidate.save();
+                    }
+                } catch (IOException e) {
+                    System.out.println("Error: " + e.getMessage());
+                } finally {
+                    try {
+                        istream.close();
+                        ostream.close();
+                    } catch (IOException e) {
+                        System.out.println("File did not close");
+                    }
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                System.exit(1);
+            }
+
+            return ok(uploadCandidate.render("Election is Created, Candidates Saved Successfully!!!"));
+        } else {
+            flash("error", "Missing file");
+            return badRequest();
+        }
+    }
+
+    public Result createadmin(){
+        Form<LoginData> userForm = formFactory.form(LoginData.class);
+
+        return ok(createadmin.render(userForm));
+    }
+
+    public Result saveadmin(){
+        Form<LoginData> userForm = formFactory.form(LoginData.class).bindFromRequest();
+        LoginData user = userForm.get();
+
+        System.out.println(user.password);
+        System.out.println(user.confPassword);
+
+        if (user.password.equals(user.confPassword)){
+            LoginData loginCredentials = new LoginData();
+            loginCredentials.setUsername(user.username);
+            loginCredentials.setFirstname(user.firstname);
+            loginCredentials.setLastname(user.lastname);
+            loginCredentials.setPriviledge(user.priviledge);
+            System.out.println("Firstname & Lastname are : "+user.firstname+user.lastname);
+            loginCredentials.setPassword(DigestUtils.md5Hex(user.password));
+            loginCredentials.save();
+            System.out.println("hashed password saved : "+DigestUtils.md5Hex(user.password));
+        }
+        else{
+            System.out.println("Passwords do not match");
+            return ok(error.render("Passwords do not match"));
+        }
+
+        String loggedUser = session("connected");
+        return ok(admin.render(loggedUser));
+    }
 }
 

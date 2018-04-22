@@ -83,7 +83,8 @@ public class ElectionController extends Controller{
         String message = "";
 
         Form<Candidate> candidateForm = formFactory.form(Candidate.class);
-        return ok(candidateCreation.render(candidateForm, electionid, precinctid, message));
+        //return ok(candidateCreation.render(candidateForm, electionid, precinctid, message));
+        return ok(uploadCandidate.render(" "));
     }
 
     public Result electionList() {

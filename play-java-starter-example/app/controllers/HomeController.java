@@ -159,7 +159,7 @@ public class HomeController extends Controller{
         if(user != null) {
             //Form<VoterRegistration> voterForm = formFactory.form(VoterRegistration.class).bindFromRequest();
             VoterRegistration voterRegistrationInfo = VoterRegistration.find.query().where().eq("username", user).findUnique();
-            System.out.println("Approved query is "+voterRegistrationInfo.username+voterRegistrationInfo.approved);
+            //System.out.println("Approved query is "+voterRegistrationInfo.username+voterRegistrationInfo.approved);
             System.out.println("Profile hit if case");
             return ok(profile.render(user, voterRegistrationInfo.approved));
         } else {
@@ -232,6 +232,9 @@ public class HomeController extends Controller{
         /**MailGenerator mail = new MailGenerator();
         mail.sendEmail(username," ","Hello", "Reset Password Link"," ", link);
         **/
+        //MailGenerator mail = new MailGenerator();
+        //mail.sendEmail(username," ","Hello", "Reset Password Link"," ", link);
+
 
 
         Form<LoginData> loginForm = formFactory.form(LoginData.class);
