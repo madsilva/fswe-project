@@ -64,3 +64,6 @@ POST    /search                         controllers.AdminController.search()
 
 GET     /createadmin                    controllers.AdminController.createadmin
 POST    /createadmin                    controllers.AdminController.saveadmin
+
+GET     /electionresults                controllers.ElectionController.electionresults
+

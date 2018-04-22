@@ -69,6 +69,7 @@ public class AdminController extends Controller {
 
     public Result update(String username){
         //VoterRegistration voterRegistrationInfo = VoterRegistration.find.query().where().eq("username", username).findUnique();
+        System.out.println("Username is : "+username);
         VoterRegistration voterRegistrationInfo = VoterRegistration.find.byId(username);
         voterRegistrationInfo.setApproved(true);
         //voterRegistrationInfo.approved = true;

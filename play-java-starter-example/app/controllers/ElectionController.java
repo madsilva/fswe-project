@@ -99,5 +99,12 @@ public class ElectionController extends Controller{
 
         return ok(voterElectionView.render(ongoingElections));
     }
+
+    public Result electionresults(){
+
+        // Fetch all the election IDs and render it in the View
+        // Select the election ID from the view to display the result in detail.
+        return ok(electionresults.render());
+    }
 }
 

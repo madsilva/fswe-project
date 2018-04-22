@@ -251,6 +251,7 @@ public class HomeController extends Controller{
         String username = elephantList.get(0);
 
         LoginData temp = LoginData.find.byId(elephantList.get(0));
+        //LoginData temp = LoginData.find.byId(username);
         System.out.println("User pulled from database is "+temp);
         System.out.println("User pulled from database is "+temp.resetToken);
         if (temp.resetToken.equals(token)){
