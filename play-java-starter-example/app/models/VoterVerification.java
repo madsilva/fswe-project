@@ -10,7 +10,7 @@ import play.db.ebean.*;
 import play.data.validation.Constraints.*;
 
 @Entity
-public class VoterRegistration extends Model{
+public class VoterVerification extends Model{
     @Constraints.Required
     @Id
     public String username;
@@ -22,5 +22,5 @@ public class VoterRegistration extends Model{
     public String idNumber;
     }
 
-    
+
 }

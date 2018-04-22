@@ -110,10 +110,15 @@ public class ElectionController extends Controller{
         Form<Search> verifyForm = formFactory.form(VoterVerification.class).bindFromRequest();
         VoterVerification verifyInfo = verifyForm.get();
 
-        String criteria = searchInfo.criteria;
-        String sqlColumn = searchInfo.sqlColumn;
+        VoterRegistration voterInfo = new VoterRegistration();
+        voterInfo = VoterRegistration.find.query().where().eq("username", verifyInfo.username).eq("zip_code", verifyInfo.zipcode).eq("date_of_birth",verifyInfo.dateOfBirth).eq.("id_number",verifyInfo.idNumber)findUnique();
 
-        voterInfo = VoterRegistration.find.query().where().eq("approved", true).findList();
+        if(voterInfo != null){
+            return ok(error.render("No current ballot.\n Verification Success!"));
+        }
+        else{
+            return ok(error.render("Voter Verification Failed"));
+        }
     }
 }
 
