@@ -67,5 +67,9 @@ POST    /createadmin                    controllers.AdminController.saveadmin
 
 GET     /electionresults                controllers.ElectionController.electionresults
 
+
+POST    /electionresults                controllers.ElectionController.displayelectionresults
+
 GET     /verify                         controllers.ElectionController.electionVerification(electionID : String)
 POST    /verify                         controllers.ElectionController.verifyForElection(electionID : String)
+
