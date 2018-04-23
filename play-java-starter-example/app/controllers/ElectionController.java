@@ -92,10 +92,15 @@ public class ElectionController extends Controller{
         return ok(electionList.render(elections));
     }
 
-    public Result voterElectionsView() {
+    public Result voterElectionsView(String username) {
         LocalDate today = LocalDate.now();
 
+        LoginData login = LoginData.find.query().where().eq("username", username).findUnique();
+
         List<Election> ongoingElections = Election.find.query().where().ge("end_date", today.minusDays(1)).le("start_date", today.minusDays(1)).findList();
+        for (Election election : ongoingElections){
+
+        }
 
         return ok(voterElectionView.render(ongoingElections));
     }
@@ -107,13 +112,13 @@ public class ElectionController extends Controller{
         return ok(electionresults.render());
     }
   
-    public Result electionVerification(){
+    public Result electionVerification(String electionID){
         Form<VoterVerification> verifyForm = formFactory.form(VoterVerification.class);
         System.out.println("Election Verification Function hit");
-        return ok(verify.render(verifyForm));
+        return ok(verify.render(verifyForm, electionID));
     }
 
-    public Result verifyForElection(){
+    public Result verifyForElection(String electionID){
         Form<Search> verifyForm = formFactory.form(VoterVerification.class).bindFromRequest();
         VoterVerification verifyInfo = verifyForm.get();
 
