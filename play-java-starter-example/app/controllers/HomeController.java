@@ -67,30 +67,6 @@ public class HomeController extends Controller{
         }
     }
 
-    // Choose Profile
-    public Result userlogin(){
-        System.out.println("Choose Profile Function hit");
-
-
-        LoginData login = LoginData.find.query().where().eq("username", username).findUnique();
-
-        if (login == null){
-            return ok(error.render("User Not Found"));
-        }
-        else{
-            if (login.priviledge.matches("admin")){
-                session("connected", loginForm.get().username);
-                session("admin", loginForm.get().username);
-                return ok(admin.render(loginForm.get().username));
-            }
-            else{
-                System.out.println("User Logged In"+login.priviledge);
-                session("connected", loginForm.get().username);
-                return ok(profile.render(loginForm.get().username,false));
-            }
-        }
-    }
-
     // Function for User Logging
     public Result userlogin(){
         System.out.println("User Login Function hit");
