@@ -20,7 +20,4 @@ public class VoterVerification extends Model{
     public String dateOfBirth;
     @Constraints.Required
     public String idNumber;
-    }
-
-
 }

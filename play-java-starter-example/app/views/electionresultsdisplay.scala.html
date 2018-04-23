@@ -1,0 +1,35 @@
+@(electionID : List[String], precinct : List[String], candidate: List[String], votes : List[String])
+
+@layout("Election Results"){
+    <div class="custom-container">
+        <h3>Elections Results :</h3>
+        <div class="col-md-7">
+            <table class="table table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col"><b>ElectionID</b></th>
+                        <th scope="col"><b>Precincts</b></th>
+                        <th scope="col"><b>Candidate</b></th>
+                        <th scope="col"><b>Votes</b></th>
+                    </tr>
+                </thead>
+                <colgroup>
+                    <col class="col-md-3">
+                    <col class="col-md-3">
+                    <col class="col-md-5">
+                    <col class="col-md-2">
+                </colgroup>
+                <tbody>
+                @for(index <- 0 until electionID.size){
+                    <tr>
+                        <td>@electionID(index)</td>
+                        <td>@precinct(index)</td>
+                        <td>@candidate(index)</td>
+                        <td>@votes(index)</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}

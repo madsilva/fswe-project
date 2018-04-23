@@ -27,6 +27,13 @@ create table election (
   constraint pk_election primary key (election_id)
 );
 
+create table election_results (
+  election_id                   varchar(255),
+  precinct                      varchar(255),
+  candidate                     varchar(255),
+  votes                         integer not null
+);
+
 create table login_data (
   username                      varchar(255) not null,
   password                      varchar(255),
@@ -78,6 +85,14 @@ create table voter_registration (
   constraint pk_voter_registration primary key (username)
 );
 
+create table voter_verification (
+  username                      varchar(255) not null,
+  zip_code                      varchar(255),
+  date_of_birth                 varchar(255),
+  id_number                     varchar(255),
+  constraint pk_voter_verification primary key (username)
+);
+
 
 # --- !Downs
 
@@ -86,6 +101,8 @@ drop table if exists ballots;
 drop table if exists candidate;
 
 drop table if exists election;
+
+drop table if exists election_results;
 
 drop table if exists login_data;
 
@@ -98,4 +115,6 @@ drop table if exists state_geography;
 drop table if exists user_id;
 
 drop table if exists voter_registration;
+
+drop table if exists voter_verification;
 
