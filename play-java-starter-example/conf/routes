@@ -57,7 +57,7 @@ GET     /password/changepassword        controllers.HomeController.changepasswor
 
 
 
-GET     /voter_elections                controllers.ElectionController.voterElectionsView()
+GET     /voter_elections                controllers.ElectionController.voterElectionsView(username : String)
 
 GET     /search_users                   controllers.AdminController.searchUsers()
 POST    /search                         controllers.AdminController.search()
@@ -67,7 +67,9 @@ POST    /createadmin                    controllers.AdminController.saveadmin
 
 GET     /electionresults                controllers.ElectionController.electionresults
 
+
 POST    /electionresults                controllers.ElectionController.displayelectionresults
 
-GET     /verify                         controllers.ElectionController.electionVerification
-POST    /verify                         controllers.ElectionController.verifyForElection
+GET     /verify                         controllers.ElectionController.electionVerification(electionID : String)
+POST    /verify                         controllers.ElectionController.verifyForElection(electionID : String)
+

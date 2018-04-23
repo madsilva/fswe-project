@@ -1,4 +1,4 @@
-@(verifyForm : Form[VoterVerification])
+@(verifyForm : Form[VoterVerification], electionID : String)
 @import helper._
 
 
@@ -10,7 +10,7 @@
 
                 <div class="panel-body">
                         <!-- <form accept-charset="UTF-8" role="form" action="/login" method="POST"> -->
-                    @helper.form(action= helper.CSRF(routes.ElectionController.verifyForElection())){
+                    @helper.form(action= helper.CSRF(routes.ElectionController.verifyForElection(electionID))){
                         <fieldset>
                             <div class="form-group">
                             @helper.input(verifyForm("Username")){ (id, name, value, args) =>
@@ -32,7 +32,7 @@
                                 <input class="form-control" placeholder="" name="idNumber" type="text" value="">
                             }
                             </div>
-                            <input class="btn btn-lg btn-success btn-block" type="submit" value="Login">
+                            <input class="btn btn-lg btn-success btn-block" type="submit" value="Verify">
                             <br>
                         </fieldset>
                     }
