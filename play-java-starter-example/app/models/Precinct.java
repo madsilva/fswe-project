@@ -13,10 +13,25 @@ public class Precinct extends Model{
     @Constraints.Required
     public String precinctID;
 
+    public String getPrecinctID() {
+        return precinctID;
+    }
+
+    public void setPrecinctID(String precinctID) {
+        this.precinctID = precinctID;
+    }
+
+    public String getZip() {
+        return zip;
+    }
+
+    public void setZip(String zip) {
+        this.zip = zip;
+    }
+
     @Constraints.Required
     @Id
     public String zip;
-
 
     public static Finder<String, Precinct> find = new Finder<>(Precinct.class);
 }

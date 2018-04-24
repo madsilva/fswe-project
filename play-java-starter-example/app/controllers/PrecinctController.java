@@ -11,6 +11,8 @@ import play.data.*;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import java.util.*;
+import java.io.*;
+import java.util.Scanner;
 
 
 //
@@ -48,6 +50,26 @@ public class PrecinctController extends Controller {
 
     public Result precinct(){
         List<Precinct> precinctInfo = Precinct.find.query().findList();
+        if (precinctInfo.isEmpty()){
+            try{
+                File file = new File("zipcodes.txt");
+                Scanner sc = new Scanner(file);
+                while (sc.hasNext()){
+                    String zip = sc.next();
+                    Precinct iowaPrecinct = new Precinct();
+                    iowaPrecinct.setZip(zip);
+                    iowaPrecinct.setPrecinctID(zip);
+                    iowaPrecinct.save();
+                }
+                sc.close();
+
+                precinctInfo = Precinct.find.query().findList();
+            }
+            catch(FileNotFoundException e){
+                System.out.println(e.toString());
+            }
+
+        }
         List<String> precincts = new ArrayList<String>();
         HashMap<String, String> precinctMap = new HashMap<String, String>();
 
