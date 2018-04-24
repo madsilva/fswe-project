@@ -154,7 +154,7 @@ public class ElectionController extends Controller{
         voterInfo = VoterRegistration.find.query().where().eq("username", verifyInfo.username).eq("zip_code", verifyInfo.zipCode).eq("date_of_birth",verifyInfo.dateOfBirth).eq("id_number",verifyInfo.idNumber).findUnique();
 
         if(voterInfo != null){
-            return ok(error.render("No current ballot.\n Verification Success!"));
+            return ok(error.render("No current ballot page.\n Verification Success!"));
         }
         else{
             return ok(error.render("Voter Verification Failed"));

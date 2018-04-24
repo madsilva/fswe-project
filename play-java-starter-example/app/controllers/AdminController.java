@@ -241,6 +241,7 @@ public class AdminController extends Controller {
                         String[] candidateInfoSplit = candidateInfo.split(",");
                         System.out.println("\nCANDIDATE NAME "+candidateInfoSplit[0]+candidateInfoSplit[1]+" PARTY "+ candidateInfoSplit[2]+"  PRECINCT "+candidateInfoSplit[3]+ "  ELECTION ID"+candidateInfoSplit[4]+ "  POSITION"+ candidateInfoSplit[5]);
                         Candidate newCandidate = new Candidate();
+
                         newCandidate.setFirstname(candidateInfoSplit[0]);
                         newCandidate.setLastname(candidateInfoSplit[1]);
                         newCandidate.setParty(candidateInfoSplit[2]);
@@ -282,7 +283,6 @@ public class AdminController extends Controller {
         LoginData user = userForm.get();
 
         System.out.println(user.password);
-        System.out.println(user.confPassword);
 
         if (user.password.equals(user.confPassword)){
             LoginData loginCredentials = new LoginData();
