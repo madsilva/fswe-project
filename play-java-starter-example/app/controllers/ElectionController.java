@@ -95,11 +95,14 @@ public class ElectionController extends Controller{
     public Result voterElectionsView(String username) {
         LocalDate today = LocalDate.now();
 
-        LoginData login = LoginData.find.query().where().eq("username", username).findUnique();
-
+        VoterRegistration voter = VoterRegistration.find.query().where().eq("username", username).findUnique();
+        Precinct voterPrecinct = Precinct.find.query().where().eq("zip", voter.zipCode).findUnique();
+        List<Ballots> ballotList = Ballots.find.query().where().eq("precinct_id",voterPrecinct.precinctID).findList();
         List<Election> ongoingElections = Election.find.query().where().ge("end_date", today.minusDays(1)).le("start_date", today.minusDays(1)).findList();
         for (Election election : ongoingElections){
-
+            if(!ballotList.contains(election.electionID)){
+                ongoingElections.remove(election);
+            }
         }
 
         return ok(voterElectionView.render(ongoingElections));
@@ -144,7 +147,7 @@ public class ElectionController extends Controller{
     }
 
     public Result verifyForElection(String electionID){
-        Form<Search> verifyForm = formFactory.form(VoterVerification.class).bindFromRequest();
+        Form<VoterVerification> verifyForm = formFactory.form(VoterVerification.class).bindFromRequest();
         VoterVerification verifyInfo = verifyForm.get();
 
         VoterRegistration voterInfo = new VoterRegistration();
