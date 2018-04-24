@@ -59,8 +59,6 @@ public class ElectionController extends Controller{
         Election election = electionForm.get();
         election.save();
 
-        ArrayList<String> electionid = new ArrayList<String>();
-        electionid.add(election.electionID);
 
         List<Precinct> precinct = Precinct.find.all();
         ArrayList<String> precinctid = new ArrayList<String>();
@@ -72,13 +70,19 @@ public class ElectionController extends Controller{
         precinctid.clear();
         precinctid.addAll(hs);
 
-        for(String variable : electionid){
-            // Saving the ballot
-            Ballots ballot = new Ballots();
-            ballot.precinct = variable;
-            ballot.electionID = election.electionID;
-            ballot.save();
+
+        // Saving the ballot
+        Ballots ballot = new Ballots();
+        List<Ballots> ballotList = Ballots.find.all();
+        if (election.electionType.equals("StateElection")){
+            if (!ballotList.contains(election.electionID)){
+                ballot.precinct = "111111";
+                ballot.electionID = election.electionID;
+                ballot.save();
+            }
+
         }
+
 
         String message = "";
 
@@ -97,8 +101,8 @@ public class ElectionController extends Controller{
 
         VoterRegistration voter = VoterRegistration.find.query().where().eq("username", username).findUnique();
         Precinct voterPrecinct = Precinct.find.query().where().eq("zip", voter.zipCode).findUnique();
-        List<Ballots> ballotList = Ballots.find.query().where().eq("precinct_id",voterPrecinct.precinctID).findList();
-        List<Election> ongoingElections = Election.find.query().where().ge("end_date", today.minusDays(1)).le("start_date", today.minusDays(1)).findList();
+        List<Ballots> ballotList = Ballots.find.query().where().eq("precinct","111111").findList();
+        List<Election> ongoingElections = Election.find.query().where().le("end_date", today.plusDays(4)).ge("start_date", today.plusDays(1)).findList();
         for (Election election : ongoingElections){
             if(!ballotList.contains(election.electionID)){
                 ongoingElections.remove(election);
