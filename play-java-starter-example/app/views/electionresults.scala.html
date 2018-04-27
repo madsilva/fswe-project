@@ -2,14 +2,14 @@
 
 @layout("Election Results"){
     <div class="custom-container">
-        <h3>Select the Election ID to display the results</h3>
-        <div class="col-md-7">
-        @helper.form(action= helper.CSRF(routes.ElectionController.displayelectionresults())) {
-            <select name="electionID">
-            @for(elec <- electionid) {
-                <option value="@elec">@elec</option>
-            }
-            </select>
+        <div class="col-md-4 col-md-offset-4">
+            <h3>Select the Election ID to display the results</h3>
+            @helper.form(action= helper.CSRF(routes.ElectionController.displayelectionresults())) {
+                <select name="electionID">
+                    @for(elec <- electionid) {
+                        <option value="@elec">@elec</option>
+                    }
+                </select>
             <br>
             <br>
             <input type="submit" value="submit">

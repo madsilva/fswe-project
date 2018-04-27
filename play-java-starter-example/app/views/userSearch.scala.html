@@ -2,15 +2,10 @@
 @import helper._
 
 @layout("Approval"){
-    <div class="custom-container">
-        <div class="row w-row">
-            <div class="w-col w-col-6">
-                <h2>Users</h2>
-            </div>
-            <div class="w-col w-col-6">
+    <div class="custom-container align-items-center">
+        <div class="col-md-4 col-md-offset-4">
                 @helper.form(action= helper.CSRF(routes.AdminController.search())){
                     <fieldset>
-                        <div class="row-2 w-row">
                             <div class="searchcolumn w-col w-col-4">
                                 <div class="form-group">
                                 @helper.input(searchform("")){ (id, name, value, args) =>
@@ -30,19 +25,22 @@
                                 }
                                 </div>
                             </div>
+                            <br>
                             <div class="searchcolumn w-col w-col-4">
-                                <input class="btn btn-sm btn-block" type="submit" value="Search">
+                                <input class="glyphicon glyphicon-search" type="submit" value="Search">
                             </div>
-                        </div>
-
                     </fieldset>
                 }
-                </div>
             </div>
         </div>
-
-        <div class="col-md-7">
-
+        <br>
+        <br>
+    <br>
+    <br>
+        <div class="col-md-4 col-md-offset-4">
+            <div class="w-col w-col-6">
+                <h2>Users</h2>
+            </div>
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
