@@ -1,4 +1,4 @@
-@(message: String, style: String = "java")
+@(message: String, isLoggedIn: String, style: String = "java")
 
 @layout("Home Page"){
 
@@ -6,9 +6,14 @@
         <div class="row vertical-offset-50">
             <article>
 
+                @if(isLoggedIn == "t") {
+                <h1>Welcome!</h1>
+                } else {
                 <h1>Please Sign Up/Login to access your voting profile</h1>
+                }
 
-              
+
+
 
                 <div class="custom-container">
                     <div class="row">

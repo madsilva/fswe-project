@@ -48,7 +48,17 @@ public class HomeController extends Controller{
     FormFactory formFactory;
 
     public Result index() {
-        return ok(index.render("Welcome to the Online Voting System"));
+        String user = session("connected");
+        String isLoggedIn;
+        if (user != null) {
+            isLoggedIn = "t";
+        }
+        else {
+            isLoggedIn = "f";
+        }
+
+        System.out.println("is logged in? " + isLoggedIn);
+        return ok(index.render("test", isLoggedIn));
     }
 
 
