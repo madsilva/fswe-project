@@ -36,6 +36,9 @@ GET     /deleteprecinct                 controllers.PrecinctController.deletepre
 GET     /precinct                       controllers.PrecinctController.removeprecinct
 GET     /addprecinct                    controllers.PrecinctController.addprecinct(precinctpassed: String)
 GET     /precinct/add                   controllers.PrecinctController.addPrecinctToTable
+POST    /nextprecinct                   controllers.PrecinctController.nextprecinct
+POST    /previousprecinct               controllers.PrecinctController.previousprecinct
+
 
 GET     /candidate                      controllers.AdminController.candidate
 POST    /candidate                      controllers.AdminController.saveCandidate

@@ -1,10 +1,10 @@
-@(precinctmap: Map[String, String])
+@(precinctmap: Map[String, String], previous : String, next : String)
 
 
 @layout("Precincts"){
     <div class="custom-container">
-        <h2>Current Precincts</h2>
-        <div class="col-md-7">
+        <div class="col-md-4 col-md-offset-4">
+            <h2>Current Precincts</h2>
             <table class="table table-hover">
                 <thead class="thead-dark">
                     <tr>
@@ -41,7 +41,18 @@
                 }
                 </tbody>
             </table>
+
+
+                <div class="col-md-4 col-md-offset-4 visible-lg-inline">
+
+                    @helper.form(action= helper.CSRF(routes.PrecinctController.previousprecinct())) {
+                        <button type="submit" class="btn btn-primary @previous form-inline" value="previous" style="display: inline">Previous Page</button>
+                    }
+                    @helper.form(action= helper.CSRF(routes.PrecinctController.nextprecinct())) {
+                        <button type="submit" class="btn btn-primary @next form-inline" value="next" style="display: inline">Next &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Page</button>
+                    }
+
+                </div>
         </div>
     </div>
-
 }
