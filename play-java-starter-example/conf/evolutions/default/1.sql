@@ -37,7 +37,6 @@ create table election_results (
 create table login_data (
   username                      varchar(255) not null,
   password                      varchar(255),
-  conf_password                 varchar(255),
   firstname                     varchar(255),
   lastname                      varchar(255),
   priviledge                    varchar(255),
@@ -79,6 +78,8 @@ create table voter_registration (
   state                         varchar(255),
   zip_code                      varchar(255),
   date_of_birth                 varchar(255),
+  gender                        varchar(255),
+  party                         varchar(255),
   social_security               varchar(255),
   id_number                     varchar(255),
   approved                      tinyint(1) default 0 not null,

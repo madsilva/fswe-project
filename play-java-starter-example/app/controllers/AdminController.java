@@ -10,6 +10,8 @@ import views.html.*;
 import models.*;
 import javax.inject.Inject;
 import play.data.*;
+import java.util.Date;
+import java.time.LocalDate;
 
 import play.api.mvc.MultipartFormData;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -198,6 +200,7 @@ public class AdminController extends Controller {
 
         String criteria = searchInfo.criteria;
         String sqlColumn = searchInfo.sqlColumn;
+        LocalDate today = LocalDate.now();
 
         List<VoterRegistration> voterInfo = new ArrayList<>();
 
@@ -210,6 +213,13 @@ public class AdminController extends Controller {
         else if (sqlColumn.equals("zip code")){
             sqlColumn = "zip_code";
             voterInfo = VoterRegistration.find.query().where().eq(sqlColumn, criteria).findList();
+        }
+        else if (sqlColumn.equals("age")){
+            sqlColumn = "date_of_birth";
+            int age = Integer.parseInt(criteria);
+            age = age * 365;
+
+            voterInfo = VoterRegistration.find.query().where().eq(sqlColumn, today.minusDays(age)).findList();
         }
         else{
             voterInfo = VoterRegistration.find.query().where().eq(sqlColumn, criteria).findList();
