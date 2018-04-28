@@ -54,6 +54,23 @@ public class AdminController extends Controller {
         }
     }
 
+    public Result manager(){
+        String user = session("connected");
+        String account = session("manager");
+
+        System.out.println("Manager hit"+user);
+        if((user != null) && (account != null)) {
+            //Form<VoterRegistration> voterForm = formFactory.form(VoterRegistration.class).bindFromRequest();
+            //VoterRegistration voterRegistrationInfo = VoterRegistration.find.query().where().eq("username", user).findUnique();
+            //System.out.println("Approved query is "+voterRegistrationInfo.username+voterRegistrationInfo.approved);
+            System.out.println("Manager hit if case");
+            return ok(manager.render(user));
+        } else {
+            System.out.println("Manager hit else case");
+            return ok(error.render("User not Signed in"));
+        }
+    }
+
     public Result approval(){
         List<VoterRegistration> voterInfo = VoterRegistration.find.query().where().eq("approved", false).findList();
         List<String> unapprovedNames = new ArrayList<String>();

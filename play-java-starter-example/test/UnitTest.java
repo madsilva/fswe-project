@@ -75,4 +75,16 @@ public class UnitTest {
         assertEquals(OK, result.status());
         assertTrue(contentAsString(result).contains("unapproved Voter Registrations"));
     }
+
+    /***************************************************
+     * Unit Tests for ElecitonController
+     ***************************************************/
+    @Test
+    public void testElection(){
+        final ElectionController controller = new ElectionController();
+        Result result = controller.approval();
+
+        assertEquals(OK, result.status());
+        assertTrue(contentAsString(result).contains("unapproved Voter Registrations"));
+    }
 }
