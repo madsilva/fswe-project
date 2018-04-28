@@ -29,6 +29,10 @@ public class VoterRegistration extends Model{
     @Constraints.Required
     public String dateOfBirth;
     @Constraints.Required
+    public String gender;
+    @Constraints.Required
+    public String party;
+    @Constraints.Required
     public String socialSecurity;
     @Constraints.Required
     public String idNumber;
