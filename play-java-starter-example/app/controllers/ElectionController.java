@@ -101,13 +101,13 @@ public class ElectionController extends Controller{
 
         VoterRegistration voter = VoterRegistration.find.query().where().eq("username", username).findUnique();
         Precinct voterPrecinct = Precinct.find.query().where().eq("zip", voter.zipCode).findUnique();
-        List<Ballots> ballotList = Ballots.find.query().where().eq("precinct","111111").findList();
-        List<Election> ongoingElections = Election.find.query().where().le("end_date", today.plusDays(4)).ge("start_date", today.plusDays(1)).findList();
-        for (Election election : ongoingElections){
+        List<Ballots> ballotList = Ballots.find.query().where().eq("precinct","11111").findList();
+        List<Election> ongoingElections = Election.find.query().where().ge("end_date", today.plusDays(1)).le("start_date", today.plusDays(1)).findList();
+        /*for (Election election : ongoingElections){
             if(!ballotList.contains(election.electionID)){
                 ongoingElections.remove(election);
             }
-        }
+        }*/
 
         return ok(voterElectionView.render(ongoingElections));
     }
