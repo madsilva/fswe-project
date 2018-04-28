@@ -1,7 +1,7 @@
 @(searchform : Form[Search], list: List[String])
 @import helper._
 
-@layout("Approval"){
+@layout("Demographic Search"){
     <div class="custom-container align-items-center">
         <div class="col-md-4 col-md-offset-4">
                 @helper.form(action= helper.CSRF(routes.AdminController.search())){
