@@ -229,9 +229,9 @@ public class HomeController extends Controller{
 
         // Sending the Link to the User email id
         String link = "http://localhost:9000/password/resetpassword/"+saltStr;
-        /**MailGenerator mail = new MailGenerator();
+        MailGenerator mail = new MailGenerator();
         mail.sendEmail(username," ","Hello", "Reset Password Link"," ", link);
-        **/
+
         //MailGenerator mail = new MailGenerator();
         //mail.sendEmail(username," ","Hello", "Reset Password Link"," ", link);
 

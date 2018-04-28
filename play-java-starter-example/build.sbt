@@ -45,3 +45,6 @@ libraryDependencies ++= Seq(
 
 playEbeanModels in Compile := Seq("models.*")
 playEbeanDebugLevel := 4
+
+// Dependency for Mochito Tests
+libraryDependencies += "org.mockito" % "mockito-core" % "2.18.3" % "test"
