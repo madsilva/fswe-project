@@ -85,5 +85,12 @@ public class Candidate extends Model{
     @Constraints.Required
     public String position;
 
+    @Constraints.Required
+    public int votes = 0;
+
+    @Constraints.Required
+    @Id
+    public int candidateID;
+
     public static Finder<String, Candidate> find = new Finder<>(Candidate.class);
 }

@@ -62,6 +62,7 @@ GET     /password/changepassword        controllers.HomeController.changepasswor
 
 GET     /voter_elections                controllers.ElectionController.voterElectionsView(username : String)
 GET     /vote/:electionID               controllers.ElectionController.vote(electionID : String)
+POST    /vote                           controllers.ElectionController.saveVote(candidateID : Int)
 
 GET     /search_users                   controllers.AdminController.searchUsers()
 POST    /search                         controllers.AdminController.search()

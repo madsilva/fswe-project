@@ -28,6 +28,7 @@ import java.sql.* ;
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.SqlUpdate;
 
+import controllers.*;
 
 
 import views.html.*;
@@ -184,6 +185,13 @@ public class ElectionController extends Controller{
         List<Candidate> candidates = Candidate.find.query().where().eq("election_id", electionID).findList();
 
         return ok(ballot.render(electionID, candidates));
+    }
+
+    public Result saveVote(int candidateID) {
+        Candidate candidate = Candidate.find.query().where().eq("candidate_id", candidateID).findUnique();
+        candidate.votes += 1;
+        candidate.save();
+        return redirect("/");
     }
 }
 
