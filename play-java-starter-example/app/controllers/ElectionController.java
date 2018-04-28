@@ -70,7 +70,7 @@ public class ElectionController extends Controller{
         precinctid.clear();
         precinctid.addAll(hs);
 
-
+/*
         // Saving the ballot
         Ballots ballot = new Ballots();
         List<Ballots> ballotList = Ballots.find.all();
@@ -82,7 +82,7 @@ public class ElectionController extends Controller{
             }
 
         }
-
+*/
 
         String message = "";
 
@@ -100,14 +100,29 @@ public class ElectionController extends Controller{
         LocalDate today = LocalDate.now();
 
         VoterRegistration voter = VoterRegistration.find.query().where().eq("username", username).findUnique();
-        Precinct voterPrecinct = Precinct.find.query().where().eq("zip", voter.zipCode).findUnique();
-        List<Ballots> ballotList = Ballots.find.query().where().eq("precinct","11111").findList();
+        // this will only work for 1 zip code per precinct???
+        String voterPrecinctID = Precinct.find.query().where().eq("zip", voter.zipCode).findUnique().precinctID;
+
         List<Election> ongoingElections = Election.find.query().where().ge("end_date", today.plusDays(1)).le("start_date", today.plusDays(1)).findList();
-        /*for (Election election : ongoingElections){
-            if(!ballotList.contains(election.electionID)){
-                ongoingElections.remove(election);
+
+        Iterator<Election> iter = ongoingElections.iterator();
+        while (iter.hasNext()) {
+            Election election = iter.next();
+            if (election.precinctID != null) {
+                if (election.precinctID != voterPrecinctID) {
+                    iter.remove();
+                }
             }
-        }*/
+            else {
+                if (election.state != null) {
+                    if (!election.state.trim().equals(voter.state.trim())) {
+                        iter.remove();
+                    }
+                }
+            }
+        }
+
+
 
         return ok(voterElectionView.render(ongoingElections));
     }
@@ -163,6 +178,12 @@ public class ElectionController extends Controller{
         else{
             return ok(error.render("Voter Verification Failed"));
         }
+    }
+
+    public Result vote(String electionID) {
+        List<Candidate> candidates = Candidate.find.query().where().eq("election_id", electionID).findList();
+
+        return ok(ballot.render(electionID, candidates));
     }
 }
 

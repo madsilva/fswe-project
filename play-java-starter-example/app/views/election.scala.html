@@ -91,6 +91,11 @@
                                     <input class="form-control" placeholder="" name="endDate" type="date" value="">
                                     }
                                 </div>
+                            <div class="form-group">
+                                @helper.input(electionForm("precinctID")){ (id, name, value, args) =>
+                                <input class="form-control" placeholder="Id of the precinct this election is for, if local" name="precinctID" type="text" value="">
+                                }
+                            </div>
                                 <input class="btn btn-lg btn-success btn-block" type="submit" value="Create">
                             </fieldset>
                         }

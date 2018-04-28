@@ -1,4 +1,4 @@
-@(ballotForm : Form[Ballots], electionID : String)
+@(electionID : String, candidates : List[Candidate])
 @import helper._
 
 
@@ -7,7 +7,13 @@
         <div class="form-container w-container">
             <div class="form-div">
                 <h1>Election Ballot</h1>
-
+                @for(candidate <- candidates){
+                <tr>
+                    <td>@candidate.firstname</td>
+                    <td>@candidate.lastname</td>
+                    <td>@candidate.party</td>
+                </tr>
+                }
             </div>
         </div>
     </div>
