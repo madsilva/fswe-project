@@ -28,9 +28,10 @@
             <div class="w-col w-col-4">
                 <div class="div-block-2">
                     <h3 class="heading-3">Voter Information</h3>
-                    <p class="paragraph-item">
-                    @{if (approved) "Vote in the current election in your area!" else "User not Approved by the Admin"}
-                    </p>
+                    <ul class="w-list-unstyled">
+                        <li class="list-item"><a class="link-5" href="#"><b>@{if (approved) "Notification -->> You are approved to vote in elections in your area!!!" else "User not Approved by the Admin"}</b></a> </li>
+                        <li class="list-item"><a class="link-5" href="/securityquestions">Update Security Queastions</a></li>
+                    </ul>
                 </div>
             </div>
             <div class="w-col w-col-4">

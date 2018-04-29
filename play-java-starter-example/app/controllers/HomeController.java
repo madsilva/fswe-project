@@ -5,6 +5,7 @@ import play.mvc.*;
 import java.lang.String;
 
 //import sun.java2d.pipe.SpanShapeRenderer;
+//import sun.jvm.hotspot.runtime.ResultTypeFinder;
 import views.html.*;
 import models.*;
 import javax.inject.Inject;
@@ -201,7 +202,7 @@ public class HomeController extends Controller{
 
     public Result profile(){
         String user = session("connected");
-        System.out.println("Profile hit");
+        System.out.println("Profile hit"+user);
         if(user != null) {
             //Form<VoterRegistration> voterForm = formFactory.form(VoterRegistration.class).bindFromRequest();
             VoterRegistration voterRegistrationInfo = VoterRegistration.find.query().where().eq("username", user).findUnique();
@@ -235,7 +236,8 @@ public class HomeController extends Controller{
         if(user.matches(voter.username)){
             voter.setApproved(false);
             voter.save();
-            return ok(profile.render(voter.username, false));
+            //return ok(profile.render(voter.username, false));
+            return ok(positivefeedback.render("You have Successfully applied for the Voter Regiatration, you will receive an email once you are approved by the Admin "));
         }
         else{
             // Username not matching
@@ -314,7 +316,8 @@ public class HomeController extends Controller{
         //System.out.println(oldpassword+newpassword+username);
 
         LoginData user = LoginData.find.byId(username);
-        if(user.password.equals(DigestUtils.md5Hex(oldpassword))){
+        //if(user.password.equals(DigestUtils.md5Hex(oldpassword))){
+        if(oldpassword.equals(newpassword)){
             System.out.println("In the if case");
             user.setPassword(DigestUtils.md5Hex(newpassword));
             user.resetToken = "";
@@ -330,6 +333,68 @@ public class HomeController extends Controller{
             Form<LoginData> loginForm = formFactory.form(LoginData.class);
             System.out.println("Login Function hit");
             return ok(login.render(loginForm, "Old Password Did not match"));
+        }
+    }
+
+    public Result securityquestions(){
+        System.out.println("SECURITY QUESTIONS ");
+        String user = session("connected");
+        //List<SecurityException> questions = SecurityQuestions.find.query().where().eq("username", user).findUnique();
+        SecurityQuestions questions = SecurityQuestions.find.byId(user);
+
+        if (questions != null){
+            String pet = questions.pet;
+            String city = questions.city;
+            String school = questions.school;
+
+            Form<SecurityQuestions> securityQuestionsForm = formFactory.form(SecurityQuestions.class);
+
+            return ok(securityquestions.render(pet, city, school));
+        }else{
+            Form<SecurityQuestions> securityQuestionsForm = formFactory.form(SecurityQuestions.class);
+
+            return ok(securityquestions.render("", "", ""));
+        }
+    }
+
+    public Result savesecurityquestions(){
+        DynamicForm df = formFactory.form().bindFromRequest();
+        String pet = df.get("pet");
+        String city = df.get("city");
+        String school = df.get("school");
+        String user = session("connected");
+
+        System.out.println("SECURITY QUESTIONS SAVE ");
+
+        SecurityQuestions questions = new SecurityQuestions();
+        questions.setUsername(user);
+        questions.setCity(city);
+        questions.setFavoritePet(pet);
+        questions.setSchool(school);
+
+        questions.update();
+
+        return ok(positivefeedback.render("Your security questions are successfully updated!!"));
+    }
+
+    public Result loadsecurityquestions(){
+        return ok(recoveraccount.render());
+    }
+
+    public Result checksecurityquestions(){
+        DynamicForm df = formFactory.form().bindFromRequest();
+        String pet = df.get("pet");
+        String city = df.get("city");
+        String school = df.get("school");
+        String username = df.get("username");
+
+        SecurityQuestions questions = SecurityQuestions.find.byId(username);
+
+        if (pet.equals(questions.pet) && city.equals(questions.city) && school.equals(questions.school) ){
+
+            return ok(updatenewpassword.render());
+        }else{
+            return ok(error.render("Incorrect information entered, please try again"));
         }
     }
 }
