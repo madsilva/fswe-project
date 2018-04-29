@@ -13,6 +13,7 @@ public class UserID extends Model{
     public String confPassword;
     public String firstName;
     public String lastName;
+    public String priviledge;
 
     public UserID(){
         username = "";
