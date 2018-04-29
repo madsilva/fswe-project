@@ -27,6 +27,8 @@ GET     /error                          controllers.HomeController.error
 
 GET     /admin                          controllers.AdminController.admin
 
+GET     /manager                        controllers.AdminController.manager
+
 GET     /approval                       controllers.AdminController.approval
 POST    /approval/:username             controllers.AdminController.update(username: String)
 POST    /approval/delete/:username      controllers.AdminController.destroy(username: String)
@@ -62,9 +64,14 @@ POST    /changepassword                 controllers.HomeController.changepasswor
 
 
 GET     /voter_elections                controllers.ElectionController.voterElectionsView(username : String)
+GET     /vote/:electionID               controllers.ElectionController.vote(electionID : String)
+POST    /vote                           controllers.ElectionController.saveVote(candidateID : Int)
 
 GET     /search_users                   controllers.AdminController.searchUsers()
 POST    /search                         controllers.AdminController.search()
+
+GET     /search_candidates              controllers.AdminController.searchCandidates()
+POST    /candidate_demographics         controllers.AdminController.candidateDemographics()
 
 GET     /createadmin                    controllers.AdminController.createadmin
 POST    /createadmin                    controllers.AdminController.saveadmin
@@ -74,6 +81,6 @@ GET     /electionresults                controllers.ElectionController.electionr
 
 POST    /electionresults                controllers.ElectionController.displayelectionresults
 
-GET     /verify                         controllers.ElectionController.electionVerification(electionID : String)
+GET     /verify/:electionID             controllers.ElectionController.electionVerification(electionID : String)
 POST    /verify                         controllers.ElectionController.verifyForElection(electionID : String)
 

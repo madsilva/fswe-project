@@ -26,5 +26,7 @@ public class Election extends Model{
     @Constraints.Required
     public Date endDate;
 
+    public String precinctID;
+
     public static Finder<String, Election> find = new Finder<>(Election.class);
 }

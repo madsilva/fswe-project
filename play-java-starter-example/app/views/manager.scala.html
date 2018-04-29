@@ -1,19 +1,17 @@
 @(username: String)
 
-@layout("Admin"){
+@layout("Profile Page"){
     <div class="section">
         <div class="container w-container">
             <h2 class="display-3">Welcome, @username</h2>
-            <p>Welcome to the Admin Console. Your access allows you to create elections and ballots.</p>
+            <p>Welcome to the Manager Console. Your access allows you to search.</p>
         </div>
         <div class="w-row">
             <div class="w-col w-col-4">
                 <div class="div-block-2">
                     <h3 class="heading-3">Users</h3>
                     <ul class="w-list-unstyled">
-                        <li class="list-item"><a class="link-5" href=@routes.AdminController.approval>Approve Voter Registration</a></li>
-                        <li class="list-item"><a class="link-5" href=@routes.AdminController.searchUsers()>Search User Demographics</a></li>
-                        <li class="list-item"><a class="link-5" href=@routes.AdminController.createadmin()>Create Admin/Managers</a></li>
+                        <li class="list-item"><a class="link-5" href=@routes.AdminController.searchUsers()>Search Demographics</a></li>
                     </ul>
                 </div>
             </div>
@@ -22,10 +20,7 @@
                     <h3 class="heading-3">Elections</h3>
                     <ul class="w-list-unstyled">
                         <li class="list-item"><a class="link-5" href=@routes.ElectionController.electionList()>List Elections</a></li>
-                        <li class="list-item"><a class="link-5" href=@routes.ElectionController.election()>Create Elections</a></li>
-                        <li class="list-item"><a class="link-5" href=@routes.AdminController.candidate()>Create Candidates</a></li>
                         <li class="list-item"><a class="link-5" href="@routes.AdminController.candidateList()">List Candidates</a></li>
-                        <li class="list-item"><a class="link-5" href=@routes.AdminController.searchCandidates()>Search Candidate Demographics</a></li>
                         <li class="list-item"><a class="link-5" href="@routes.ElectionController.electionresults()">Election Results</a></li>
                     </ul>
                 </div>
@@ -35,6 +30,7 @@
                     <h3 class="heading-3">Precincts</h3>
                     <ul class="w-list-unstyled">
                         <li class="list-item"><a class="link-5" href=@routes.PrecinctController.precinct>View Precincts</a></li>
+                        <li class="list-item"><a class="link-5" href="#">Search Geography</a></li>
                     </ul>
                 </div>
             </div>

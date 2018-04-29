@@ -1,8 +1,7 @@
 import akka.actor.ActorSystem;
 import controllers.AdminController;
-import controllers.AsyncController;
-import controllers.CountController;
 import controllers.HomeController;
+import controllers.ElectionController;
 import org.junit.Test;
 import org.junit.Before;
 import play.mvc.Http;
@@ -38,39 +37,39 @@ public class UnitTest {
         assertThat(a).isEqualTo(2);
     }
 
-    // Unit test a controller
-    @Test
-    public void testCount() {
-        final CountController controller = new CountController(() -> 49);
-        Result result = controller.count();
-        assertThat(contentAsString(result)).isEqualTo("49");
-    }
-
-    // Unit test a controller with async return
-    @Test
-    public void testAsync() {
-        final ActorSystem actorSystem = ActorSystem.create("test");
-        try {
-            final ExecutionContextExecutor ec = actorSystem.dispatcher();
-            final AsyncController controller = new AsyncController(actorSystem, ec);
-            final CompletionStage<Result> future = controller.message();
-
-            // Block until the result is completed
-            await().until(() -> {
-                assertThat(future.toCompletableFuture()).isCompletedWithValueMatching(result -> {
-                    return contentAsString(result).equals("Hi!");
-                });
-            });
-        } finally {
-            actorSystem.terminate();
-        }
-    }
+//    // Unit test a controller
+//    @Test
+//    public void testCount() {
+//        final CountController controller = new CountController(() -> 49);
+//        Result result = controller.count();
+//        assertThat(contentAsString(result)).isEqualTo("49");
+//    }
+//
+//    // Unit test a controller with async return
+//    @Test
+//    public void testAsync() {
+//        final ActorSystem actorSystem = ActorSystem.create("test");
+//        try {
+//            final ExecutionContextExecutor ec = actorSystem.dispatcher();
+//            final AsyncController controller = new AsyncController(actorSystem, ec);
+//            final CompletionStage<Result> future = controller.message();
+//
+//            // Block until the result is completed
+//            await().until(() -> {
+//                assertThat(future.toCompletableFuture()).isCompletedWithValueMatching(result -> {
+//                    return contentAsString(result).equals("Hi!");
+//                });
+//            });
+//        } finally {
+//            actorSystem.terminate();
+//        }
+//    }
 
     //Unit test for Admin Controller Update method for updating the approval of the voter
     @Test
     public void testUpdateToken(){
         final AdminController controller = new AdminController();
-        Result result = controller.update("nabeelahmadkh@gmail.com");
+        Result result = controller.update("nabeel-khan@uiowa.edu");
         assertEquals(OK, result.status());
     }
 
@@ -102,4 +101,64 @@ public class UnitTest {
 //
 //        assertEquals(OK, result.status());
 //    }
+//        assertEquals(OK, result.status());
+//    }
+
+    /***************************************************
+     * Unit Tests for ElecitonController
+     * @author jpohlman
+     ***************************************************/
+    @Test
+    public void testElection(){
+        final ElectionController controller = new ElectionController();
+        Result result = controller.election();
+
+        assertEquals(OK, result.status());
+        assertTrue(contentAsString(result).contains("Create an Election"));
+    }
+
+    @Test
+    public void testElectionList(){
+        final ElectionController controller = new ElectionController();
+        Result result = controller.electionList();
+
+        assertEquals(OK, result.status());
+        assertTrue(contentAsString(result).contains("Available Elections"));
+    }
+
+    @Test
+    public void testElectionResults(){
+        final ElectionController controller = new ElectionController();
+        Result result = controller.electionresults();
+
+        assertEquals(OK, result.status());
+        assertTrue(contentAsString(result).contains("Select the Election ID to display the results"));
+    }
+
+    @Test
+    public void testElectionResultsDisplay(){
+        final ElectionController controller = new ElectionController();
+        Result result = controller.displayelectionresults();
+
+        assertEquals(OK, result.status());
+        assertTrue(contentAsString(result).contains("Election Results"));
+    }
+
+    @Test
+    public void testElectionVerification(){
+        final ElectionController controller = new ElectionController();
+        Result result = controller.electionVerification();
+
+        assertEquals(OK, result.status());
+        assertTrue(contentAsString(result).contains("Election Results"));
+    }
+
+    @Test
+    public void testElectionVoterView(){
+        final ElectionController controller = new ElectionController();
+        Result result = controller.voterElectionsView();
+
+        assertEquals(OK, result.status());
+        assertTrue(contentAsString(result).contains("Upcoming Elections"));
+    }
 }

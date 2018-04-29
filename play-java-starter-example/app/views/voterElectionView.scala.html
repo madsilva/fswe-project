@@ -20,7 +20,7 @@
                         <td>@election.electionType</td>
                         <td>@election.state</td>
                         <td>
-                            @helper.form(action= helper.CSRF(routes.ElectionController.electionVerification(election.electionID))){
+                            @helper.form(action= routes.ElectionController.electionVerification(election.electionID)){
                                 <fieldset>
                                     <input class="btn btn-sm btn-success btn-block" type="submit" value="Vote">
                                 </fieldset>

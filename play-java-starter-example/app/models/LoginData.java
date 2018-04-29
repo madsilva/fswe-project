@@ -63,8 +63,6 @@ public class LoginData extends Model{
     @Constraints.Required
     public String password;
 
-    public String confPassword;
-
     public String firstname;
 
     public String lastname;

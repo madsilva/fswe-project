@@ -29,6 +29,10 @@ public class VoterRegistration extends Model{
     @Constraints.Required
     public String dateOfBirth;
     @Constraints.Required
+    public String gender;
+    @Constraints.Required
+    public String party;
+    @Constraints.Required
     public String socialSecurity;
     @Constraints.Required
     public String idNumber;
@@ -36,6 +40,9 @@ public class VoterRegistration extends Model{
     public void setApproved(boolean value){
         this.approved = value;
     }
+
+    @Constraints.Required
+    public String electionsVotedIn = "";
 
     public static Finder<String, VoterRegistration> find = new Finder<>(VoterRegistration.class);
 }

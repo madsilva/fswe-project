@@ -1,4 +1,4 @@
-@(ballotForm : Form[Ballots], electionID : String)
+@(electionID : String, candidates : List[Candidate])
 @import helper._
 
 
@@ -7,6 +7,20 @@
         <div class="form-container w-container">
             <div class="form-div">
                 <h1>Election Ballot</h1>
+                <table>
+                    @for(candidate <- candidates){
+                    <tr>
+                        <td>@candidate.firstname @candidate.lastname @candidate.party</td>
+                        <td>
+                        @helper.form(action= helper.CSRF(routes.ElectionController.saveVote(candidate.candidateID))){
+                        <fieldset>
+                            <input class="btn btn-sm btn-success btn-block" type="submit" value="vote">
+                        </fieldset>
+                        }
+                        </td>
+                    </tr>
+                    }
+                </table>
 
             </div>
         </div>

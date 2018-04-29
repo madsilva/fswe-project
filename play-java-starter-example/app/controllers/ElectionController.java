@@ -28,6 +28,7 @@ import java.sql.* ;
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.SqlUpdate;
 
+import controllers.*;
 
 
 import views.html.*;
@@ -70,7 +71,7 @@ public class ElectionController extends Controller{
         precinctid.clear();
         precinctid.addAll(hs);
 
-
+/*
         // Saving the ballot
         Ballots ballot = new Ballots();
         List<Ballots> ballotList = Ballots.find.all();
@@ -82,7 +83,7 @@ public class ElectionController extends Controller{
             }
 
         }
-
+*/
 
         String message = "";
 
@@ -100,14 +101,37 @@ public class ElectionController extends Controller{
         LocalDate today = LocalDate.now();
 
         VoterRegistration voter = VoterRegistration.find.query().where().eq("username", username).findUnique();
-        Precinct voterPrecinct = Precinct.find.query().where().eq("zip", voter.zipCode).findUnique();
-        List<Ballots> ballotList = Ballots.find.query().where().eq("precinct","11111").findList();
+        // this will only work for 1 zip code per precinct???
+        String voterPrecinctID = Precinct.find.query().where().eq("zip", voter.zipCode).findUnique().precinctID;
+
         List<Election> ongoingElections = Election.find.query().where().ge("end_date", today.plusDays(1)).le("start_date", today.plusDays(1)).findList();
-        /*for (Election election : ongoingElections){
-            if(!ballotList.contains(election.electionID)){
-                ongoingElections.remove(election);
+
+        Iterator<Election> iter = ongoingElections.iterator();
+        while (iter.hasNext()) {
+            Election election = iter.next();
+            if (election.precinctID != null) {
+                if (election.precinctID != voterPrecinctID) {
+                    iter.remove();
+                }
             }
-        }*/
+            else {
+                if (election.state != null) {
+                    if (!election.state.trim().equals(voter.state.trim())) {
+                        iter.remove();
+                    }
+                }
+            }
+        }
+
+        String[] alreadyVotedInElections = voter.electionsVotedIn.split(" ");
+        iter = ongoingElections.iterator();
+        while (iter.hasNext()) {
+            Election election = iter.next();
+            if (Arrays.asList(alreadyVotedInElections).contains(election.electionID)) {
+                iter.remove();
+            }
+        }
+
 
         return ok(voterElectionView.render(ongoingElections));
     }
@@ -158,11 +182,30 @@ public class ElectionController extends Controller{
         voterInfo = VoterRegistration.find.query().where().eq("username", verifyInfo.username).eq("zip_code", verifyInfo.zipCode).eq("date_of_birth",verifyInfo.dateOfBirth).eq("id_number",verifyInfo.idNumber).findUnique();
 
         if(voterInfo != null){
-            return ok(error.render("No current ballot page.\n Verification Success!"));
+            return redirect("/vote/"+electionID);
         }
         else{
             return ok(error.render("Voter Verification Failed"));
         }
+    }
+
+    public Result vote(String electionID) {
+        List<Candidate> candidates = Candidate.find.query().where().eq("election_id", electionID).findList();
+
+        return ok(ballot.render(electionID, candidates));
+    }
+
+    public Result saveVote(int candidateID) {
+        Candidate candidate = Candidate.find.query().where().eq("candidate_id", candidateID).findUnique();
+        candidate.votes += 1;
+        candidate.save();
+
+        String user = session("connected");
+        VoterRegistration voter = VoterRegistration.find.query().where().eq("username", user).findUnique();
+        voter.electionsVotedIn += candidate.electionID + " ";
+        voter.save();
+
+        return redirect("/");
     }
 }
 
