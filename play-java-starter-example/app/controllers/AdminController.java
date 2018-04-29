@@ -180,6 +180,31 @@ public class AdminController extends Controller {
         return ok(candidateCreation.render(candidateForm, electionid, precinctid, message));
     }
 
+    /*public Result updateCandidate(Candidate candidate){
+        //VoterRegistration voterRegistrationInfo = VoterRegistration.find.query().where().eq("username", username).findUnique();
+        System.out.println("Username is : "+username);
+        VoterRegistration voterRegistrationInfo = VoterRegistration.find.byId(username);
+        voterRegistrationInfo.setApproved(true);
+        //voterRegistrationInfo.approved = true;
+        voterRegistrationInfo.update();
+        System.out.println("*************THE EBEAN SERVER IS 1*************");
+        //EbeanServer ebs = Ebean.getServer("default");
+        System.out.println("*************THE EBEAN SERVER IS 2*************");
+        //System.out.println(ebs);
+        //Ebean.save(voterRegistrationInfo);
+        //voterRegistrationInfo.save();
+
+        List<VoterRegistration> voterInfo = VoterRegistration.find.query().where().eq("approved", false).findList();
+        List<String> unapprovedNames = new ArrayList<String>();
+
+        for(VoterRegistration voter : voterInfo){
+            unapprovedNames.add(voter.username);
+        }
+
+        return ok(approval.render(unapprovedNames));
+    }*/
+
+
     public Result candidateList() {
         List<Candidate> candidates = Candidate.find.all();
         return ok(candidateList.render(candidates));
@@ -192,6 +217,42 @@ public class AdminController extends Controller {
         List<String> voterNames = new ArrayList<String>();
 
         return ok(userSearch.render(searchForm, voterNames));
+    }
+
+    public Result searchCandidates(){
+        Form<Search> searchForm = formFactory.form(Search.class);
+        System.out.println("Search Candidates Function hit");
+
+        List<String> voterNames = new ArrayList<String>();
+
+        return ok(userSearch.render(searchForm, voterNames));
+    }
+
+    public Result candidateDemographics(){
+        Form<Search> searchForm = formFactory.form(Search.class).bindFromRequest();
+        Search searchInfo = searchForm.get();
+
+        String criteria = searchInfo.criteria;
+        String sqlColumn = searchInfo.sqlColumn;
+        LocalDate today = LocalDate.now();
+
+        List<VoterRegistration> voterInfo = new ArrayList<>();
+
+        if (sqlColumn.equals("election id")){
+            sqlColumn = "election_id";
+            voterInfo = VoterRegistration.find.query().where().eq(sqlColumn, criteria).findList();
+        }
+        else{
+            voterInfo = VoterRegistration.find.query().where().eq(sqlColumn, criteria).findList();
+        }
+
+        List<String> voterNames = new ArrayList<String>();
+
+        for(VoterRegistration voter : voterInfo){
+            voterNames.add(voter.username);
+        }
+
+        return ok(userSearch.render(searchForm,voterNames));
     }
 
     public Result search(){

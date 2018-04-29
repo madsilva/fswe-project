@@ -12,7 +12,7 @@
                     <h3 class="heading-3">Users</h3>
                     <ul class="w-list-unstyled">
                         <li class="list-item"><a class="link-5" href=@routes.AdminController.approval>Approve Voter Registration</a></li>
-                        <li class="list-item"><a class="link-5" href=@routes.AdminController.searchUsers()>Search Users</a></li>
+                        <li class="list-item"><a class="link-5" href=@routes.AdminController.searchUsers()>Search User Demographics</a></li>
                         <li class="list-item"><a class="link-5" href=@routes.AdminController.createadmin()>Create Admin/Managers</a></li>
                     </ul>
                 </div>
@@ -25,6 +25,7 @@
                         <li class="list-item"><a class="link-5" href=@routes.ElectionController.election()>Create Elections</a></li>
                         <li class="list-item"><a class="link-5" href=@routes.AdminController.candidate()>Create Candidates</a></li>
                         <li class="list-item"><a class="link-5" href="@routes.AdminController.candidateList()">List Candidates</a></li>
+                        <li class="list-item"><a class="link-5" href=@routes.AdminController.searchCandidates()>Search Candidate Demographics</a></li>
                         <li class="list-item"><a class="link-5" href="@routes.ElectionController.electionresults()">Election Results</a></li>
                     </ul>
                 </div>
@@ -34,7 +35,6 @@
                     <h3 class="heading-3">Precincts</h3>
                     <ul class="w-list-unstyled">
                         <li class="list-item"><a class="link-5" href=@routes.PrecinctController.precinct>View Precincts</a></li>
-                        <li class="list-item"><a class="link-5" href="#">Search Geography</a></li>
                     </ul>
                 </div>
             </div>
