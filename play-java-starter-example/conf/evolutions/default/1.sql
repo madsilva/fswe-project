@@ -51,6 +51,7 @@ create table login_data (
 create table precinct (
   zip                           varchar(255) not null,
   precinct_id                   varchar(255),
+  state                         varchar(255),
   constraint pk_precinct primary key (zip)
 );
 

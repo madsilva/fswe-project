@@ -132,7 +132,8 @@ public class HomeController extends Controller{
             else{
                 System.out.println("User Logged In"+login.priviledge);
                 session("connected", loginForm.get().username);
-                return ok(profile.render(loginForm.get().username,false));
+                VoterRegistration voterRegistrationInfo = VoterRegistration.find.query().where().eq("username", loginCredentials.username).findUnique();
+                return ok(profile.render(loginForm.get().username,voterRegistrationInfo.approved));
             }
         }
     }
@@ -203,7 +204,8 @@ public class HomeController extends Controller{
     public Result profile(){
         String user = session("connected");
         System.out.println("Profile hit"+user);
-        if(user != null) {
+        String admin = session("admin");
+        if((user != null) && (admin == null)) {
             //Form<VoterRegistration> voterForm = formFactory.form(VoterRegistration.class).bindFromRequest();
             VoterRegistration voterRegistrationInfo = VoterRegistration.find.query().where().eq("username", user).findUnique();
             //System.out.println("Approved query is "+voterRegistrationInfo.username+voterRegistrationInfo.approved);
@@ -218,6 +220,7 @@ public class HomeController extends Controller{
     public Result logout(){
         //session().clear();
         session().remove("connected");
+        session().remove("admin");
         System.out.println("Session cleared");
         Form<LoginData> loginForm = formFactory.form(LoginData.class);
         System.out.println("Login Function hit");
