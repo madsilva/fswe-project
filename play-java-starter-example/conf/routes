@@ -44,8 +44,8 @@ POST    /previousprecinct               controllers.PrecinctController.previousp
 
 GET     /candidate                      controllers.AdminController.candidate
 POST    /candidate                      controllers.AdminController.saveCandidate
-GET     /update_candidate               controllers.AdminController.updateCandidatePage(candidate : Int)
-POST    /update_candidate               controllers.AdminController.updateCandidate(candidate : Int)
+GET     /update_candidate/              controllers.AdminController.updateCandidatePage(candidateID : Int)
+POST    /update_candidate               controllers.AdminController.updateCandidate(candidateID : Int)
 
 GET     /candidate/uploadlist           controllers.AdminController.uploadCandidate
 

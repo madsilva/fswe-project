@@ -19,12 +19,9 @@
                         <td>@candidate.lastname</td>
                         <td>@candidate.party</td>
                         <td>
-                            @helper.form(action= helper.CSRF(routes.AdminController.updateCandidatePage(candidate.candidateID))){
-                                <fieldset>
-                                    <input class="btn btn-sm btn-danger btn-block" type="submit" value="Update">
-                                </fieldset>
-                            }
-                        </form>
+                            <a href=@routes.AdminController.updateCandidatePage(candidate.candidateID)>
+                                <input class="btn btn-sm btn-danger btn-block" type="button" value="Update">
+                            </a>
                         </td>
                     </tr>
                 }

@@ -10,12 +10,15 @@ create table ballots (
 );
 
 create table candidate (
+  candidate_id                  integer auto_increment not null,
   firstname                     varchar(255),
   lastname                      varchar(255),
   party                         varchar(255),
   precinct                      varchar(255),
   election_id                   varchar(255),
-  position                      varchar(255)
+  position                      varchar(255),
+  votes                         integer not null,
+  constraint pk_candidate primary key (candidate_id)
 );
 
 create table election (
@@ -24,6 +27,7 @@ create table election (
   state                         varchar(255),
   start_date                    datetime(6),
   end_date                      datetime(6),
+  precinct_id                   varchar(255),
   constraint pk_election primary key (election_id)
 );
 
@@ -68,7 +72,8 @@ create table user_id (
   password                      varchar(255),
   conf_password                 varchar(255),
   first_name                    varchar(255),
-  last_name                     varchar(255)
+  last_name                     varchar(255),
+  priviledge                    varchar(255)
 );
 
 create table voter_registration (
@@ -83,6 +88,7 @@ create table voter_registration (
   social_security               varchar(255),
   id_number                     varchar(255),
   approved                      tinyint(1) default 0 not null,
+  elections_voted_in            varchar(255),
   constraint pk_voter_registration primary key (username)
 );
 

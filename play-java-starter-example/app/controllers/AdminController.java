@@ -212,8 +212,7 @@ public class AdminController extends Controller {
         Candidate formInfo = candidateForm.get();
 
         System.out.println("Candidate is : " + candidateID);
-        List<VoterRegistration> voterInfo = VoterRegistration.find.query().where().eq("approved", false).findList();
-        Candidate candidateUpdate = Candidate.find.query().where().eq("canidate_id", candidateID).findUnique();
+        Candidate candidateUpdate = Candidate.find.query().where().eq("candidate_id", candidateID).findUnique();
 
         candidateUpdate.firstname = formInfo.firstname;
         candidateUpdate.lastname = formInfo.lastname;
@@ -223,6 +222,7 @@ public class AdminController extends Controller {
         candidateUpdate.position = formInfo.position;
 
         candidateUpdate.update();
+        System.out.println("Candidate "+candidateUpdate.firstname+ candidateUpdate.lastname+ candidateUpdate.position);
 
         List<Candidate> candidates = Candidate.find.all();
         return ok(candidateList.render(candidates));
@@ -231,6 +231,7 @@ public class AdminController extends Controller {
 
     public Result candidateList() {
         List<Candidate> candidates = Candidate.find.all();
+        System.out.println("Candidates"+candidates);
         return ok(candidateList.render(candidates));
     }
 
