@@ -67,6 +67,9 @@ GET     /voter_elections                controllers.ElectionController.voterElec
 GET     /search_users                   controllers.AdminController.searchUsers()
 POST    /search                         controllers.AdminController.search()
 
+GET     /search_candidates              controllers.AdminController.searchCandidates()
+POST    /candidate_demographics         controllers.AdminController.candidateDemographics()
+
 GET     /createadmin                    controllers.AdminController.createadmin
 POST    /createadmin                    controllers.AdminController.saveadmin
 
