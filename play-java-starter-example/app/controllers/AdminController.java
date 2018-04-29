@@ -213,16 +213,11 @@ public class AdminController extends Controller {
 
         System.out.println("Candidate is : " + candidateID);
         Candidate candidateUpdate = Candidate.find.query().where().eq("candidate_id", candidateID).findUnique();
+        formInfo.candidateID = candidateID;
 
-        candidateUpdate.firstname = formInfo.firstname;
-        candidateUpdate.lastname = formInfo.lastname;
-        candidateUpdate.party = formInfo.party;
-        candidateUpdate.precinct = formInfo.precinct;
-        candidateUpdate.electionID = formInfo.electionID;
-        candidateUpdate.position = formInfo.position;
-
-        candidateUpdate.update();
-        System.out.println("Candidate "+candidateUpdate.firstname+ candidateUpdate.lastname+ candidateUpdate.position);
+        candidateUpdate.delete();
+        formInfo.save();
+        System.out.println("Candidate "+candidateUpdate.firstname + " " + candidateUpdate.lastname + " " + candidateUpdate.position);
 
         List<Candidate> candidates = Candidate.find.all();
         return ok(candidateList.render(candidates));
