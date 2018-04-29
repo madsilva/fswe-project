@@ -37,9 +37,9 @@
                 <div class="div-block-2">
                     <h3 class="heading-3">Elections</h3>
                     <ul class="w-list-unstyled">
-                        @if(approved){
-                        <li class="list-item"><a class="link-5" href=routes.ElectionController.voterElectionsView(username)>List Upcoming Elections</a></li>
-                        } else {You can't vote in elections if your registration has not been approved.}
+
+                        <li class="list-item"><a class="link-5" href=@routes.ElectionController.voterElectionsView(username)>List Upcoming Elections</a></li>
+
                     </ul>
                 </div>
             </div>
