@@ -391,18 +391,18 @@ public class AdminController extends Controller {
     }
 
     public Result saveadmin(){
-        Form<LoginData> userForm = formFactory.form(LoginData.class).bindFromRequest();
-        LoginData user = userForm.get();
+        Form<UserID> userForm = formFactory.form(UserID.class).bindFromRequest();
+        UserID user = userForm.get();
 
         System.out.println(user.password);
 
         if (user.password.equals(user.confPassword)){
             LoginData loginCredentials = new LoginData();
             loginCredentials.setUsername(user.username);
-            loginCredentials.setFirstname(user.firstname);
-            loginCredentials.setLastname(user.lastname);
+            loginCredentials.setFirstname(user.firstName);
+            loginCredentials.setLastname(user.lastName);
             loginCredentials.setPriviledge(user.priviledge);
-            System.out.println("Firstname & Lastname are : "+user.firstname+user.lastname);
+            System.out.println("Firstname & Lastname are : "+user.firstName+user.lastName);
             loginCredentials.setPassword(DigestUtils.md5Hex(user.password));
             loginCredentials.save();
             System.out.println("hashed password saved : "+DigestUtils.md5Hex(user.password));
