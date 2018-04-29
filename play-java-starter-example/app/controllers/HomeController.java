@@ -73,7 +73,32 @@ public class HomeController extends Controller{
             return ok(login.render(loginForm, " "));
         }
         else{
-            return ok(profile.render(user, false));
+            String user1 = session("connected");
+            VoterRegistration voterRegistrationInfo = VoterRegistration.find.query().where().eq("username", user1).findUnique();
+            return ok(profile.render(user, voterRegistrationInfo.approved));
+        }
+    }
+
+    public Result changepasswordbyuser(){
+
+        DynamicForm df = formFactory.form().bindFromRequest();
+
+        String password = df.get("password");
+        String confPassword = df.get("confpassword");
+        if (password.equals(confPassword)){
+            String user = session("connected");
+            LoginData login = LoginData.find.byId(user);
+
+            login.password = password;
+            login.update();
+
+            VoterRegistration voterRegistrationInfo = VoterRegistration.find.query().where().eq("username", user).findUnique();
+
+            //return ok(profile.render(user, voterRegistrationInfo.approved));
+            return ok(positivefeedback.render("Your Password in Successfully Updated"));
+        }
+        else{
+            return ok(error.render("Password and Conf Password Entries do not match"));
         }
     }
 
@@ -141,6 +166,12 @@ public class HomeController extends Controller{
             return ok(error.render("Passwords do not match"));
         }
         Form<LoginData> loginForm = formFactory.form(LoginData.class);
+
+        // Sending the Link to the User email id
+        String link = "Your account is succesfully created at the Voting Portal";
+        MailGenerator mail = new MailGenerator();
+        mail.sendEmail(user.username," ","Hello", "Account Created"," ", link);
+
         return ok(login.render(loginForm,"You have successfully signed up"));
     }
 
@@ -241,10 +272,6 @@ public class HomeController extends Controller{
         String link = "http://localhost:9000/password/resetpassword/"+saltStr;
         MailGenerator mail = new MailGenerator();
         mail.sendEmail(username," ","Hello", "Reset Password Link"," ", link);
-
-        //MailGenerator mail = new MailGenerator();
-        //mail.sendEmail(username," ","Hello", "Reset Password Link"," ", link);
-
 
 
         Form<LoginData> loginForm = formFactory.form(LoginData.class);

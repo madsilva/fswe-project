@@ -20,23 +20,37 @@
         <div>
             <div class="div-block">
                 <div class="w-row">
-                    <div class="w-col w-col-6">
+                    <div class="w-col w-col-8">
                         <h1 class="heading">Voting Portal</h1>
                     </div>
-                    <div class="w-col w-col-6">
-                        <ul class="nav navbar-nav">
-                            <li><a href=@routes.HomeController.index>Home</a></li>
-                            <li><a href=@routes.HomeController.voterRegistration()>Voter Registration</a></li>
-                            <li><a href=@routes.HomeController.profile>Profile</a></li>
-                            <li><a href=@routes.AdminController.admin>Admin</a></li>
-                            @{if (title.equals("Login Page") || title.equals("Sign Up Page"))
-                                {
-                                }
-                                else{
-                                    <li><a href="/logout">Logout</a></li>
-                                    }
+                    <div class="w-col w-col-4">
+                        @{if (title.equals("Login Page")){
+                            <ul class="nav navbar-nav">
+                                <li><a href="/login">Home</a></li>
+                                <li><a href="/createaccount">Create Account</a></li>
+                            </ul>
+                        }
+                        else if (title.equals("Sign Up Page")){
+                                    <ul class="nav navbar-nav">
+                                        <li><a href="/login">Home</a></li>
+                                        <li><a href="/login">Login</a></li>
+                                    </ul>
                             }
-                        </ul>
+                            else if(title.equals("Admin")){
+                                        <ul class="nav navbar-nav">
+                                            <li><a href="/login">Home</a></li>
+                                            <li><a href="/admin">Admin Page</a></li>
+                                            <li><a href="/logout">Logout</a></li>
+                                        </ul>
+                                }
+                        else{
+                                <ul class="nav navbar-nav">
+                                    <li><a href="/profile">Home</a></li>
+                                    <li><a href="/voterRegistration">Voter Registration</a></li>
+                                    <li><a href="/logout">Logout</a></li>
+                                </ul>
+                            }
+                        }
                     </div>
                 </div>
 

@@ -62,6 +62,7 @@ public class AdminController extends Controller {
             unapprovedNames.add(voter.username);
         }
 
+
         return ok(approval.render(unapprovedNames));
     }
 
@@ -88,6 +89,13 @@ public class AdminController extends Controller {
             unapprovedNames.add(voter.username);
         }
 
+        // Sending the Link to the User email id
+        String link = "Your account is approved to cast Vote.";
+        MailGenerator mail = new MailGenerator();
+        mail.sendEmail(username," ","Hello", "Account Approved"," ", link);
+
+
+        System.out.println("Unapproved names are : "+unapprovedNames);
         return ok(approval.render(unapprovedNames));
     }
 

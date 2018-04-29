@@ -73,6 +73,5 @@ public class LoginData extends Model{
 
     public String resetToken;
 
-
     public static Finder<String, LoginData> find = new Finder<>(LoginData.class);
 }
