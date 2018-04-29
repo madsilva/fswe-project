@@ -98,6 +98,11 @@ public class HomeController extends Controller{
                 session("admin", loginForm.get().username);
                 return ok(admin.render(loginForm.get().username));
             }
+            else if (login.priviledge.matches("manager")){
+                session("connected", loginForm.get().username);
+                session("manager", loginForm.get().username);
+                return ok(manager.render(loginForm.get().username));
+            }
             else{
                 System.out.println("User Logged In"+login.priviledge);
                 session("connected", loginForm.get().username);
@@ -239,9 +244,9 @@ public class HomeController extends Controller{
 
         // Sending the Link to the User email id
         String link = "http://localhost:9000/password/resetpassword/"+saltStr;
-        /**MailGenerator mail = new MailGenerator();
+        MailGenerator mail = new MailGenerator();
         mail.sendEmail(username," ","Hello", "Reset Password Link"," ", link);
-        **/
+
         //MailGenerator mail = new MailGenerator();
         //mail.sendEmail(username," ","Hello", "Reset Password Link"," ", link);
 

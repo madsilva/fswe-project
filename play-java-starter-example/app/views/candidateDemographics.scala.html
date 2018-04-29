@@ -4,7 +4,7 @@
 @layout("Demographic Search"){
     <div class="custom-container align-items-center">
         <div class="col-md-4 col-md-offset-4">
-                @helper.form(action= helper.CSRF(routes.AdminController.search())){
+                @helper.form(action= helper.CSRF(routes.AdminController.candidateDemographics())){
                     <fieldset>
                             <div class="searchcolumn w-col w-col-4">
                                 <div class="form-group">
@@ -17,12 +17,10 @@
                                 <div class="form-group">
                                 @helper.input(searchform("")){ (id, name, value, args) =>
                                     <select name="sqlColumn">
-                                        <option name="username">username</option>
-                                        <option name="zip">zip code</option>
-                                        <option name="approved">approved</option>
-                                        <option name="age">age</option>
+                                        <option name="precinct">Precinct</option>
+                                        <option name="election_id">election ID</option>
+                                        <option name="position">position</option>
                                         <option name="party">party</option>
-                                        <option name="gender">gender</option>
                                     </select>
                                 }
                                 </div>

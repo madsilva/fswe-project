@@ -17,6 +17,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static play.mvc.Http.Status.OK;
 
+
+import static play.test.Helpers.fakeApplication;
+import static play.test.Helpers.running;
+
 /**
  * Unit testing does not require Play application start up.
  *
@@ -73,6 +77,84 @@ public class UnitTest {
         Result result = controller.approval();
 
         assertEquals(OK, result.status());
-        assertTrue(contentAsString(result).contains("unapproved Voter Registrations"));
+        assertTrue(contentAsString(result).contains("Unapproved Voter Registrations"));
+    }
+
+    // Unit test for Admin Controller admin method
+    @Test
+    public void testAdmin(){
+        final AdminController controller = new AdminController();
+
+        // Use something to simulate session, as session is giving error while running this test.
+        Result result = controller.admin();
+
+        assertEquals(OK, result.status());
+    }
+
+    /***************************************************
+     * Unit Tests for ElecitonController
+     * @author jpohlman
+     ***************************************************/
+    @Test
+    public void testElection(){
+        final ElectionController controller = new ElectionController();
+        Result result = controller.election();
+
+        assertEquals(OK, result.status());
+        assertTrue(contentAsString(result).contains("Create an Election"));
+    }
+
+    @Test
+    public void testElectionList(){
+        final ElectionController controller = new ElectionController();
+        Result result = controller.electionList();
+
+        assertEquals(OK, result.status());
+        assertTrue(contentAsString(result).contains("Available Elections"));
+    }
+
+    @Test
+    public void testElectionResults(){
+        final ElectionController controller = new ElectionController();
+        Result result = controller.displayelectionresults();
+
+        assertEquals(OK, result.status());
+        assertTrue(contentAsString(result).contains("Election Results"));
+    }
+
+    @Test
+    public void testElectionResults(){
+        final ElectionController controller = new ElectionController();
+        Result result = controller.electionresults();
+
+        assertEquals(OK, result.status());
+        assertTrue(contentAsString(result).contains("Select the Election ID to display the results"));
+    }
+
+    @Test
+    public void testElectionResultsDisplay(){
+        final ElectionController controller = new ElectionController();
+        Result result = controller.displayelectionresults();
+
+        assertEquals(OK, result.status());
+        assertTrue(contentAsString(result).contains("Election Results"));
+    }
+
+    @Test
+    public void testElectionVerification(){
+        final ElectionController controller = new ElectionController();
+        Result result = controller.electionVerification();
+
+        assertEquals(OK, result.status());
+        assertTrue(contentAsString(result).contains("Election Results"));
+    }
+
+    @Test
+    public void testElectionVoterView(){
+        final ElectionController controller = new ElectionController();
+        Result result = controller.voterElectionsView();
+
+        assertEquals(OK, result.status());
+        assertTrue(contentAsString(result).contains("Upcoming Elections"));
     }
 }

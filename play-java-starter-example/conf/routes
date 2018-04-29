@@ -27,6 +27,8 @@ GET     /error                          controllers.HomeController.error
 
 GET     /admin                          controllers.AdminController.admin
 
+GET     /manager                        controllers.AdminController.manager
+
 GET     /approval                       controllers.AdminController.approval
 POST    /approval/:username             controllers.AdminController.update(username: String)
 POST    /approval/delete/:username      controllers.AdminController.destroy(username: String)
@@ -66,6 +68,9 @@ POST    /vote                           controllers.ElectionController.saveVote(
 
 GET     /search_users                   controllers.AdminController.searchUsers()
 POST    /search                         controllers.AdminController.search()
+
+GET     /search_candidates              controllers.AdminController.searchCandidates()
+POST    /candidate_demographics         controllers.AdminController.candidateDemographics()
 
 GET     /createadmin                    controllers.AdminController.createadmin
 POST    /createadmin                    controllers.AdminController.saveadmin

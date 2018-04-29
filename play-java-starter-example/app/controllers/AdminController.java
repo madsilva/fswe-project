@@ -10,6 +10,8 @@ import views.html.*;
 import models.*;
 import javax.inject.Inject;
 import play.data.*;
+import java.util.Date;
+import java.time.LocalDate;
 
 import play.api.mvc.MultipartFormData;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -50,6 +52,23 @@ public class AdminController extends Controller {
             return ok(admin.render(user));
         } else {
             System.out.println("Admin hit else case");
+            return ok(error.render("User not Signed in"));
+        }
+    }
+
+    public Result manager(){
+        String user = session("connected");
+        String account = session("manager");
+
+        System.out.println("Manager hit"+user);
+        if((user != null) && (account != null)) {
+            //Form<VoterRegistration> voterForm = formFactory.form(VoterRegistration.class).bindFromRequest();
+            //VoterRegistration voterRegistrationInfo = VoterRegistration.find.query().where().eq("username", user).findUnique();
+            //System.out.println("Approved query is "+voterRegistrationInfo.username+voterRegistrationInfo.approved);
+            System.out.println("Manager hit if case");
+            return ok(manager.render(user));
+        } else {
+            System.out.println("Manager hit else case");
             return ok(error.render("User not Signed in"));
         }
     }
@@ -161,6 +180,31 @@ public class AdminController extends Controller {
         return ok(candidateCreation.render(candidateForm, electionid, precinctid, message));
     }
 
+    /*public Result updateCandidate(Candidate candidate){
+        //VoterRegistration voterRegistrationInfo = VoterRegistration.find.query().where().eq("username", username).findUnique();
+        System.out.println("Username is : "+username);
+        VoterRegistration voterRegistrationInfo = VoterRegistration.find.byId(username);
+        voterRegistrationInfo.setApproved(true);
+        //voterRegistrationInfo.approved = true;
+        voterRegistrationInfo.update();
+        System.out.println("*************THE EBEAN SERVER IS 1*************");
+        //EbeanServer ebs = Ebean.getServer("default");
+        System.out.println("*************THE EBEAN SERVER IS 2*************");
+        //System.out.println(ebs);
+        //Ebean.save(voterRegistrationInfo);
+        //voterRegistrationInfo.save();
+
+        List<VoterRegistration> voterInfo = VoterRegistration.find.query().where().eq("approved", false).findList();
+        List<String> unapprovedNames = new ArrayList<String>();
+
+        for(VoterRegistration voter : voterInfo){
+            unapprovedNames.add(voter.username);
+        }
+
+        return ok(approval.render(unapprovedNames));
+    }*/
+
+
     public Result candidateList() {
         List<Candidate> candidates = Candidate.find.all();
         return ok(candidateList.render(candidates));
@@ -175,12 +219,49 @@ public class AdminController extends Controller {
         return ok(userSearch.render(searchForm, voterNames));
     }
 
+    public Result searchCandidates(){
+        Form<Search> searchForm = formFactory.form(Search.class);
+        System.out.println("Search Candidates Function hit");
+
+        List<String> voterNames = new ArrayList<String>();
+
+        return ok(userSearch.render(searchForm, voterNames));
+    }
+
+    public Result candidateDemographics(){
+        Form<Search> searchForm = formFactory.form(Search.class).bindFromRequest();
+        Search searchInfo = searchForm.get();
+
+        String criteria = searchInfo.criteria;
+        String sqlColumn = searchInfo.sqlColumn;
+        LocalDate today = LocalDate.now();
+
+        List<VoterRegistration> voterInfo = new ArrayList<>();
+
+        if (sqlColumn.equals("election id")){
+            sqlColumn = "election_id";
+            voterInfo = VoterRegistration.find.query().where().eq(sqlColumn, criteria).findList();
+        }
+        else{
+            voterInfo = VoterRegistration.find.query().where().eq(sqlColumn, criteria).findList();
+        }
+
+        List<String> voterNames = new ArrayList<String>();
+
+        for(VoterRegistration voter : voterInfo){
+            voterNames.add(voter.username);
+        }
+
+        return ok(userSearch.render(searchForm,voterNames));
+    }
+
     public Result search(){
         Form<Search> searchForm = formFactory.form(Search.class).bindFromRequest();
         Search searchInfo = searchForm.get();
 
         String criteria = searchInfo.criteria;
         String sqlColumn = searchInfo.sqlColumn;
+        LocalDate today = LocalDate.now();
 
         List<VoterRegistration> voterInfo = new ArrayList<>();
 
@@ -193,6 +274,13 @@ public class AdminController extends Controller {
         else if (sqlColumn.equals("zip code")){
             sqlColumn = "zip_code";
             voterInfo = VoterRegistration.find.query().where().eq(sqlColumn, criteria).findList();
+        }
+        else if (sqlColumn.equals("age")){
+            sqlColumn = "date_of_birth";
+            int age = Integer.parseInt(criteria);
+            age = age * 365;
+
+            voterInfo = VoterRegistration.find.query().where().eq(sqlColumn, today.minusDays(age)).findList();
         }
         else{
             voterInfo = VoterRegistration.find.query().where().eq(sqlColumn, criteria).findList();
