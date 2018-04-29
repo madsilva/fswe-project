@@ -18,14 +18,11 @@
                         <td>@candidate.firstname</td>
                         <td>@candidate.lastname</td>
                         <td>@candidate.party</td>
-                        @*<td>
-                            @helper.form(action= helper.CSRF(routes.AdminController.updateCandidate(candidate))){
-                                <fieldset>
-                                    <input class="btn btn-sm btn-danger btn-block" type="submit" value="Update">
-                                </fieldset>
-                            }
-                        </form>
-                        </td>*@
+                        <td>
+                            <a href=@routes.AdminController.updateCandidatePage(candidate.candidateID)>
+                                <input class="btn btn-sm btn-danger btn-block" type="button" value="Update">
+                            </a>
+                        </td>
                     </tr>
                 }
                 </tbody>
