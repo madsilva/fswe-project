@@ -29,7 +29,7 @@
                 <div class="div-block-2">
                     <h3 class="heading-3">Voter Information</h3>
                     <p class="paragraph-item">
-                    @{if (approved) "Vote in the current election in your area!" else "User not Approved by the Admin"}
+                    @{if (approved) "You are approved to vote!" else "Voter registration not Approved by the Admin"}
                     </p>
                 </div>
             </div>
@@ -37,7 +37,9 @@
                 <div class="div-block-2">
                     <h3 class="heading-3">Elections</h3>
                     <ul class="w-list-unstyled">
-                        <li class="list-item"><a class="link-5" href=@routes.ElectionController.voterElectionsView(username)>List Upcoming Elections</a></li>
+                        @if(approved){
+                        <li class="list-item"><a class="link-5" href=routes.ElectionController.voterElectionsView(username)>List Upcoming Elections</a></li>
+                        } else {You can't vote in elections if your registration has not been approved.}
                     </ul>
                 </div>
             </div>
