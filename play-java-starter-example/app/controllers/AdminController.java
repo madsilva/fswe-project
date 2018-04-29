@@ -180,29 +180,53 @@ public class AdminController extends Controller {
         return ok(candidateCreation.render(candidateForm, electionid, precinctid, message));
     }
 
-    /*public Result updateCandidate(Candidate candidate){
-        //VoterRegistration voterRegistrationInfo = VoterRegistration.find.query().where().eq("username", username).findUnique();
-        System.out.println("Username is : "+username);
-        VoterRegistration voterRegistrationInfo = VoterRegistration.find.byId(username);
-        voterRegistrationInfo.setApproved(true);
-        //voterRegistrationInfo.approved = true;
-        voterRegistrationInfo.update();
-        System.out.println("*************THE EBEAN SERVER IS 1*************");
-        //EbeanServer ebs = Ebean.getServer("default");
-        System.out.println("*************THE EBEAN SERVER IS 2*************");
-        //System.out.println(ebs);
-        //Ebean.save(voterRegistrationInfo);
-        //voterRegistrationInfo.save();
+    public Result updateCandidatePage(int candidateID){
+        Form<Candidate> candidateForm = formFactory.form(Candidate.class);
+        System.out.println("Update Function hit");
 
-        List<VoterRegistration> voterInfo = VoterRegistration.find.query().where().eq("approved", false).findList();
-        List<String> unapprovedNames = new ArrayList<String>();
+        List<Election> election = Election.find.all();
+        ArrayList<String> electionid = new ArrayList<String>();
 
-        for(VoterRegistration voter : voterInfo){
-            unapprovedNames.add(voter.username);
+        for (Election electioninfo: election){
+            electionid.add(electioninfo.electionID);
         }
 
-        return ok(approval.render(unapprovedNames));
-    }*/
+        List<Precinct> precinct = Precinct.find.all();
+        ArrayList<String> precinctid = new ArrayList<String>();
+        for (Precinct id: precinct){
+            precinctid.add(id.precinctID);
+        }
+
+        Set<String> hs = new HashSet<>();
+        hs.addAll(precinctid);
+        precinctid.clear();
+        precinctid.addAll(hs);
+
+        String message = "";
+
+        return ok(candidateUpdate.render(candidateForm, electionid, precinctid, candidateID));
+    }
+
+    public Result updateCandidate(int candidateID){
+        Form<Candidate> candidateForm = formFactory.form(Candidate.class).bindFromRequest();
+        Candidate formInfo = candidateForm.get();
+
+        System.out.println("Candidate is : " + candidateID);
+        List<VoterRegistration> voterInfo = VoterRegistration.find.query().where().eq("approved", false).findList();
+        Candidate candidateUpdate = Candidate.find.query().where().eq("canidate_id", candidateID).findUnique();
+
+        candidateUpdate.firstname = formInfo.firstname;
+        candidateUpdate.lastname = formInfo.lastname;
+        candidateUpdate.party = formInfo.party;
+        candidateUpdate.precinct = formInfo.precinct;
+        candidateUpdate.electionID = formInfo.electionID;
+        candidateUpdate.position = formInfo.position;
+
+        candidateUpdate.update();
+
+        List<Candidate> candidates = Candidate.find.all();
+        return ok(candidateList.render(candidates));
+    }
 
 
     public Result candidateList() {
