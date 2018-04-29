@@ -123,6 +123,14 @@ public class ElectionController extends Controller{
             }
         }
 
+        String[] alreadyVotedInElections = voter.electionsVotedIn.split(" ");
+        iter = ongoingElections.iterator();
+        while (iter.hasNext()) {
+            Election election = iter.next();
+            if (Arrays.asList(alreadyVotedInElections).contains(election.electionID)) {
+                iter.remove();
+            }
+        }
 
 
         return ok(voterElectionView.render(ongoingElections));
@@ -174,7 +182,7 @@ public class ElectionController extends Controller{
         voterInfo = VoterRegistration.find.query().where().eq("username", verifyInfo.username).eq("zip_code", verifyInfo.zipCode).eq("date_of_birth",verifyInfo.dateOfBirth).eq("id_number",verifyInfo.idNumber).findUnique();
 
         if(voterInfo != null){
-            return ok(error.render("No current ballot page.\n Verification Success!"));
+            return redirect("/vote/"+electionID);
         }
         else{
             return ok(error.render("Voter Verification Failed"));
@@ -191,6 +199,12 @@ public class ElectionController extends Controller{
         Candidate candidate = Candidate.find.query().where().eq("candidate_id", candidateID).findUnique();
         candidate.votes += 1;
         candidate.save();
+
+        String user = session("connected");
+        VoterRegistration voter = VoterRegistration.find.query().where().eq("username", user).findUnique();
+        voter.electionsVotedIn += candidate.electionID + " ";
+        voter.save();
+
         return redirect("/");
     }
 }

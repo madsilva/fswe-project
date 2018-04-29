@@ -75,6 +75,6 @@ GET     /electionresults                controllers.ElectionController.electionr
 
 POST    /electionresults                controllers.ElectionController.displayelectionresults
 
-GET     /verify                         controllers.ElectionController.electionVerification(electionID : String)
+GET     /verify/:electionID             controllers.ElectionController.electionVerification(electionID : String)
 POST    /verify                         controllers.ElectionController.verifyForElection(electionID : String)
 
