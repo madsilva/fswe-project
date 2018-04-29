@@ -233,6 +233,7 @@ public class HomeController extends Controller{
 
     public Result saveVoter() {
         Form<VoterRegistration> voterForm = formFactory.form(VoterRegistration.class).bindFromRequest();
+        System.out.println(voterForm);
         VoterRegistration voter = voterForm.get();
         String user = session("connected");
         System.out.println("username is "+user+voter.username);

@@ -41,8 +41,8 @@ public class VoterRegistration extends Model{
         this.approved = value;
     }
 
-    //@Constraints.Required
-    public String electionsVotedIn = "";
+
+    public String electionsVotedIn =  "";
 
     public static Finder<String, VoterRegistration> find = new Finder<>(VoterRegistration.class);
 }
