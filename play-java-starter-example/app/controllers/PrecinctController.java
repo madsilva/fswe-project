@@ -58,7 +58,7 @@ public class PrecinctController extends Controller {
                 while (sc.hasNext()){
                     String zip = sc.next();
                     Precinct iowaPrecinct = new Precinct();
-                    iowaPrecinct.setState("Iowa")
+                    iowaPrecinct.setState("Iowa");
                     iowaPrecinct.setZip(zip);
                     iowaPrecinct.setPrecinctID("precinct" + count);
                     iowaPrecinct.save();
