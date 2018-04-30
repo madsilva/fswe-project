@@ -1,11 +1,14 @@
-@(senators : List[Candidate],governors : List[Candidate],mayors : List[Candidate],representatives : List[Candidate], president : List[Candidate], treasurerList : List[Candidate], citycouncilList : List[Candidate], sheriffList : List[Candidate], election : Election)
+@(senators : List[Candidate],governors : List[Candidate],mayors : List[Candidate],representatives : List[Candidate], president : List[Candidate], sheriffList: List[Candidate], citycouncilList : List[Candidate], treasurerList : List[Candidate],  election : Election)
 
-@layout("Admin"){
+@layout("Results"){
     <div class="custom-container">
         <div class="col-md-4 col-md-offset-4">
-            <h3>Election Results:</h3>
+            <div class="form-container w-container">
+                <div class="results-div">
+                    <h3>Election Results:</h3>
+                    <h4>For election from @election.startDate to @election.endDate</h4>
 
-            <h4>For election from @election.startDate to @election.endDate</h4>
+
 
                 @if(senators.length != 0){
                 <h2>Senators</h2>
