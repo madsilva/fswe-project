@@ -51,18 +51,19 @@ public class PrecinctController extends Controller {
     public Result precinct(){
 
         List<Precinct> precinctInfo = Precinct.find.query().setMaxRows(79).findList();
-
         if (precinctInfo.isEmpty()){
             try{
                 File file = new File("zipcodes.txt");
                 Scanner sc = new Scanner(file);
+                int count = 1;
                 while (sc.hasNext()){
                     String zip = sc.next();
                     Precinct iowaPrecinct = new Precinct();
-                    iowaPrecinct.setZip(zip);
-                    iowaPrecinct.setPrecinctID(zip);
                     iowaPrecinct.setState("iowa");
+                    iowaPrecinct.setZip(zip);
+                    iowaPrecinct.setPrecinctID("precinct" + count);
                     iowaPrecinct.save();
+                    count++;
                 }
                 sc.close();
 
@@ -73,7 +74,7 @@ public class PrecinctController extends Controller {
             }
 
         }
-
+      
         List<String> precincts = new ArrayList<String>();
         HashMap<String, String> precinctMap = new HashMap<String, String>();
 
