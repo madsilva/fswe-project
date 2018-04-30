@@ -51,9 +51,9 @@ public class Ballots extends Model{
         this.governor = governor;
     }
 
-    public String senator;
-    public String usRepresentative;
-    public String mayor;
-    public String governor;
+    public String senator = "";
+    public String usRepresentative = "";
+    public String mayor = "";
+    public String governor = "";
 
 }

@@ -154,7 +154,28 @@ public class ElectionController extends Controller{
 
         Election election = Election.find.query().where().eq("election_id", electionid).findUnique();
         List<Candidate> candidates = Candidate.find.query().where().eq("election_id", electionid).findList();
-        return ok(electionresultsdisplay.render(candidates, election));
+
+        List<Candidate> senatorList = new ArrayList<>();
+        List<Candidate> representativeList = new ArrayList<>();
+        List<Candidate> mayorList = new ArrayList<>();
+        List<Candidate> governorList = new ArrayList<>();
+
+        for (Candidate candidate : candidates) {
+            if (candidate.position.equals("senator")){
+                senatorList.add(candidate);
+            }
+            else if (candidate.position.equals("us representative")){
+                representativeList.add(candidate);
+            }
+            else if (candidate.position.equals("mayor")){
+                mayorList.add(candidate);
+            }
+            else if (candidate.position.equals("governor")){
+                governorList.add(candidate);
+            }
+        }
+
+        return ok(electionresultsdisplay.render(senatorList, governorList, mayorList, representativeList, election));
 
 
 
@@ -211,32 +232,56 @@ public class ElectionController extends Controller{
     public Result saveVote() {
         Form<Ballots> ballotForm = formFactory.form(Ballots.class).bindFromRequest();
         Ballots ballotInfo = ballotForm.get();
-        String senatorID = ballotInfo.senator;
-        String usRepresentativeID = ballotInfo.senator;
-        String mayorID = ballotInfo.usRepresentative;
-        String governorID = ballotInfo.governor;
+        String senatorID = "";
+        String usRepresentativeID = "";
+        String mayorID = "";
+        String governorID = "";
+        String electionID = "";
+
+        senatorID = ballotInfo.senator;
+        System.out.println("Senator = " + senatorID);
+        usRepresentativeID = ballotInfo.usRepresentative;
+        mayorID = ballotInfo.mayor;
+        governorID = ballotInfo.governor;
 
 
         Candidate candidate = Candidate.find.query().where().eq("candidate_id", senatorID).findUnique();
-        candidate.votes += 1;
-        candidate.save();
+        if (candidate != null){
+            System.out.println("saveVote Candidate if Statement");
+            candidate.votes += 1;
+            candidate.save();
+            electionID = candidate.electionID;
+        }
+
 
         candidate = Candidate.find.query().where().eq("candidate_id", usRepresentativeID).findUnique();
-        candidate.votes += 1;
-        candidate.save();
+        if (candidate != null){
+            candidate.votes += 1;
+            candidate.save();
+            electionID = candidate.electionID;
+        }
 
         candidate = Candidate.find.query().where().eq("candidate_id", mayorID).findUnique();
-        candidate.votes += 1;
-        candidate.save();
+        if (candidate != null){
+            candidate.votes += 1;
+            candidate.save();
+            electionID = candidate.electionID;
+        }
 
         candidate = Candidate.find.query().where().eq("candidate_id", governorID).findUnique();
-        candidate.votes += 1;
-        candidate.save();
+        if (candidate != null){
+            candidate.votes += 1;
+            candidate.save();
+            electionID = candidate.electionID;
+        }
 
         String user = session("connected");
-        VoterRegistration voter = VoterRegistration.find.query().where().eq("username", user).findUnique();
-        voter.electionsVotedIn += candidate.electionID + " ";
-        voter.save();
+        if(!electionID.equals("")){
+            VoterRegistration voter = VoterRegistration.find.query().where().eq("username", user).findUnique();
+            voter.electionsVotedIn += electionID + " ";
+            voter.save();
+        }
+
 
         return redirect("/");
     }
