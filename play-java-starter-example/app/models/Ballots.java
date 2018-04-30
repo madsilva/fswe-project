@@ -19,29 +19,41 @@ import io.ebean.*;
 
 @Entity
 public class Ballots extends Model{
-
-    public String getPrecinct() {
-        return precinct;
+    public String getSenator() {
+        return senator;
     }
 
-    public void setPrecinct(String precinct) {
-        this.precinct = precinct;
+    public void setSenator(String senator) {
+        this.senator = senator;
     }
 
-    public String getElectionID(){
-        return electionID;
+    public String getUsRepresentative() {
+        return usRepresentative;
     }
 
-    public void setElectionID(String electionID){
-        this.electionID = electionID;
+    public void setUsRepresentative(String usRepresentative) {
+        this.usRepresentative = usRepresentative;
     }
 
+    public String getMayor() {
+        return mayor;
+    }
 
-    @Id @Constraints.Required
-    public String precinct;
-    @Constraints.Required
-    public String electionID;
+    public void setMayor(String mayor) {
+        this.mayor = mayor;
+    }
 
+    public String getGovernor() {
+        return governor;
+    }
 
-    public static Finder<String, Ballots> find = new Finder<>(Ballots.class);
+    public void setGovernor(String governor) {
+        this.governor = governor;
+    }
+
+    public String senator;
+    public String usRepresentative;
+    public String mayor;
+    public String governor;
+
 }

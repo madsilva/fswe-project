@@ -71,20 +71,6 @@ public class ElectionController extends Controller{
         precinctid.clear();
         precinctid.addAll(hs);
 
-/*
-        // Saving the ballot
-        Ballots ballot = new Ballots();
-        List<Ballots> ballotList = Ballots.find.all();
-        if (election.electionType.equals("StateElection")){
-            if (!ballotList.contains(election.electionID)){
-                ballot.precinct = "111111";
-                ballot.electionID = election.electionID;
-                ballot.save();
-            }
-
-        }
-*/
-
         String message = "";
 
         Form<Candidate> candidateForm = formFactory.form(Candidate.class);
@@ -198,13 +184,54 @@ public class ElectionController extends Controller{
     }
 
     public Result vote(String electionID) {
+        Form<Ballots> ballotForm = formFactory.form(Ballots.class);
         List<Candidate> candidates = Candidate.find.query().where().eq("election_id", electionID).findList();
+        List<Candidate> senatorList = new ArrayList<>();
+        List<Candidate> representativeList = new ArrayList<>();
+        List<Candidate> mayorList = new ArrayList<>();
+        List<Candidate> governorList = new ArrayList<>();
 
-        return ok(ballot.render(electionID, candidates));
+        for (Candidate person : candidates){
+            if (person.position.equals("senator")){
+                senatorList.add(person);
+            }
+            else if (person.position.equals("us representative")){
+                representativeList.add(person);
+            }
+            else if (person.position.equals("mayor")){
+                mayorList.add(person);
+            }
+            else if (person.position.equals("governor")){
+                governorList.add(person);
+            }
+        }
+
+
+        return ok(ballot.render(electionID, senatorList,representativeList,mayorList,governorList,ballotForm));
     }
 
-    public Result saveVote(int candidateID) {
-        Candidate candidate = Candidate.find.query().where().eq("candidate_id", candidateID).findUnique();
+    public Result saveVote() {
+        Form<Ballots> ballotForm = formFactory.form(Ballots.class).bindFromRequest();
+        Ballots ballotInfo = ballotForm.get();
+        String senatorID = ballotInfo.senator;
+        String usRepresentativeID = ballotInfo.senator;
+        String mayorID = ballotInfo.usRepresentative;
+        String governorID = ballotInfo.governor;
+
+
+        Candidate candidate = Candidate.find.query().where().eq("candidate_id", senatorID).findUnique();
+        candidate.votes += 1;
+        candidate.save();
+
+        candidate = Candidate.find.query().where().eq("candidate_id", usRepresentativeID).findUnique();
+        candidate.votes += 1;
+        candidate.save();
+
+        candidate = Candidate.find.query().where().eq("candidate_id", mayorID).findUnique();
+        candidate.votes += 1;
+        candidate.save();
+
+        candidate = Candidate.find.query().where().eq("candidate_id", governorID).findUnique();
         candidate.votes += 1;
         candidate.save();
 
@@ -216,4 +243,3 @@ public class ElectionController extends Controller{
         return redirect("/");
     }
 }
-
