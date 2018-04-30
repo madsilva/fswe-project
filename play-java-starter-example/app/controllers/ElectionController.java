@@ -133,10 +133,10 @@ public class ElectionController extends Controller{
     public Result electionresults(){
         // Fetch all the election IDs and render it in the View
         // Select the election ID from the view to display the result in detail.
-        List<ElectionResults> allElections = ElectionResults.find.all();
+        List<Election> allElections = Election.find.all();
         List<String> electionIDs = new ArrayList<String>();
 
-        for (ElectionResults temp : allElections){
+        for (Election temp : allElections){
             electionIDs.add(temp.electionID);
         }
 
@@ -146,20 +146,13 @@ public class ElectionController extends Controller{
     public Result displayelectionresults(){
         DynamicForm df = formFactory.form().bindFromRequest();
         String electionid = df.get("electionID");
-        List<ElectionResults> allElections = ElectionResults.find.query().where().ge("electionID", electionid).findList();
-        List<String> electionIDs = new ArrayList<String>();
-        List<String> precinct = new ArrayList<String>();
-        List<String> candidate = new ArrayList<String>();
-        List<String> votes = new ArrayList<String>();
 
-        for(ElectionResults temp : allElections){
-            electionIDs.add(temp.electionID);
-            precinct.add(temp.precinct);
-            candidate.add(temp.candidate);
-            votes.add(temp.votes + "");
-        }
+        Election election = Election.find.query().where().eq("election_id", electionid).findUnique();
+        List<Candidate> candidates = Candidate.find.query().where().eq("election_id", electionid).findList();
+        return ok(electionresultsdisplay.render(candidates, election));
 
-        return ok(electionresultsdisplay.render(electionIDs, precinct, candidate, votes));
+
+
     }
   
     public Result electionVerification(String electionID){
