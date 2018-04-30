@@ -23,8 +23,8 @@
                             <div class="form-group">
                             @helper.input(candidateForm("Party")){ (id, name, value, args) =>
                                 <select name="party">
-                                    <option name="democrats">Democrats</option>
-                                    <option name="republican">Republican</option>
+                                    <option value="democrats">Democrats</option>
+                                    <option value="republican">Republican</option>
                                 </select>
                             }
                             </div>
@@ -55,7 +55,7 @@
                                 </select>
                             }
                             </div>
-                            <input class="btn btn-lg btn-success btn-block" type="submit" value="Create">
+                            <input class="btn btn-lg btn-success btn-block" type="submit" id="finalsubmit" value="Create">
                         </fieldset>
                     }
                 </form>
