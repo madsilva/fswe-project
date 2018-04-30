@@ -233,7 +233,9 @@ public class AdminController extends Controller {
 
 
     public Result candidateList() {
+        System.out.println("CHECK 1");
         List<Candidate> candidates = Candidate.find.all();
+        System.out.println("CHECK 2");
         System.out.println("Candidates"+candidates);
         return ok(candidateList.render(candidates));
     }
