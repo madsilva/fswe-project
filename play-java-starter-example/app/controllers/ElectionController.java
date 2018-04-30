@@ -189,6 +189,9 @@ public class ElectionController extends Controller{
         List<Candidate> mayorList = new ArrayList<>();
         List<Candidate> governorList = new ArrayList<>();
         List<Candidate> presidentList = new ArrayList<>();
+        List<Candidate> treasurerList = new ArrayList<>();
+        List<Candidate> sheriffList = new ArrayList<>();
+        List<Candidate> citycouncilList = new ArrayList<>();
 
         for (Candidate candidate : candidates) {
             if (candidate.position.equals("senator")){
@@ -206,9 +209,18 @@ public class ElectionController extends Controller{
             else if (candidate.position.equals("president")){
                 presidentList.add(candidate);
             }
+            else if (candidate.position.equals("treasurer")){
+                treasurerList.add(candidate);
+            }
+            else if (candidate.position.equals("citycouncil")){
+                citycouncilList.add(candidate);
+            }
+            else if (candidate.position.equals("sheriff")){
+                sheriffList.add(candidate);
+            }
         }
 
-        return ok(electionresultsdisplay.render(senatorList, governorList, mayorList, representativeList, presidentList, election));
+        return ok(electionresultsdisplay.render(senatorList, governorList, mayorList, representativeList, presidentList, treasurerList, citycouncilList, sheriffList,  election));
 
 
 
@@ -243,6 +255,9 @@ public class ElectionController extends Controller{
         List<Candidate> mayorList = new ArrayList<>();
         List<Candidate> governorList = new ArrayList<>();
         List<Candidate> presidentList = new ArrayList<>();
+        List<Candidate> sheriffList = new ArrayList<>();
+        List<Candidate> treasurerList = new ArrayList<>();
+        List<Candidate> citycouncilList = new ArrayList<>();
 
         Election elec = Election.find.byId(electionID);
         if (elec.electionType.equals("StateElection")){
@@ -264,8 +279,17 @@ public class ElectionController extends Controller{
                 if (person.position.equals("mayor")){
                     mayorList.add(person);
                 }
+                else if(person.position.equals("sheriff")){
+                    sheriffList.add(person);
+                }
+                else if(person.position.equals("citycouncil")){
+                    citycouncilList.add(person);
+                }
+                else if(person.position.equals("treasurer")){
+                    treasurerList.add(person);
+                }
             }
-            return ok(localballot.render(electionID, mayorList, ballotForm));
+            return ok(localballot.render(electionID, mayorList, sheriffList, citycouncilList, treasurerList, ballotForm));
         }
         else{
             for (Candidate person : candidates){
@@ -286,6 +310,9 @@ public class ElectionController extends Controller{
         String governorID = "";
         String electionID = "";
         String presidentID = "";
+        String sheriffID = "";
+        String treasurerID = "";
+        String citycouncilID = "";
 
         senatorID = ballotInfo.senator;
         System.out.println("Senator = " + senatorID);
@@ -293,6 +320,9 @@ public class ElectionController extends Controller{
         mayorID = ballotInfo.mayor;
         governorID = ballotInfo.governor;
         presidentID = ballotInfo.president;
+        sheriffID = ballotInfo.sheriff;
+        treasurerID = ballotInfo.treasurer;
+        citycouncilID = ballotInfo.citycouncil;
 
 
         Candidate candidate = Candidate.find.query().where().eq("candidate_id", senatorID).findUnique();
@@ -331,6 +361,28 @@ public class ElectionController extends Controller{
             candidate.save();
             electionID = candidate.electionID;
         }
+
+        candidate = Candidate.find.query().where().eq("candidate_id", sheriffID).findUnique();
+        if (candidate != null){
+            candidate.votes += 1;
+            candidate.save();
+            electionID = candidate.electionID;
+        }
+
+        candidate = Candidate.find.query().where().eq("candidate_id", treasurerID).findUnique();
+        if (candidate != null){
+            candidate.votes += 1;
+            candidate.save();
+            electionID = candidate.electionID;
+        }
+
+        candidate = Candidate.find.query().where().eq("candidate_id", citycouncilID).findUnique();
+        if (candidate != null){
+            candidate.votes += 1;
+            candidate.save();
+            electionID = candidate.electionID;
+        }
+
 
         String user = session("connected");
         if(!electionID.equals("")){
