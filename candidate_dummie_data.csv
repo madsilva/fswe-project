@@ -1,101 +1,99 @@
-First Name,Last Name,Party,Precinct,Election ID,Position
-Aladdin,Best,Democrat,52246,123456,Mayor
-Abel,Albert,Republican,52246,123456,Governor
-Chester,Mcdaniel,Democrat,52246,123456,Governor
-Forrest,Lucas,Republican,52246,123457,Mayor
-Jamal,Blevins,Republican,52246,123457,US Representative
-Finn,Mccullough,Democrat,52246,123457,US Representative
-James,Howell,Republican,52246,123457,US Representative
-Kenyon,Mcmahon,Democrat,52246,123457,US Representative
-Warren,Levy,Democrat,52246,123456,US Representative
-Stephen,Conway,Democrat,52246,123456,US Representative
-Fitzgerald,Dunn,Democrat,52246,123457,Mayor
-Joshua,Herrera,Democrat,52246,123456,US Representative
-Aaron,Guerra,Democrat,52246,123457,US Representative
-Oliver,Delgado,Republican,52246,123457,Mayor
-Lewis,Barr,Republican,52246,123456,Mayor
-Rafael,Pierce,Republican,52246,123456,Mayor
-Phillip,Shelton,Republican,52246,123457,Mayor
-Upton,Sparks,Republican,52246,123457,Mayor
-Channing,Rollins,Democrat,52246,123456,Mayor
-Magee,Hoover,Republican,52246,123456,US Representative
-Aidan,Terrell,Republican,52246,123457,US Representative
-Howard,Chen,Republican,52246,123457,Senator
-Cadman,Blackburn,Republican,52246,123456,US Representative
-Cyrus,Knowles,Republican,52246,123456,Governor
-Quamar,Romero,Republican,52246,123456,Mayor
-Brent,Reyes,Democrat,52240,123456,Mayor
-Reed,Harrison,Republican,52240,123456,Mayor
-Caesar,Meyers,Democrat,52240,123456,Mayor
-Joseph,Phelps,Republican,52240,123456,Mayor
-Samuel,Britt,Democrat,52240,123456,Senator
-Colorado,Kim,Republican,52240,123457,Senator
-Paul,Hurley,Republican,52240,123456,Senator
-Valentine,Sanchez,Democrat,52240,123457,US Representative
-Mason,Fry,Democrat,52240,123456,Senator
-Lucius,Nichols,Democrat,52240,123457,Senator
-Eagan,Walker,Republican,52240,123457,US Representative
-Christopher,Henry,Republican,52240,123456,Senator
-Thaddeus,Welch,Democrat,52240,123456,Senator
-Chaim,Dorsey,Republican,52240,123456,US Representative
-Harrison,Ingram,Democrat,52240,123456,Governor
-Dale,Rojas,Democrat,52240,123457,US Representative
-Carter,Kane,Republican,52240,123457,Senator
-Vladimir,Mullins,Republican,52242,123457,Senator
-Elmo,Tanner,Republican,52242,123456,Senator
-Tobias,Cantu,Democrat,52242,123457,Governor
-Blake,Moss,Republican,52242,123456,Mayor
-Rahim,Kinney,Republican,52242,123456,Mayor
-Gavin,Griffith,Democrat,52242,123457,Governor
-Luke,Russell,Republican,52242,123457,US Representative
-Avram,Winters,Republican,52242,123457,Governor
-Kato,Bass,Republican,52242,123456,Governor
-Howard,Hatfield,Republican,52242,123456,Mayor
-Baxter,Ochoa,Republican,52242,123457,Mayor
-Barry,Blankenship,Democrat,52242,123456,US Representative
-Vaughan,Bentley,Democrat,52242,123457,Mayor
-Walter,Sullivan,Republican,52242,123457,Mayor
-Orlando,Beck,Democrat,52242,123456,Senator
-Blaze,Lancaster,Democrat,52242,123456,Governor
-Amos,Brennan,Republican,52242,123456,Senator
-Ali,Rios,Republican,52242,123456,Senator
-Orson,Davenport,Republican,52242,123456,Mayor
-Yardley,Craig,Republican,52242,123457,Senator
-Theodore,Wilcox,Republican,52242,123456,Mayor
-Zephania,Cooper,Democrat,52242,123457,Senator
-Todd,Walsh,Democrat,52242,123457,US Representative
-Shad,Walter,Republican,52242,123457,Senator
-Nolan,Dillon,Republican,52242,123457,US Representative
-Randall,Reese,Republican,52242,123457,US Representative
-Ishmael,Sims,Democrat,52245,123456,Senator
-Tyrone,Doyle,Republican,52245,123457,Senator
-Xander,Knowles,Republican,52245,123457,Senator
-Armand,Bray,Democrat,52245,123457,Mayor
-Cole,Faulkner,Republican,52245,123457,Mayor
-Adam,Schultz,Democrat,52245,123457,US Representative
-Barrett,Moss,Republican,52245,123456,Mayor
-Bradley,Rollins,Republican,52245,123456,Governor
-Michael,Fitzpatrick,Republican,52245,123457,Governor
-Burke,Sampson,Democrat,52245,123456,Mayor
-Cade,Mccarty,Republican,52245,123457,Governor
-Alfonso,Stevens,Democrat,52245,123456,Governor
-Carlos,Mueller,Republican,52245,123456,Senator
-Mufutau,Cotton,Democrat,52245,123456,Senator
-Colby,Ortiz,Democrat,52245,123456,US Representative
-Ulric,Miles,Republican,52245,123456,Governor
-Wyatt,Craig,Democrat,52245,123456,Mayor
-Cooper,Andrews,Republican,52245,123457,Mayor
-Hyatt,Whitley,Republican,52245,123456,Governor
-Kirk,Becker,Democrat,52245,123456,Governor
-Robert,Shelton,Republican,52245,123456,Mayor
-Ferdinand,Rodriguez,Democrat,52246,123456,US Representative
-Jackson,Cooley,Republican,52246,123456,Mayor
-Ahmed,Murray,Republican,52246,123456,US Representative
-Reece,Dale,Republican,52246,123456,Senator
-Brock,Barry,Democrat,52246,123457,US Representative
-Dalton,Holland,Republican,52246,123456,Senator
-Keith,Lee,Democrat,52246,123457,Governor
-Vance,Sykes,Republican,52246,123457,Mayor
-Emmanuel,Moore,Republican,52246,123456,US Representative
-Mason,Morgan,Democrat,52246,123456,Governor
-Xander,Parker,Republican,52246,123457,Mayor
+﻿Aladdin,Best,democrat,precinct1,123456,mayor
+Abel,Albert,republican,precinct1,123456,governor
+Chester,Mcdaniel,democrat,precinct1,123456,governor
+Forrest,Lucas,republican,precinct1,123457,mayor
+Jamal,Blevins,republican,precinct1,123457,us representative
+Finn,Mccullough,democrat,precinct1,123457,us representative
+James,Howell,republican,precinct1,123457,us representative
+Kenyon,Mcmahon,democrat,precinct1,123457,us representative
+Warren,Levy,democrat,precinct1,123456,us representative
+Stephen,Conway,democrat,precinct1,123456,us representative
+Fitzgerald,Dunn,democrat,precinct1,123457,mayor
+Joshua,Herrera,democrat,precinct1,123456,us representative
+Aaron,Guerra,democrat,precinct1,123457,us representative
+Oliver,Delgado,republican,precinct1,123457,mayor
+Lewis,Barr,republican,precinct1,123456,mayor
+Rafael,Pierce,republican,precinct1,123456,mayor
+Phillip,Shelton,republican,precinct1,123457,mayor
+Upton,Sparks,republican,precinct1,123457,mayor
+Channing,Rollins,democrat,precinct2,123456,mayor
+Magee,Hoover,republican,precinct2,123456,us representative
+Aidan,Terrell,republican,precinct2,123457,us representative
+Howard,Chen,republican,precinct2,123457,senator
+Cadman,Blackburn,republican,precinct2,123456,us representative
+Cyrus,Knowles,republican,precinct2,123456,governor
+Quamar,Romero,republican,precinct2,123456,mayor
+Brent,Reyes,democrat,precinct2,123456,mayor
+Reed,Harrison,republican,precinct2,123456,mayor
+Caesar,Meyers,democrat,precinct2,123456,mayor
+Joseph,Phelps,republican,precinct2,123456,mayor
+Samuel,Britt,democrat,precinct2,123456,senator
+Colorado,Kim,republican,precinct2,123457,senator
+Paul,Hurley,republican,precinct2,123456,senator
+Valentine,Sanchez,democrat,precinct2,123457,us representative
+Mason,Fry,democrat,precinct2,123456,senator
+Lucius,Nichols,democrat,precinct2,123457,senator
+Eagan,Walker,republican,precinct2,123457,us representative
+Christopher,Henry,republican,precinct2,123456,senator
+Thaddeus,Welch,democrat,precinct2,123456,senator
+Chaim,Dorsey,republican,precinct2,123456,us representative
+Harrison,Ingram,democrat,precinct2,123456,governor
+Dale,Rojas,democrat,precinct2,123457,us representative
+Carter,Kane,republican,precinct2,123457,senator
+Vladimir,Mullins,republican,precinct2,123457,senator
+Elmo,Tanner,republican,precinct2,123456,senator
+Tobias,Cantu,democrat,precinct2,123457,governor
+Blake,Moss,republican,precinct2,123456,mayor
+Rahim,Kinney,republican,precinct2,123456,mayor
+Gavin,Griffith,democrat,precinct2,123457,governor
+Luke,Russell,republican,precinct2,123457,us representative
+Avram,Winters,republican,precinct3,123457,governor
+Kato,Bass,republican,precinct3,123456,governor
+Howard,Hatfield,republican,precinct3,123456,mayor
+Baxter,Ochoa,republican,precinct3,123457,mayor
+Barry,Blankenship,democrat,precinct3,123456,us representative
+Vaughan,Bentley,democrat,precinct3,123457,mayor
+Walter,Sullivan,republican,precinct3,123457,mayor
+Orlando,Beck,democrat,precinct3,123456,senator
+Blaze,Lancaster,democrat,precinct3,123456,governor
+Amos,Brennan,republican,precinct3,123456,senator
+Ali,Rios,republican,precinct3,123456,senator
+Orson,Davenport,republican,precinct3,123456,mayor
+Yardley,Craig,republican,precinct3,123457,senator
+Theodore,Wilcox,republican,precinct3,123456,mayor
+Zephania,Cooper,democrat,precinct3,123457,senator
+Todd,Walsh,democrat,precinct3,123457,us representative
+Shad,Walter,republican,precinct3,123457,senator
+Nolan,Dillon,republican,precinct3,123457,us representative
+Randall,Reese,republican,precinct3,123457,us representative
+Ishmael,Sims,democrat,precinct3,123456,senator
+Tyrone,Doyle,republican,precinct3,123457,senator
+Xander,Knowles,republican,precinct3,123457,senator
+Armand,Bray,democrat,precinct3,123457,mayor
+Cole,Faulkner,republican,precinct3,123457,mayor
+Adam,Schultz,democrat,precinct3,123457,us representative
+Barrett,Moss,republican,precinct3,123456,mayor
+Bradley,Rollins,republican,precinct3,123456,governor
+Michael,Fitzpatrick,republican,precinct3,123457,governor
+Burke,Sampson,democrat,precinct3,123456,mayor
+Cade,Mccarty,republican,precinct3,123457,governor
+Alfonso,Stevens,democrat,precinct3,123456,governor
+Carlos,Mueller,republican,precinct3,123456,senator
+Mufutau,Cotton,democrat,precinct3,123456,senator
+Colby,Ortiz,democrat,precinct3,123456,us representative
+Ulric,Miles,republican,precinct3,123456,governor
+Wyatt,Craig,democrat,precinct3,123456,mayor
+Cooper,Andrews,republican,precinct3,123457,mayor
+Hyatt,Whitley,republican,precinct3,123456,governor
+Kirk,Becker,democrat,precinct3,123456,governor
+Robert,Shelton,republican,precinct3,123456,mayor
+Ferdinand,Rodriguez,democrat,precinct3,123456,us representative
+Jackson,Cooley,republican,precinct3,123456,mayor
+Ahmed,Murray,republican,precinct3,123456,us representative
+Reece,Dale,republican,precinct3,123456,senator
+Brock,Barry,democrat,precinct3,123457,us representative
+Dalton,Holland,republican,precinct3,123456,senator
+Keith,Lee,democrat,precinct3,123457,governor
+Vance,Sykes,republican,precinct3,123457,mayor
+Emmanuel,Moore,republican,precinct3,123456,us representative
+Mason,Morgan,democrat,precinct3,123456,governor
