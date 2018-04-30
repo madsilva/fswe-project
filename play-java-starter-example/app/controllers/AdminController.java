@@ -43,11 +43,11 @@ public class AdminController extends Controller {
         String user = session("connected");
         String account = session("admin");
 
-        System.out.println("Admin hit"+user);
+        System.out.println("Admin hit"+account);
         if((user != null) && (account != null)) {
             //Form<VoterRegistration> voterForm = formFactory.form(VoterRegistration.class).bindFromRequest();
             //VoterRegistration voterRegistrationInfo = VoterRegistration.find.query().where().eq("username", user).findUnique();
-            //System.out.println("Approved query is "+voterRegistrationInfo.username+voterRegistrationInfo.approved);
+            //System.out.println("Appro`ved query is "+voterRegistrationInfo.username+voterRegistrationInfo.approved);
             System.out.println("Admin hit if case");
             return ok(admin.render(user));
         } else {
@@ -81,6 +81,7 @@ public class AdminController extends Controller {
             unapprovedNames.add(voter.username);
         }
 
+
         return ok(approval.render(unapprovedNames));
     }
 
@@ -107,6 +108,13 @@ public class AdminController extends Controller {
             unapprovedNames.add(voter.username);
         }
 
+        // Sending the Link to the User email id
+        String link = "Your account is approved to cast Vote.";
+        MailGenerator mail = new MailGenerator();
+        mail.sendEmail(username," ","Hello", "Account Approved"," ", link);
+
+
+        System.out.println("Unapproved names are : "+unapprovedNames);
         return ok(approval.render(unapprovedNames));
     }
 

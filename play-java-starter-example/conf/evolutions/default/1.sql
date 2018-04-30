@@ -51,6 +51,7 @@ create table login_data (
 create table precinct (
   zip                           varchar(255) not null,
   precinct_id                   varchar(255),
+  state                         varchar(255),
   constraint pk_precinct primary key (zip)
 );
 
@@ -58,6 +59,14 @@ create table search (
   sql_column                    varchar(255) not null,
   criteria                      varchar(255),
   constraint pk_search primary key (sql_column)
+);
+
+create table security_questions (
+  username                      varchar(255) not null,
+  pet                           varchar(255),
+  city                          varchar(255),
+  school                        varchar(255),
+  constraint pk_security_questions primary key (username)
 );
 
 create table state_geography (
@@ -116,6 +125,8 @@ drop table if exists login_data;
 drop table if exists precinct;
 
 drop table if exists search;
+
+drop table if exists security_questions;
 
 drop table if exists state_geography;
 

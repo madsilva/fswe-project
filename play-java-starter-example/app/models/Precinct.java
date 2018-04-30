@@ -33,5 +33,11 @@ public class Precinct extends Model{
     @Id
     public String zip;
 
+    public String state;
+
+    public void setState(String state){ this.state = state; }
+
+    public String getState(){ return state; }
+
     public static Finder<String, Precinct> find = new Finder<>(Precinct.class);
 }

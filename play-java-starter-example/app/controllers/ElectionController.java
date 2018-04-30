@@ -140,7 +140,7 @@ public class ElectionController extends Controller{
             }
         }
 
-
+        System.out.println("ELECTION ARE "+ongoingElections);
         return ok(voterElectionView.render(ongoingElections));
     }
 

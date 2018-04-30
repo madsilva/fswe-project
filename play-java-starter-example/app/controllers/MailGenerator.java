@@ -88,7 +88,6 @@ public class MailGenerator {
 
         String emailBody = "<html><body style=\"font-family:Palatino Linotype;font-size:14;\">"
                 + "<p>" + salutation + ",</p>"
-                + "<p> Password Reset Link,</p>"
                 + "<p>"+filename+"</p>"
                 + "<p style=\"color:#005580;\">Regards,<br/>Election System.<br/><br/></p>"
                 + "</body></html>";
