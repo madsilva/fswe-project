@@ -1,36 +1,42 @@
-@(senators : List[Candidate],governors : List[Candidate],mayors : List[Candidate],representatives : List[Candidate], election : Election)
+@(senators : List[Candidate],governors : List[Candidate],mayors : List[Candidate],representatives : List[Candidate], president : List[Candidate], election : Election)
 
 @layout("Results"){
     <div class="custom-container">
         <div class="col-md-4 col-md-offset-4">
             <h3>Election Results:</h3>
-            <h4>For election from @election.startDate to @election.endDate</h4>
-            <h2>Senators</h2>
-            <table class="table table-hover">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col"><b>ElectionID</b></th>
-                        <th scope="col"><b>Candidate Name</b></th>
-                        <th scope="col"><b>Votes</b></th>
-                    </tr>
-                </thead>
-                <colgroup>
-                    <col class="col-md-3">
-                    <col class="col-md-3">
-                    <col class="col-md-5">
-                    <col class="col-md-2">
-                </colgroup>
-                <tbody>
-                @for(senator <- senators){
-                    <tr>
-                        <td>@senator.electionID</td>
-                        <td>@senator.firstname @senator.lastname</td>
-                        <td>@senator.votes</td>
-                    </tr>
-                }
-                </tbody>
-            </table>
 
+            <h4>For election from @election.startDate to @election.endDate</h4>
+
+                @if(senators.length != 0){
+                <h2>Senators</h2>
+                <table class="table table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col"><b>ElectionID</b></th>
+                            <th scope="col"><b>Candidate Name</b></th>
+                            <th scope="col"><b>Votes</b></th>
+                        </tr>
+                    </thead>
+                    }
+                    <colgroup>
+                        <col class="col-md-3">
+                        <col class="col-md-3">
+                        <col class="col-md-5">
+                        <col class="col-md-2">
+                    </colgroup>
+                    <tbody>
+                    @for(senator <- senators){
+                        <tr>
+                                <td>@senator.electionID</td>
+                                <td>@senator.firstname @senator.lastname</td>
+                                <td>@senator.votes</td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+
+
+                    @if(governors.length != 0){
             <h2>Governors</h2>
             <table class="table table-hover">
                 <thead class="thead-dark">
@@ -40,6 +46,7 @@
                         <th scope="col"><b>Votes</b></th>
                     </tr>
                 </thead>
+                }
                 <colgroup>
                     <col class="col-md-3">
                     <col class="col-md-3">
@@ -57,6 +64,7 @@
                 </tbody>
             </table>
 
+                @if(mayors.length != 0){
             <h2>Mayors</h2>
             <table class="table table-hover">
                 <thead class="thead-dark">
@@ -66,6 +74,7 @@
                         <th scope="col"><b>Votes</b></th>
                     </tr>
                 </thead>
+                }
                 <colgroup>
                     <col class="col-md-3">
                     <col class="col-md-3">
@@ -83,6 +92,7 @@
                 </tbody>
             </table>
 
+                @if(representatives.length != 0){
             <h2>US Representatives</h2>
             <table class="table table-hover">
                 <thead class="thead-dark">
@@ -92,6 +102,7 @@
                         <th scope="col"><b>Votes</b></th>
                     </tr>
                 </thead>
+                }
                 <colgroup>
                     <col class="col-md-3">
                     <col class="col-md-3">
@@ -104,6 +115,35 @@
                         <td>@representative.electionID</td>
                         <td>@representative.firstname @representative.lastname</td>
                         <td>@representative.votes</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+
+                @if(president.length != 0){
+            <h2>President Candidate</h2>
+            <table class="table table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col"><b>ElectionID</b></th>
+                        <th scope="col"><b>Candidate Name</b></th>
+                        <th scope="col"><b>Votes</b></th>
+                    </tr>
+                    }
+                </thead>
+                <colgroup>
+                    <col class="col-md-3">
+                    <col class="col-md-3">
+                    <col class="col-md-5">
+                    <col class="col-md-2">
+                </colgroup>
+                <tbody>
+                @for(pres <- president){
+                    <tr>
+                            <td>@pres.electionID</td>
+                            <td>@pres.firstname @pres.lastname</td>
+                            <td>@pres.votes</td>
+
                     </tr>
                 }
                 </tbody>

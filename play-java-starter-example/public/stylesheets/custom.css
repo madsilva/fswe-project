@@ -2,6 +2,11 @@
     display: inline;
 }
 
+.fixform{
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
 .welcome {
      display: -webkit-box;
      display: -webkit-flex;

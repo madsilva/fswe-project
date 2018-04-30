@@ -1,4 +1,4 @@
-@(electionID : String, senators : List[Candidate],representatives : List[Candidate],mayors : List[Candidate],governors : List[Candidate], ballotForm : Form[Ballots])
+@(electionID : String, senators : List[Candidate],representatives : List[Candidate],governors : List[Candidate], ballotForm : Form[Ballots])
 @import helper._
 
 
@@ -6,7 +6,7 @@
     <div class="form-section">
         <div class="form-container w-container">
             <div class="form-div">
-                <h1>State </h1>
+                <h1>State Elections Ballot</h1>
                 @helper.form(action= helper.CSRF(routes.ElectionController.saveVote())){
                     <div class="form-group">
                     @helper.input(ballotForm("Senator")){ (id, name, value, args) =>
@@ -28,16 +28,7 @@
                         </select>
                     }
                     </div>
-                    <div class="form-group">
-                    @helper.input(ballotForm("Mayor")){ (id, name, value, args) =>
-                        <select name="mayor">
-                            <option name=mayor>Mayor</option>
-                            @for(mayor <- mayors) {
-                                <option name=@mayor.candidateID value=@mayor.candidateID>@mayor.firstname @mayor.lastname - @mayor.party</option>
-                            }
-                        </select>
-                    }
-                    </div>
+
                     <div class="form-group">
                     @helper.input(ballotForm("Governor")){ (id, name, value, args) =>
                         <select name="governor">

@@ -215,7 +215,11 @@ public class HomeController extends Controller{
             VoterRegistration voterRegistrationInfo = VoterRegistration.find.query().where().eq("username", user).findUnique();
             //System.out.println("Approved query is "+voterRegistrationInfo.username+voterRegistrationInfo.approved);
             System.out.println("Profile hit if case");
-            return ok(profile.render(user, voterRegistrationInfo.approved));
+            boolean approved = false;
+            if (voterRegistrationInfo != null){
+                approved = voterRegistrationInfo.approved;
+            }
+            return ok(profile.render(user, approved));
         } else {
             System.out.println("Profile hit else case");
             return ok(error.render("User not Signed in"));

@@ -85,7 +85,7 @@ class Election(unittest.TestCase):
 
 
     # Make sure that the Election ID is created before executing this test
-    # Insert the Election ID below in the Select Statement 
+    # Insert the Election ID below in the Select Statement
     def test_Admin_candidate_creation(self):
         driver = self.driver
         driver.get("http://localhost:9000/login")

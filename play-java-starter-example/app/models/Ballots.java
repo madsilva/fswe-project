@@ -51,9 +51,13 @@ public class Ballots extends Model{
         this.governor = governor;
     }
 
+    public String getPresident() { return president;}
+
+    public void setPresident(String president) { this.president = president; }
+
     public String senator = "";
     public String usRepresentative = "";
     public String mayor = "";
     public String governor = "";
-
+    public String president = "";
 }

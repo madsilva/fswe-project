@@ -58,6 +58,9 @@ public class ElectionController extends Controller{
     public Result saveElection(){
         Form<Election> electionForm = formFactory.form(Election.class).bindFromRequest();
         Election election = electionForm.get();
+        if (election.electionType.equals("PresidentialElection")){
+            election.state = "USA";
+        }
         election.save();
 
 
@@ -89,7 +92,10 @@ public class ElectionController extends Controller{
 
         VoterRegistration voter = VoterRegistration.find.query().where().eq("username", username).findUnique();
 
-        boolean approved = voter.approved;
+        boolean approved = false;
+        if (voter != null){
+            approved = voter.approved;
+        }
 
         if (!approved) {
             return ok(error.render("user is not approved to vote in elections."));
@@ -98,6 +104,7 @@ public class ElectionController extends Controller{
 
         // this will only work for 1 zip code per precinct???
         String voterPrecinctID = Precinct.find.query().where().eq("zip", voter.zipCode).findUnique().precinctID;
+        String voterState = Precinct.find.query().where().eq("zip", voter.zipCode).findUnique().state;
 
         List<Election> ongoingElections = Election.find.query().where().ge("end_date", today.plusDays(1)).le("start_date", today.plusDays(1)).findList();
 
@@ -108,25 +115,47 @@ public class ElectionController extends Controller{
         while (iter.hasNext()) {
             Election election = iter.next();
             System.out.println("PrecinctID"+election.precinctID+"END");
-            if (election.precinctID.equals("")) {
-                if (!election.state.trim().equals(voter.state.trim())) {
+            if(election.electionType.equals("StateElection")){
+                if(election.state.equals(voterState)){
+
+                }else{
                     iter.remove();
                 }
             }
-            else {
-                if (election.state != null) {
-                    if (election.precinctID != voterPrecinctID) {
-                        iter.remove();
-                    }
+            else if(election.electionType.equals("LocalElection")){
+                if(election.precinctID.equals(voterPrecinctID)){
+
+                }else{
+                    iter.remove();
                 }
             }
+//            if (election.precinctID.equals("")) {
+//                System.out.println("IN 10ND");
+//                if (!election.state.trim().equals(voter.state.trim())) {
+//                    System.out.println("IN 1ST");
+//                    iter.remove();
+//                }
+//            }
+//            else {
+//                if (election.state != null) {
+//                    System.out.println("IN 6ND");
+//                    if (election.precinctID != voterPrecinctID) {
+//                        System.out.println("IN 7ND");
+//                        iter.remove();
+//                    }
+//                }
+//            }
         }
+
+
+        System.out.println("IN 3ND");
 
         String[] alreadyVotedInElections = voter.electionsVotedIn.split(" ");
         iter = ongoingElections.iterator();
         while (iter.hasNext()) {
             Election election = iter.next();
             if (Arrays.asList(alreadyVotedInElections).contains(election.electionID)) {
+                System.out.println("IN 8th");
                 iter.remove();
             }
         }
@@ -159,6 +188,7 @@ public class ElectionController extends Controller{
         List<Candidate> representativeList = new ArrayList<>();
         List<Candidate> mayorList = new ArrayList<>();
         List<Candidate> governorList = new ArrayList<>();
+        List<Candidate> presidentList = new ArrayList<>();
 
         for (Candidate candidate : candidates) {
             if (candidate.position.equals("senator")){
@@ -173,9 +203,12 @@ public class ElectionController extends Controller{
             else if (candidate.position.equals("governor")){
                 governorList.add(candidate);
             }
+            else if (candidate.position.equals("president")){
+                presidentList.add(candidate);
+            }
         }
 
-        return ok(electionresultsdisplay.render(senatorList, governorList, mayorList, representativeList, election));
+        return ok(electionresultsdisplay.render(senatorList, governorList, mayorList, representativeList, presidentList, election));
 
 
 
@@ -209,24 +242,39 @@ public class ElectionController extends Controller{
         List<Candidate> representativeList = new ArrayList<>();
         List<Candidate> mayorList = new ArrayList<>();
         List<Candidate> governorList = new ArrayList<>();
+        List<Candidate> presidentList = new ArrayList<>();
 
-        for (Candidate person : candidates){
-            if (person.position.equals("senator")){
-                senatorList.add(person);
+        Election elec = Election.find.byId(electionID);
+        if (elec.electionType.equals("StateElection")){
+            for (Candidate person : candidates){
+                if (person.position.equals("senator")){
+                    senatorList.add(person);
+                }
+                else if (person.position.equals("us representative")){
+                    representativeList.add(person);
+                }
+                else if (person.position.equals("governor")){
+                    governorList.add(person);
+                }
             }
-            else if (person.position.equals("us representative")){
-                representativeList.add(person);
-            }
-            else if (person.position.equals("mayor")){
-                mayorList.add(person);
-            }
-            else if (person.position.equals("governor")){
-                governorList.add(person);
-            }
+            return ok(ballot.render(electionID, senatorList,representativeList, governorList, ballotForm));
         }
-
-
-        return ok(ballot.render(electionID, senatorList,representativeList,mayorList,governorList,ballotForm));
+        else if (elec.electionType.equals("LocalElection")){
+            for (Candidate person : candidates){
+                if (person.position.equals("mayor")){
+                    mayorList.add(person);
+                }
+            }
+            return ok(localballot.render(electionID, mayorList, ballotForm));
+        }
+        else{
+            for (Candidate person : candidates){
+                if (person.position.equals("president")){
+                    presidentList.add(person);
+                }
+            }
+            return ok(presidentballot.render(electionID, presidentList, ballotForm));
+        }
     }
 
     public Result saveVote() {
@@ -237,12 +285,14 @@ public class ElectionController extends Controller{
         String mayorID = "";
         String governorID = "";
         String electionID = "";
+        String presidentID = "";
 
         senatorID = ballotInfo.senator;
         System.out.println("Senator = " + senatorID);
         usRepresentativeID = ballotInfo.usRepresentative;
         mayorID = ballotInfo.mayor;
         governorID = ballotInfo.governor;
+        presidentID = ballotInfo.president;
 
 
         Candidate candidate = Candidate.find.query().where().eq("candidate_id", senatorID).findUnique();
@@ -275,6 +325,13 @@ public class ElectionController extends Controller{
             electionID = candidate.electionID;
         }
 
+        candidate = Candidate.find.query().where().eq("candidate_id", presidentID).findUnique();
+        if (candidate != null){
+            candidate.votes += 1;
+            candidate.save();
+            electionID = candidate.electionID;
+        }
+
         String user = session("connected");
         if(!electionID.equals("")){
             VoterRegistration voter = VoterRegistration.find.query().where().eq("username", user).findUnique();
@@ -282,7 +339,7 @@ public class ElectionController extends Controller{
             voter.save();
         }
 
-
-        return redirect("/");
+        //return redirect("/");
+        return ok(positivefeedback.render("You have Successfully Voted for your Candidate!!!"));
     }
 }

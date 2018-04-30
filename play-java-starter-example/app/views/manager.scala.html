@@ -1,6 +1,6 @@
 @(username: String)
 
-@layout("Admin"){
+@layout("Manager"){
     <div class="section">
         <div class="container w-container">
             <h2 class="display-3">Welcome, @username</h2>
@@ -11,6 +11,7 @@
                 <div class="div-block-2">
                     <h3 class="heading-3">Search</h3>
                     <ul class="w-list-unstyled">
+                        <li class="list-item"><a class="link-5" href=@routes.AdminController.approval>Approve Voter Registration</a></li>
                         <li class="list-item"><a class="link-5" href=@routes.AdminController.searchUsers()>Search User Demographics</a></li>
                         <li class="list-item"><a class="link-5" href=@routes.AdminController.searchCandidates()>Search Candidate Demographics</a></li>
                     </ul>

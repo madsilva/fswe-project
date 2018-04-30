@@ -93,7 +93,15 @@ public class PrecinctController extends Controller {
         String next = "enabled";
 
         session("pagination", String.valueOf(1));
-        return ok(precinct.render(precinctMap, previous, next));
+
+        String priviledge = "";
+        if (session("manager") != null) {
+            priviledge = "Manager";
+        }else {
+            priviledge = "Admin";
+        }
+
+        return ok(precinct.render(precinctMap, previous, next, priviledge));
     }
 
     public Result nextprecinct(){
@@ -121,7 +129,15 @@ public class PrecinctController extends Controller {
             String previous = "disabled";
             String next = "enabled";
             session("pagination", String.valueOf(1));
-            return ok(precinct.render(precinctMap, previous, next));
+
+            String priviledge = "";
+            if (session("manager") != null) {
+                priviledge = "Manager";
+            }else {
+                priviledge = "Admin";
+            }
+
+            return ok(precinct.render(precinctMap, previous, next, priviledge));
         }
 
         for(int index = start; index < end ; index++){
@@ -136,7 +152,15 @@ public class PrecinctController extends Controller {
         String previous = "enabled";
         String next = "enabled";
         session("pagination", String.valueOf(page+1));
-        return ok(precinct.render(precinctMap, previous, next));
+
+        String priviledge = "";
+        if (session("manager") != null) {
+            priviledge = "Manager";
+        }else {
+            priviledge = "Admin";
+        }
+
+        return ok(precinct.render(precinctMap, previous, next, priviledge));
     }
 
     public Result previousprecinct(){
@@ -161,7 +185,15 @@ public class PrecinctController extends Controller {
             String previous = "disabled";
             String next = "enabled";
             session("pagination", String.valueOf(1));
-            return ok(precinct.render(precinctMap, previous, next));
+
+            String priviledge = "";
+            if (session("manager") != null) {
+                priviledge = "Manager";
+            }else {
+                priviledge = "Admin";
+            }
+
+            return ok(precinct.render(precinctMap, previous, next, priviledge));
         }
 
         for(int index = start; index < end ; index++){
@@ -176,7 +208,15 @@ public class PrecinctController extends Controller {
         String previous = "enabled";
         String next = "enabled";
         session("pagination", String.valueOf(page-1));
-        return ok(precinct.render(precinctMap, previous, next));
+
+        String priviledge = "";
+        if (session("manager") != null) {
+            priviledge = "Manager";
+        }else {
+            priviledge = "Admin";
+        }
+
+        return ok(precinct.render(precinctMap, previous, next, priviledge));
     }
 
     public Result deleteprecinct(String precinctpassed){
@@ -256,7 +296,15 @@ public class PrecinctController extends Controller {
         String next = "enabled";
 
         session("pagination", String.valueOf(1));
-        return ok(precinct.render(precinctMap, previous, next));
+
+        String priviledge = "";
+        if (session("manager") != null) {
+            priviledge = "Manager";
+        }else {
+            priviledge = "Admin";
+        }
+
+        return ok(precinct.render(precinctMap, previous, next, priviledge));
     }
 
     public Result addprecinct(String precinctpassed){
@@ -347,7 +395,15 @@ public class PrecinctController extends Controller {
         String next = "enabled";
 
         session("pagination", String.valueOf(1));
-        return ok(precinct.render(precinctMap, previous, next));
+
+        String priviledge = "";
+        if (session("manager") != null) {
+            priviledge = "Manager";
+        }else {
+            priviledge = "Admin";
+        }
+
+        return ok(precinct.render(precinctMap, previous, next, priviledge));
     }
 }
 
