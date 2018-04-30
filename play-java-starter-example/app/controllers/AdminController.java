@@ -253,9 +253,9 @@ public class AdminController extends Controller {
         Form<Search> searchForm = formFactory.form(Search.class);
         System.out.println("Search Candidates Function hit");
 
-        List<String> voterNames = new ArrayList<String>();
+        List<String> candidateNames = new ArrayList<String>();
 
-        return ok(userSearch.render(searchForm, voterNames));
+        return ok(candidateDemographics.render(searchForm, candidateNames));
     }
 
     public Result candidateDemographics(){
@@ -266,23 +266,23 @@ public class AdminController extends Controller {
         String sqlColumn = searchInfo.sqlColumn;
         LocalDate today = LocalDate.now();
 
-        List<VoterRegistration> voterInfo = new ArrayList<>();
+        List<Candidate> candidateInfo = new ArrayList<>();
 
         if (sqlColumn.equals("election id")){
             sqlColumn = "election_id";
-            voterInfo = VoterRegistration.find.query().where().eq(sqlColumn, criteria).findList();
+            candidateInfo = Candidate.find.query().where().eq(sqlColumn, criteria).findList();
         }
         else{
-            voterInfo = VoterRegistration.find.query().where().eq(sqlColumn, criteria).findList();
+            candidateInfo = Candidate.find.query().where().eq(sqlColumn, criteria).findList();
         }
 
-        List<String> voterNames = new ArrayList<String>();
+        List<String> candidateNames = new ArrayList<String>();
 
-        for(VoterRegistration voter : voterInfo){
-            voterNames.add(voter.username);
+        for(Candidate candidate : candidateInfo){
+            candidateNames.add(candidate.firstname + " " + candidate.lastname);
         }
 
-        return ok(userSearch.render(searchForm,voterNames));
+        return ok(candidateDemographics.render(searchForm,candidateNames));
     }
 
     public Result search(){
