@@ -72,7 +72,7 @@
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
-    height: 100%;
+    height: auto;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
     -webkit-flex-direction: column;
@@ -150,7 +150,6 @@
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
-    height: 100%;
     padding: 20px;
     -webkit-box-pack: center;
     -webkit-justify-content: center;
@@ -165,7 +164,6 @@
 }
 
 .form-section {
-    height: 100vh;
     background-image: -webkit-linear-gradient(270deg, #403d8a, #403d8a);
     background-image: linear-gradient(180deg, #403d8a, #403d8a);
 }
