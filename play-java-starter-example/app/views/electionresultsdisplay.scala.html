@@ -1,15 +1,16 @@
-@(electionID : List[String], precinct : List[String], candidate: List[String], votes : List[String])
+@(candidates : List[Candidate], election : Election)
 
 @layout("Election Results"){
     <div class="custom-container">
         <div class="col-md-4 col-md-offset-4">
-            <h3>Elections Results :</h3>
+            <h3>Election Results:</h3>
+            <h4>For election from @election.startDate to @election.endDate</h4>
             <table class="table table-hover">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col"><b>ElectionID</b></th>
-                        <th scope="col"><b>Precincts</b></th>
-                        <th scope="col"><b>Candidate</b></th>
+                        <th scope="col"><b>Candidate first name</b></th>
+                        <th scope="col"><b>Candidate last name</b></th>
                         <th scope="col"><b>Votes</b></th>
                     </tr>
                 </thead>
@@ -20,12 +21,12 @@
                     <col class="col-md-2">
                 </colgroup>
                 <tbody>
-                @for(index <- 0 until electionID.size){
+                @for(candidate <- candidates){
                     <tr>
-                        <td>@electionID(index)</td>
-                        <td>@precinct(index)</td>
-                        <td>@candidate(index)</td>
-                        <td>@votes(index)</td>
+                        <td>@candidate.electionID</td>
+                        <td>@candidate.firstname</td>
+                        <td>@candidate.lastname</td>
+                        <td>@candidate.votes</td>
                     </tr>
                 }
                 </tbody>
