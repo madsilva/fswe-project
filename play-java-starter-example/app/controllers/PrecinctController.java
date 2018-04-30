@@ -199,8 +199,9 @@ public class PrecinctController extends Controller {
     }
 
     public Result removeprecinct(){
+        System.out.println("REMOVE PRECICNT");
         DynamicForm df = formFactory.form().bindFromRequest();
-        Map<String, String[]> formMap = request().body().asFormUrlEncoded();
+        //Map<String, String[]> formMap = request().body().asFormUrlEncoded();
 
         System.out.println("Precinct is "+session("deleteprecinctzip"));
 

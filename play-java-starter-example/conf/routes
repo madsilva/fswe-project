@@ -35,7 +35,7 @@ POST    /approval/delete/:username      controllers.AdminController.destroy(user
 
 GET     /precinct                       controllers.PrecinctController.precinct
 GET     /deleteprecinct                 controllers.PrecinctController.deleteprecinct(precinctpassed: String)
-GET     /precinct                       controllers.PrecinctController.removeprecinct
+POST    /precinct                       controllers.PrecinctController.removeprecinct
 GET     /addprecinct                    controllers.PrecinctController.addprecinct(precinctpassed: String)
 GET     /precinct/add                   controllers.PrecinctController.addPrecinctToTable
 POST    /nextprecinct                   controllers.PrecinctController.nextprecinct

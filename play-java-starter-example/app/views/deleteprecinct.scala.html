@@ -8,7 +8,8 @@
                 Select the ZIP-Codes to delete in @precinct
             </h2>
         </div>
-        <form action="@routes.PrecinctController.removeprecinct">
+        <!--<form action="@routes.PrecinctController.removeprecinct">-->
+        @helper.form(action= helper.CSRF(routes.PrecinctController.removeprecinct())){
             <table class="table table-hover">
                 <thead class="thead-dark">
                     <tr>
@@ -36,6 +37,7 @@
                     </tr>
                 </tbody>
             </table>
+        }
         </form>
     </div>
 }
