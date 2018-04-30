@@ -1,0 +1,35 @@
+
+@layout("Recover Account"){
+    <div class="custom-container">
+        <div class="row vertical-offset-100">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Security Questions</h3>
+                    </div>
+                    <div class="panel-body">
+                            <!-- <form accept-charset="UTF-8" role="form" action="/login" method="POST"> -->
+                        @helper.form(action= helper.CSRF(routes.HomeController.checksecurityquestions())){
+                            <fieldset>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Username" name="username" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Your Favorite Pet." name="pet" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="City in which you were born." name="city" type="text"y>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="First school you attended." name="school" type="text">
+                                </div>
+                                <input class="btn btn-lg btn-success btn-block" type="submit" value="submit">
+                                <br>
+                            </fieldset>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

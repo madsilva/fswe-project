@@ -49,6 +49,7 @@ public class PrecinctController extends Controller {
     FormFactory formFactory;
 
     public Result precinct(){
+
         List<Precinct> precinctInfo = Precinct.find.query().setMaxRows(79).findList();
         if (precinctInfo.isEmpty()){
             try{
@@ -58,7 +59,7 @@ public class PrecinctController extends Controller {
                 while (sc.hasNext()){
                     String zip = sc.next();
                     Precinct iowaPrecinct = new Precinct();
-                    iowaPrecinct.setState("Iowa");
+                    iowaPrecinct.setState("iowa");
                     iowaPrecinct.setZip(zip);
                     iowaPrecinct.setPrecinctID("precinct" + count);
                     iowaPrecinct.save();
@@ -73,6 +74,7 @@ public class PrecinctController extends Controller {
             }
 
         }
+      
         List<String> precincts = new ArrayList<String>();
         HashMap<String, String> precinctMap = new HashMap<String, String>();
 
@@ -219,7 +221,22 @@ public class PrecinctController extends Controller {
 
         session().remove("deleteprecinctzip");
 
-        List<Precinct> precinctInfo = Precinct.find.query().findList();
+//        List<Precinct> precinctInfo = Precinct.find.query().findList();
+//        List<String> precincts = new ArrayList<String>();
+//        HashMap<String, String> precinctMap = new HashMap<String, String>();
+//
+//        for(Precinct precinct : precinctInfo){
+//            precincts.add(precinct.precinctID);
+//            if(precinctMap.containsKey(precinct.precinctID)) {
+//                //precinctMap.replace(precinct.precinctID,precinctMap.get(precinct.precinctID)+","+precinct.zip);
+//                precinctMap.put(precinct.precinctID,precinctMap.get(precinct.precinctID)+","+precinct.zip);
+//            } else {
+//                precinctMap.put(precinct.precinctID,precinct.zip);
+//            }
+//        }
+//
+//        return ok(precinct.render(precinctMap, "enabled", "enabled"));
+        List<Precinct> precinctInfo = Precinct.find.query().setMaxRows(79).findList();
         List<String> precincts = new ArrayList<String>();
         HashMap<String, String> precinctMap = new HashMap<String, String>();
 
@@ -232,8 +249,13 @@ public class PrecinctController extends Controller {
                 precinctMap.put(precinct.precinctID,precinct.zip);
             }
         }
+        System.out.println("LENGTH OF PRECINCT ARE : "+precinctInfo.size());
+        //return ok(precinct.render(precincts));
+        String previous = "disabled";
+        String next = "enabled";
 
-        return ok(precinct.render(precinctMap, "enabled", "enabled"));
+        session("pagination", String.valueOf(1));
+        return ok(precinct.render(precinctMap, previous, next));
     }
 
     public Result addprecinct(String precinctpassed){
@@ -288,7 +310,24 @@ public class PrecinctController extends Controller {
 
         session().remove("addprecinctzip");
 
-        List<Precinct> precinctInfo = Precinct.find.query().findList();
+//        List<Precinct> precinctInfo = Precinct.find.query().findList();
+//        List<String> precincts = new ArrayList<String>();
+//        HashMap<String, String> precinctMap = new HashMap<String, String>();
+//
+//        for(Precinct precinct : precinctInfo){
+//            precincts.add(precinct.precinctID);
+//            if(precinctMap.containsKey(precinct.precinctID)) {
+//                //precinctMap.replace(precinct.precinctID,precinctMap.get(precinct.precinctID)+","+precinct.zip);
+//                precinctMap.put(precinct.precinctID,precinctMap.get(precinct.precinctID)+","+precinct.zip);
+//            } else {
+//                precinctMap.put(precinct.precinctID,precinct.zip);
+//            }
+//        }
+//
+//
+//        return ok(precinct.render(precinctMap, "enabled", "enabled"));
+
+        List<Precinct> precinctInfo = Precinct.find.query().setMaxRows(79).findList();
         List<String> precincts = new ArrayList<String>();
         HashMap<String, String> precinctMap = new HashMap<String, String>();
 
@@ -301,9 +340,13 @@ public class PrecinctController extends Controller {
                 precinctMap.put(precinct.precinctID,precinct.zip);
             }
         }
+        System.out.println("LENGTH OF PRECINCT ARE : "+precinctInfo.size());
+        //return ok(precinct.render(precincts));
+        String previous = "disabled";
+        String next = "enabled";
 
-
-        return ok(precinct.render(precinctMap, "enabled", "enabled"));
+        session("pagination", String.valueOf(1));
+        return ok(precinct.render(precinctMap, previous, next));
     }
 }
 

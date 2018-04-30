@@ -101,6 +101,14 @@ public class ElectionController extends Controller{
         LocalDate today = LocalDate.now();
 
         VoterRegistration voter = VoterRegistration.find.query().where().eq("username", username).findUnique();
+
+        boolean approved = voter.approved;
+
+        if (!approved) {
+            return ok(error.render("user is not approved to vote in elections."));
+        }
+
+
         // this will only work for 1 zip code per precinct???
         String voterPrecinctID = Precinct.find.query().where().eq("zip", voter.zipCode).findUnique().precinctID;
 
@@ -132,7 +140,7 @@ public class ElectionController extends Controller{
             }
         }
 
-
+        System.out.println("ELECTION ARE "+ongoingElections);
         return ok(voterElectionView.render(ongoingElections));
     }
 

@@ -5,6 +5,7 @@ import play.mvc.*;
 import java.lang.String;
 
 //import sun.java2d.pipe.SpanShapeRenderer;
+//import sun.jvm.hotspot.runtime.ResultTypeFinder;
 import views.html.*;
 import models.*;
 import javax.inject.Inject;
@@ -73,7 +74,32 @@ public class HomeController extends Controller{
             return ok(login.render(loginForm, " "));
         }
         else{
-            return ok(profile.render(user, false));
+            String user1 = session("connected");
+            VoterRegistration voterRegistrationInfo = VoterRegistration.find.query().where().eq("username", user1).findUnique();
+            return ok(profile.render(user, voterRegistrationInfo.approved));
+        }
+    }
+
+    public Result changepasswordbyuser(){
+
+        DynamicForm df = formFactory.form().bindFromRequest();
+
+        String password = df.get("password");
+        String confPassword = df.get("confpassword");
+        if (password.equals(confPassword)){
+            String user = session("connected");
+            LoginData login = LoginData.find.byId(user);
+
+            login.password = password;
+            login.update();
+
+            VoterRegistration voterRegistrationInfo = VoterRegistration.find.query().where().eq("username", user).findUnique();
+
+            //return ok(profile.render(user, voterRegistrationInfo.approved));
+            return ok(positivefeedback.render("Your Password in Successfully Updated"));
+        }
+        else{
+            return ok(error.render("Password and Conf Password Entries do not match"));
         }
     }
 
@@ -106,7 +132,8 @@ public class HomeController extends Controller{
             else{
                 System.out.println("User Logged In"+login.priviledge);
                 session("connected", loginForm.get().username);
-                return ok(profile.render(loginForm.get().username,false));
+                VoterRegistration voterRegistrationInfo = VoterRegistration.find.query().where().eq("username", loginCredentials.username).findUnique();
+                return ok(profile.render(loginForm.get().username,voterRegistrationInfo.approved));
             }
         }
     }
@@ -146,6 +173,12 @@ public class HomeController extends Controller{
             return ok(error.render("Passwords do not match"));
         }
         Form<LoginData> loginForm = formFactory.form(LoginData.class);
+
+        // Sending the Link to the User email id
+        String link = "Your account is succesfully created at the Voting Portal";
+        MailGenerator mail = new MailGenerator();
+        mail.sendEmail(user.username," ","Hello", "Account Created"," ", link);
+
         return ok(login.render(loginForm,"You have successfully signed up"));
     }
 
@@ -170,8 +203,9 @@ public class HomeController extends Controller{
 
     public Result profile(){
         String user = session("connected");
-        System.out.println("Profile hit");
-        if(user != null) {
+        System.out.println("Profile hit"+user);
+        String admin = session("admin");
+        if((user != null) && (admin == null)) {
             //Form<VoterRegistration> voterForm = formFactory.form(VoterRegistration.class).bindFromRequest();
             VoterRegistration voterRegistrationInfo = VoterRegistration.find.query().where().eq("username", user).findUnique();
             //System.out.println("Approved query is "+voterRegistrationInfo.username+voterRegistrationInfo.approved);
@@ -186,6 +220,7 @@ public class HomeController extends Controller{
     public Result logout(){
         //session().clear();
         session().remove("connected");
+        session().remove("admin");
         System.out.println("Session cleared");
         Form<LoginData> loginForm = formFactory.form(LoginData.class);
         System.out.println("Login Function hit");
@@ -198,13 +233,15 @@ public class HomeController extends Controller{
 
     public Result saveVoter() {
         Form<VoterRegistration> voterForm = formFactory.form(VoterRegistration.class).bindFromRequest();
+        System.out.println(voterForm);
         VoterRegistration voter = voterForm.get();
         String user = session("connected");
         System.out.println("username is "+user+voter.username);
         if(user.matches(voter.username)){
             voter.setApproved(false);
             voter.save();
-            return ok(profile.render(voter.username, false));
+            //return ok(profile.render(voter.username, false));
+            return ok(positivefeedback.render("You have Successfully applied for the Voter Regiatration, you will receive an email once you are approved by the Admin "));
         }
         else{
             // Username not matching
@@ -247,10 +284,6 @@ public class HomeController extends Controller{
         MailGenerator mail = new MailGenerator();
         mail.sendEmail(username," ","Hello", "Reset Password Link"," ", link);
 
-        //MailGenerator mail = new MailGenerator();
-        //mail.sendEmail(username," ","Hello", "Reset Password Link"," ", link);
-
-
 
         Form<LoginData> loginForm = formFactory.form(LoginData.class);
         System.out.println("Login Function hit");
@@ -287,7 +320,8 @@ public class HomeController extends Controller{
         //System.out.println(oldpassword+newpassword+username);
 
         LoginData user = LoginData.find.byId(username);
-        if(user.password.equals(DigestUtils.md5Hex(oldpassword))){
+        //if(user.password.equals(DigestUtils.md5Hex(oldpassword))){
+        if(oldpassword.equals(newpassword)){
             System.out.println("In the if case");
             user.setPassword(DigestUtils.md5Hex(newpassword));
             user.resetToken = "";
@@ -303,6 +337,68 @@ public class HomeController extends Controller{
             Form<LoginData> loginForm = formFactory.form(LoginData.class);
             System.out.println("Login Function hit");
             return ok(login.render(loginForm, "Old Password Did not match"));
+        }
+    }
+
+    public Result securityquestions(){
+        System.out.println("SECURITY QUESTIONS ");
+        String user = session("connected");
+        //List<SecurityException> questions = SecurityQuestions.find.query().where().eq("username", user).findUnique();
+        SecurityQuestions questions = SecurityQuestions.find.byId(user);
+
+        if (questions != null){
+            String pet = questions.pet;
+            String city = questions.city;
+            String school = questions.school;
+
+            Form<SecurityQuestions> securityQuestionsForm = formFactory.form(SecurityQuestions.class);
+
+            return ok(securityquestions.render(pet, city, school));
+        }else{
+            Form<SecurityQuestions> securityQuestionsForm = formFactory.form(SecurityQuestions.class);
+
+            return ok(securityquestions.render("", "", ""));
+        }
+    }
+
+    public Result savesecurityquestions(){
+        DynamicForm df = formFactory.form().bindFromRequest();
+        String pet = df.get("pet");
+        String city = df.get("city");
+        String school = df.get("school");
+        String user = session("connected");
+
+        System.out.println("SECURITY QUESTIONS SAVE ");
+
+        SecurityQuestions questions = new SecurityQuestions();
+        questions.setUsername(user);
+        questions.setCity(city);
+        questions.setFavoritePet(pet);
+        questions.setSchool(school);
+
+        questions.update();
+
+        return ok(positivefeedback.render("Your security questions are successfully updated!!"));
+    }
+
+    public Result loadsecurityquestions(){
+        return ok(recoveraccount.render());
+    }
+
+    public Result checksecurityquestions(){
+        DynamicForm df = formFactory.form().bindFromRequest();
+        String pet = df.get("pet");
+        String city = df.get("city");
+        String school = df.get("school");
+        String username = df.get("username");
+
+        SecurityQuestions questions = SecurityQuestions.find.byId(username);
+
+        if (pet.equals(questions.pet) && city.equals(questions.city) && school.equals(questions.school) ){
+
+            return ok(updatenewpassword.render());
+        }else{
+            return ok(error.render("Incorrect information entered, please try again"));
         }
     }
 }

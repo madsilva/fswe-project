@@ -2,7 +2,7 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-GET     /                               controllers.HomeController.index
+GET     /                               controllers.HomeController.login
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                   controllers.Assets.versioned(path="/public", file: Asset)
@@ -60,7 +60,8 @@ GET     /electionlist                   controllers.ElectionController.electionL
 GET     /resetPassword                  controllers.HomeController.resetPassword
 GET     /updatepassword                 controllers.HomeController.updatepasswordtoken()
 GET     /password/resetpassword/:token  controllers.HomeController.updatepassword(token : String)
-GET     /password/changepassword        controllers.HomeController.changepassword()
+POST    /password/changepassword        controllers.HomeController.changepassword()
+POST    /changepassword                 controllers.HomeController.changepasswordbyuser
 
 
 
@@ -84,4 +85,11 @@ POST    /electionresults                controllers.ElectionController.displayel
 
 GET     /verify/:electionID             controllers.ElectionController.electionVerification(electionID : String)
 POST    /verify                         controllers.ElectionController.verifyForElection(electionID : String)
+
+GET     /securityquestions              controllers.HomeController.securityquestions
+POST    /securityquestions              controllers.HomeController.savesecurityquestions
+
+POST    /password/updatepassword        controllers.HomeController.checksecurityquestions()
+
+GET     /recoveraccount                 controllers.HomeController.loadsecurityquestions
 
