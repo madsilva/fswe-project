@@ -1,3 +1,7 @@
+#displayinline{
+    display: inline;
+}
+
 .welcome {
      display: -webkit-box;
      display: -webkit-flex;
