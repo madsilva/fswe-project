@@ -50,27 +50,30 @@ public class PrecinctController extends Controller {
 
     public Result precinct(){
 
-//        if (precinctInfo.isEmpty()){
-//            try{
-//                File file = new File("zipcodes.txt");
-//                Scanner sc = new Scanner(file);
-//                while (sc.hasNext()){
-//                    String zip = sc.next();
-//                    Precinct iowaPrecinct = new Precinct();
-//                    iowaPrecinct.setZip(zip);
-//                    iowaPrecinct.setPrecinctID(zip);
-//                    iowaPrecinct.save();
-//                }
-//                sc.close();
-//
-//                precinctInfo = Precinct.find.query().setMaxRows(10).findList();
-//            }
-//            catch(FileNotFoundException e){
-//                System.out.println(e.toString());
-//            }
-//
-//        }
         List<Precinct> precinctInfo = Precinct.find.query().setMaxRows(79).findList();
+
+        if (precinctInfo.isEmpty()){
+            try{
+                File file = new File("zipcodes.txt");
+                Scanner sc = new Scanner(file);
+                while (sc.hasNext()){
+                    String zip = sc.next();
+                    Precinct iowaPrecinct = new Precinct();
+                    iowaPrecinct.setZip(zip);
+                    iowaPrecinct.setPrecinctID(zip);
+                    iowaPrecinct.setState("iowa");
+                    iowaPrecinct.save();
+                }
+                sc.close();
+
+                precinctInfo = Precinct.find.query().setMaxRows(10).findList();
+            }
+            catch(FileNotFoundException e){
+                System.out.println(e.toString());
+            }
+
+        }
+
         List<String> precincts = new ArrayList<String>();
         HashMap<String, String> precinctMap = new HashMap<String, String>();
 
