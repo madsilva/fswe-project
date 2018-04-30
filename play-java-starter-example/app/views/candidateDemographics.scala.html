@@ -39,12 +39,12 @@
     <br>
         <div class="col-md-4 col-md-offset-4">
             <div class="w-col w-col-6">
-                <h2>Users</h2>
+                <h2>Candidates</h2>
             </div>
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
-                        <th scope="col">Username</th>
+                        <th scope="col">Name</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -53,12 +53,9 @@
                     <tr>
                         <td>@person</td>
                         <td>
-                            @helper.form(action= helper.CSRF(routes.AdminController.destroy(person))){
-                                <fieldset>
-                                    <input class="btn btn-sm btn-danger btn-block" type="submit" value="Delete">
-                                </fieldset>
-                            }
-                        </form>
+                            <a href=@routes.AdminController.destroy(person)>
+                                <input class="btn btn-sm btn-danger btn-block" type="submit" value="Delete">
+                            </a>
                         </td>
                     </tr>
                 }
