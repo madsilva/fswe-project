@@ -84,6 +84,7 @@ public class ElectionController extends Controller{
     }
 
     public Result voterElectionsView(String username) {
+        System.out.println("IN THE VOTER ELECTION VIEW ");
         LocalDate today = LocalDate.now();
 
         VoterRegistration voter = VoterRegistration.find.query().where().eq("username", username).findUnique();
@@ -100,17 +101,21 @@ public class ElectionController extends Controller{
 
         List<Election> ongoingElections = Election.find.query().where().ge("end_date", today.plusDays(1)).le("start_date", today.plusDays(1)).findList();
 
+        System.out.println("MIDWAY  "+ongoingElections);
+
         Iterator<Election> iter = ongoingElections.iterator();
+
         while (iter.hasNext()) {
             Election election = iter.next();
-            if (election.precinctID != null) {
-                if (election.precinctID != voterPrecinctID) {
+            System.out.println("PrecinctID"+election.precinctID+"END");
+            if (election.precinctID.equals("")) {
+                if (!election.state.trim().equals(voter.state.trim())) {
                     iter.remove();
                 }
             }
             else {
                 if (election.state != null) {
-                    if (!election.state.trim().equals(voter.state.trim())) {
+                    if (election.precinctID != voterPrecinctID) {
                         iter.remove();
                     }
                 }

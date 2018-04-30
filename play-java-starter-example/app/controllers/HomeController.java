@@ -133,7 +133,12 @@ public class HomeController extends Controller{
                 System.out.println("User Logged In"+login.priviledge);
                 session("connected", loginForm.get().username);
                 VoterRegistration voterRegistrationInfo = VoterRegistration.find.query().where().eq("username", loginCredentials.username).findUnique();
-                return ok(profile.render(loginForm.get().username,voterRegistrationInfo.approved));
+                if (voterRegistrationInfo != null){
+                    return ok(profile.render(loginForm.get().username,voterRegistrationInfo.approved));
+                }else{
+                    return ok(profile.render(loginForm.get().username, false));
+                }
+
             }
         }
     }
