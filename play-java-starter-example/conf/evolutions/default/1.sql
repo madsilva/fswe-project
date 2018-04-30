@@ -7,7 +7,11 @@ create table ballots (
   senator                       varchar(255),
   us_representative             varchar(255),
   mayor                         varchar(255),
-  governor                      varchar(255)
+  governor                      varchar(255),
+  president                     varchar(255),
+  sheriff                       varchar(255),
+  treasurer                     varchar(255),
+  citycouncil                   varchar(255)
 );
 
 create table candidate (

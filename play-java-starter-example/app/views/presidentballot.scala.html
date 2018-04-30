@@ -1,0 +1,28 @@
+@(electionID : String,presidentList : List[Candidate], ballotForm : Form[Ballots])
+@import helper._
+
+
+@layout("Voter"){
+    <div class="form-section">
+        <div class="form-container w-container">
+            <div class="form-div">
+                <h1>Presidential Elections Ballot </h1>
+                @helper.form(action= helper.CSRF(routes.ElectionController.saveVote())){
+                    <div class="form-group">
+                    @helper.input(ballotForm("President")){ (id, name, value, args) =>
+                        <select name="president">
+                            <option name=senator>President</option>
+                            @for(pres <- presidentList) {
+                                <option name=@pres.candidateID value=@pres.candidateID>@pres.firstname @pres.lastname - @pres.party</option>
+                            }
+                        </select>
+                    }
+                    </div>
+                    <button class="btn btn-default btn-lg">Vote</button>
+
+                }
+            </div>
+
+        </div>
+    </div>
+}

@@ -51,9 +51,28 @@ public class Ballots extends Model{
         this.governor = governor;
     }
 
+    public String getPresident() { return president;}
+
+    public void setPresident(String president) { this.president = president; }
+
+    public String getSheriff() { return sheriff;}
+
+    public void setSheriff(String sheriff) { this.sheriff= sheriff; }
+
+    public String getTreasurer() { return treasurer;}
+
+    public void setTreasurer(String treasurer) { this.treasurer = treasurer; }
+
+    public String getCitycouncil() { return citycouncil;}
+
+    public void setCitycouncil(String citycouncil) { this.citycouncil = citycouncil; }
+
     public String senator = "";
     public String usRepresentative = "";
     public String mayor = "";
     public String governor = "";
-
+    public String president = "";
+    public String sheriff = "";
+    public String treasurer = "";
+    public String citycouncil = "";
 }

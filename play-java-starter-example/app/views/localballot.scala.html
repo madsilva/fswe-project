@@ -1,0 +1,65 @@
+@(electionID : String, mayors : List[Candidate], sheriffList : List[Candidate], citycouncilList : List[Candidate], treasurerList : List[Candidate],  ballotForm : Form[Ballots])
+@import helper._
+
+
+@layout("Voter"){
+    <div class="form-section">
+        <div class="form-container w-container">
+            <div class="form-div">
+                <h1>Local Elections Ballot </h1>
+                @helper.form(action= helper.CSRF(routes.ElectionController.saveVote())){
+                    <div class="form-group">
+                    @helper.input(ballotForm("Mayor")){ (id, name, value, args) =>
+                        <select name="mayor">
+                            <option name=mayor>Mayor</option>
+                            @for(mayor <- mayors) {
+                                <option name=@mayor.candidateID value=@mayor.candidateID>@mayor.firstname @mayor.lastname - @mayor.party</option>
+                            }
+                        </select>
+                    }
+                    </div>
+
+                    <div class="form-group">
+                    @helper.input(ballotForm("Treasurer")){ (id, name, value, args) =>
+                        <select name="treasurer">
+                            <option name=treasurer>Treasurer</option>
+                            @for(treasurer <- treasurerList) {
+                                <option name=@treasurer.candidateID value=@treasurer.candidateID>@treasurer.firstname @treasurer.lastname </option>
+                            }
+                        </select>
+                    }
+                    </div>
+
+
+
+                    <div class="form-group">
+                    @helper.input(ballotForm("CityCouncil")){ (id, name, value, args) =>
+                        <select name="citycouncil">
+                            <option name=citycouncil>CityCouncil</option>
+                            @for(citycouncil <- citycouncilList) {
+                                <option name=@citycouncil.candidateID value=@citycouncil.candidateID>@citycouncil.firstname @citycouncil.lastname </option>
+                            }
+                        </select>
+                    }
+                    </div>
+
+                    <div class="form-group">
+                    @helper.input(ballotForm("Sheriff")){ (id, name, value, args) =>
+                        <select name="sheriff">
+                            <option name=sheriff>Sheriff</option>
+                            @for(sheriff <- sheriffList) {
+                                <option name=@sheriff.candidateID value=@sheriff.candidateID>@sheriff.firstname @sheriff.lastname </option>
+                            }
+                        </select>
+                    }
+                    </div>
+
+
+
+                    <button class="btn btn-default btn-lg">Vote</button>
+                }
+            </div>
+
+        </div>
+    </div>
+}
