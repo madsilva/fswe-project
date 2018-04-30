@@ -1,4 +1,4 @@
-@(electionID : String, candidates : List[Candidate])
+@(electionID : String, senators : List[Candidate],representatives : List[Candidate],mayors : List[Candidate],governors : List[Candidate], ballotForm : Form[Ballots])
 @import helper._
 
 
@@ -6,23 +6,54 @@
     <div class="form-section">
         <div class="form-container w-container">
             <div class="form-div">
-                <h1>Election Ballot</h1>
-                <table>
-                    @for(candidate <- candidates){
-                    <tr>
-                        <td>@candidate.firstname @candidate.lastname @candidate.party</td>
-                        <td>
-                        @helper.form(action= helper.CSRF(routes.ElectionController.saveVote(candidate.candidateID))){
-                        <fieldset>
-                            <input class="btn btn-sm btn-success btn-block" type="submit" value="Vote">
-                        </fieldset>
-                        }
-                        </td>
-                    </tr>
+                <h1>State </h1>
+                @helper.form(action= helper.CSRF(routes.ElectionController.saveVote())){
+                    <div class="form-group">
+                    @helper.input(ballotForm("Senator")){ (id, name, value, args) =>
+                        <select name="senator">
+                            <option name=senator>Senator</option>
+                            @for(senator <- senators) {
+                                <option name=@senator.candidateID value=@senator.candidateID>@senator.firstname @senator.lastname - @senator.party</option>
+                            }
+                        </select>
                     }
-                </table>
+                    </div>
+                    <div class="form-group">
+                    @helper.input(ballotForm("US Representative")){ (id, name, value, args) =>
+                        <select name="usRepresentative">
+                            <option name=usRepresentative>US Representative</option>
+                            @for(representative <- representatives) {
+                                <option name=@representative.candidateID value=@representative.candidateID>@representative.firstname @representative.lastname - @representative.party</option>
+                            }
+                        </select>
+                    }
+                    </div>
+                    <div class="form-group">
+                    @helper.input(ballotForm("Mayor")){ (id, name, value, args) =>
+                        <select name="mayor">
+                            <option name=mayor>Mayor</option>
+                            @for(mayor <- mayors) {
+                                <option name=@mayor.candidateID value=@mayor.candidateID>@mayor.firstname @mayor.lastname - @mayor.party</option>
+                            }
+                        </select>
+                    }
+                    </div>
+                    <div class="form-group">
+                    @helper.input(ballotForm("Governor")){ (id, name, value, args) =>
+                        <select name="governor">
+                            <option name=governor>Governor</option>
+                            @for(governor <- governors) {
+                                <option name=@governor.candidateID value=@governor.candidateID>@governor.firstname @governor.lastname - @governor.party</option>
+                            }
+                        </select>
+                    }
+                    </div>
 
+                    <button class="btn btn-default btn-lg">Vote</button>
+
+                }
             </div>
+
         </div>
     </div>
 }

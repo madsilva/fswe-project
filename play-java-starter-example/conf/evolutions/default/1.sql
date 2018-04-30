@@ -4,9 +4,10 @@
 # --- !Ups
 
 create table ballots (
-  precinct                      varchar(255) not null,
-  election_id                   varchar(255),
-  constraint pk_ballots primary key (precinct)
+  senator                       varchar(255),
+  us_representative             varchar(255),
+  mayor                         varchar(255),
+  governor                      varchar(255)
 );
 
 create table candidate (
